@@ -1,10 +1,39 @@
 
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <title>A5erTasgeel - آخر تسجيل</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+.scary-title {
+    font-size: 48px;
+    text-align: center;
+    color: #ff2222;
+    position: relative;
+    font-family: "Creepster", sans-serif;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.scary-title::before,
+.scary-title::after {
+    content: "🦇";
+    position: absolute;
+    font-size: 32px;
+    animation: fly 3s infinite linear;
+    color: #ff2222;
+}
+
+.scary-title::before {
+    left: -40px;
+    top: -10px;
+}
+
+.scary-title::after {
+    right: -40px;
+    top: -10px;
+}
+
+@keyframes fly {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(20deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
   <style>
     * {
       box-sizing: border-box;
@@ -149,7 +178,7 @@
   <div class="page">
 
     <header class="hero">
-      <h1 class="hero-title"><span>A5erTasgeel</span></h1>
+      <h1 class="scary-title">آخر تسجيل</h1>
       <p class="hero-subtitle">
         شبكة قصص الرعب الحقيقية – تسجيلات، شهادات، ملفات مخفية.  
         استعد لسماع آخر ما سُجِّل قبل أن ينقطع الصوت…

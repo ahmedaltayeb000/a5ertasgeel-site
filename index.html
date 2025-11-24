@@ -1,1 +1,207 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>A5erTasgeel - آخر تسجيل</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: #050608;
+      color: #f5f5f5;
+      line-height: 1.7;
+    }
+
+    a {
+      color: #ff4b4b;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    .hero {
+      background: radial-gradient(circle at top, #2a0000, #050608);
+      border-radius: 20px;
+      padding: 40px 24px;
+      text-align: center;
+      margin-bottom: 32px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.65);
+    }
+    .hero-title {
+      font-size: 38px;
+      letter-spacing: 2px;
+    }
+    .hero-title span {
+      color: #ff3b3b;
+      font-weight: 800;
+    }
+    .hero-subtitle {
+      margin-top: 16px;
+      font-size: 16px;
+      color: #e0e0e0;
+    }
+    .hero-btn {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      background: #ff3b3b;
+      color: #ffffff;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(255,59,59,0.4);
+    }
+    .hero-btn:hover {
+      background: #ff2020;
+    }
+
+    .section {
+      background: #0e1014;
+      border-radius: 18px;
+      padding: 24px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .section-title {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+    .section-text {
+      color: #d5d5d5;
+      font-size: 15px;
+    }
+
+    .story-card {
+      margin-top: 16px;
+      padding: 16px 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #13151c, #1a0c0c);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .story-title {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: #ffdddd;
+    }
+    .story-meta {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+    .story-text {
+      font-size: 14px;
+      color: #dcdcdc;
+      margin-bottom: 10px;
+    }
+    .story-link {
+      font-weight: 700;
+      color: #ff4b4b;
+    }
+
+    .social {
+      text-align: center;
+    }
+    .social-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .social-list li a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #15171f;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 13px;
+    }
+    .social-list li a span {
+      opacity: 0.8;
+    }
+
+    @media (min-width: 768px) {
+      .hero-title { font-size: 46px; }
+      .hero-subtitle { font-size: 18px; }
+      .section { padding: 26px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <header class="hero">
+      <h1 class="hero-title"><span>A5erTasgeel</span></h1>
+      <p class="hero-subtitle">
+        شبكة قصص الرعب الحقيقية – تسجيلات، شهادات، ملفات مخفية.  
+        استعد لسماع آخر ما سُجِّل قبل أن ينقطع الصوت…
+      </p>
+      <a href="#stories" class="hero-btn">انزل لآخر تسجيل</a>
+    </header>
+
+    <section class="section">
+      <h2 class="section-title">عن الشبكة</h2>
+      <p class="section-text">
+        “آخر تسجيل” مشروع يوثِّق قصص رعب حقيقية بصوت أصحابها أو بصوت راوٍ يحكي تفاصيل
+        ما حدث لهم. كل تسجيل يخضع للتعديل الصوتي الخفيف فقط، دون تغيير في مضمون الحكاية،
+        حتى تعيش التجربة كما سُمعت لأول مرة.
+      </p>
+    </section>
+
+    <section class="section" id="stories">
+      <h2 class="section-title">الملف الأخير</h2>
+      <div class="story-card">
+        <div class="story-title">نويميا والكيان</div>
+        <div class="story-meta">قصة رعب حقيقية – مدة التسجيل: 07:30</div>
+        <p class="story-text">
+          تم العثور على تسجيل صوتي في غرفة صغيرة داخل منزل مهجور،  
+          صوت فتاة تحكي عن ظهور كيان خلفها كلما أطفأت الأنوار… ثم ينقطع التسجيل فجأة.
+        </p>
+        <a class="story-link" href="#">استمع الآن (سيتم ربطه لاحقًا)</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">رسالة إلى الزائر</h2>
+      <p class="section-text">
+        إن كنت تمتلك قصة رعب حقيقية، أو تسجيلًا غريبًا لا تجرؤ أن تشاركه باسمك الحقيقي…  
+        يمكنك إرساله لنا ليتم معالجته ونشره بهوية مجهولة، مع الحفاظ على كل تفاصيله.
+      </p>
+    </section>
+
+    <section class="section social">
+      <h2 class="section-title">تابع “آخر تسجيل”</h2>
+      <p class="section-text">
+        تابعنا على منصات التواصل لتصلك أحدث التسجيلات والقصص أولاً بأول:
+      </p>
+      <ul class="social-list">
+        <li><a href="https://facebook.com/" target="_blank">🔵 فيسبوك <span>/ صفحة آخر تسجيل</span></a></li>
+        <li><a href="https://youtube.com/" target="_blank">🔴 يوتيوب <span>/ قناة آخر تسجيل</span></a></li>
+        <li><a href="https://tiktok.com/" target="_blank">⚫ تيك توك <span>/ مقاطع قصيرة مرعبة</span></a></li>
+        <li><a href="https://instagram.com/" target="_blank">🟣 إنستجرام <span>/ لقطات وصور من الكواليس</span></a></li>
+        <li><a href="https://t.me/" target="_blank">✈️ تليجرام <span>/ نشرات وتسجيلات كاملة</span></a></li>
+      </ul>
+    </section>
+
+  </div>
+
+</body>
+</html>

@@ -156,7 +156,7 @@
       padding: 32px 16px 64px;
     }
 
-    /* ===================== hero section ===================== */
+    /* ===================== hero section (بدون خلفية هنا) ===================== */
 
     .hero {
       border-radius: 20px;
@@ -249,40 +249,152 @@
       .section { padding: 26px 24px; }
     }
 
-    /* ========== الروابط السوشيال الجديدة ========== */
+    /* ========== الكروت الجديدة داخل stories-container ========== */
 
-    .social-list li a {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 50%;
-      font-size: 20px;
+    .stories-container {
+      max-width: 1300px;
+      width: 100%;
+      margin: 30px auto 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .stories-container .story-card {
+      background: #0e0e10;
+      border-radius: 15px;
+      padding: 20px;
+      width: 340px;
+      margin: 0;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    }
+
+    .stories-container .story-image {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .stories-container .story-title {
+      font-size: 22px;
       color: #fff;
-      background-color: #333;
+      margin-bottom: 5px;
+    }
+
+    .stories-container .story-tag {
+      color: #bbb;
+      margin-bottom: 15px;
+    }
+
+    .stories-container .story-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .stories-container .story-age {
+      background: #b30000;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .stories-container .story-btn {
+      background: #ff3333;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .stories-container .story-btn:hover {
+      background: #ff4444;
+      text-decoration: none;
+    }
+
+    /* =====================================================
+       قسم "رسالة إلى الزائر" – نسخة مرعبة + لينك فيسبوك
+    ====================================================== */
+
+    .section-visitor {
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #280000, #050608);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 80, 80, 0.18);
+      box-shadow:
+        0 18px 40px rgba(0, 0, 0, 0.85),
+        inset 0 0 40px rgba(0, 0, 0, 0.9);
+    }
+
+    .section-visitor::before {
+      content: "";
+      position: absolute;
+      inset: -10%;
+      background:
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.04), transparent 60%),
+        radial-gradient(circle at bottom, rgba(0, 0, 0, 0.8), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .section-visitor * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .visitor-title {
+      text-align: right;
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+
+    .visitor-text {
+      margin-top: 10px;
+      font-size: 16px;
+      line-height: 2;
+      color: #e6e6e6;
+    }
+
+    .visitor-text .hl {
+      color: #ff4b4b;
+      font-weight: 600;
+    }
+
+    .visitor-text .logo-text {
+      color: #ff6666;
+      font-weight: 700;
+    }
+
+    .fb-link {
+      margin-top: 18px;
       text-align: center;
     }
 
-    .social-list li a:hover {
-      background-color: #ff3333;
+    .fb-link a {
+      color: #ff5555;
+      font-weight: 700;
+      font-size: 17px;
+      text-decoration: none;
     }
 
-    .social-list li a.instagram {
-      background-color: #e1306c;
+    .fb-link a:hover {
+      color: #ff7777;
+      text-decoration: underline;
     }
 
-    .social-list li a.youtube {
-      background-color: #ff0000;
-    }
-
-    .social-list li a.facebook {
-      background-color: #3b5998;
-    }
-
-    .social-list li a.tiktok {
-      background-color: #000000;
-    }
-
-    .social-list li a.telegram {
-      background-color: #0088cc;
+    .fb-arrow {
+      display: inline-block;
+      font-size: 24px;
+      margin-left: 6px;
+      animation: pulse 1.2s infinite;
     }
 
   </style>
@@ -312,24 +424,6 @@
       </p>
     </header>
 
-    <!-- زر تشغيل دموي للتسجيل -->
-    <section class="audio-section">
-      <h2 class="audio-title">استمع إلى "آخر تسجيل" لنويميا</h2>
-
-      <button class="blood-btn" id="playBtn">
-        <span class="blood-icon">🩸</span>
-        <span class="blood-label">▶ تشغيل آخر تسجيل</span>
-      </button>
-
-      <p class="audio-hint">يفضّل استخدام سماعات… وفي مكان هادي تمامًا.</p>
-
-      <!-- عنصر الصوت مخفي (نستخدمه من الزر) -->
-      <audio id="noemiaAudio">
-        <source src="audio/download%20(4).wav" type="audio/wav">
-        متصفحك لا يدعم تشغيل الصوت.
-      </audio>
-    </section>
-
     <!-- الكروت -->
     <div class="stories-container">
       <div class="story-card">
@@ -338,7 +432,8 @@
         <p class="story-tag">قصة رعب حقيقية</p>
         <div class="story-actions">
           <span class="story-age">+18</span>
-          <a href="#" class="story-btn">ادخل القصة</a>
+          <!-- هنا التعديل -->
+          <a href="noemia.html" class="story-btn">ادخل القصة</a>
         </div>
       </div>
     </div>
@@ -371,43 +466,15 @@
         تابعنا على منصات التواصل لتصلك أحدث التسجيلات والقصص أولاً بأول:
       </p>
       <ul class="social-list">
-        <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank" class="facebook">📘</a></li>
-        <li><a href="https://youtube.com/" target="_blank" class="youtube">🎥</a></li>
-        <li><a href="https://tiktok.com/" target="_blank" class="tiktok">🎶</a></li>
-        <li><a href="https://instagram.com/" target="_blank" class="instagram">📸</a></li>
-        <li><a href="https://t.me/" target="_blank" class="telegram">✈️</a></li>
+        <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank">🔵 فيسبوك <span>/ صفحة آخر تسجيل</span></a></li>
+        <li><a href="https://youtube.com/" target="_blank">🔴 يوتيوب <span>/ قناة آخر تسجيل</span></a></li>
+        <li><a href="https://tiktok.com/" target="_blank">⚫ تيك توك <span>/ مقاطع قصيرة مرعبة</span></a></li>
+        <li><a href="https://instagram.com/" target="_blank">🟣 إنستجرام <span>/ لقطات وصور من الكواليس</span></a></li>
+        <li><a href="https://t.me/" target="_blank">✈️ تليجرام <span>/ نشرات وتسجيلات كاملة</span></a></li>
       </ul>
     </section>
 
   </div>
-
-  <!-- سكربت تشغيل/إيقاف التسجيل -->
-  <script>
-    (function () {
-      const audio = document.getElementById('noemiaAudio');
-      const btn   = document.getElementById('playBtn');
-      const label = btn ? btn.querySelector('.blood-label') : null;
-
-      if (!audio || !btn || !label) return;
-
-      btn.addEventListener('click', function () {
-        if (audio.paused) {
-          audio.play().catch(() => {});
-          btn.classList.add('playing');
-          label.textContent = '⏸ إيقاف التسجيل';
-        } else {
-          audio.pause();
-          btn.classList.remove('playing');
-          label.textContent = '▶ تشغيل آخر تسجيل';
-        }
-      });
-
-      audio.addEventListener('ended', function () {
-        btn.classList.remove('playing');
-        label.textContent = '▶ تشغيل آخر تسجيل';
-      });
-    })();
-  </script>
 
 </body>
 </html>

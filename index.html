@@ -156,7 +156,7 @@
       padding: 32px 16px 64px;
     }
 
-    /* ===================== hero section ===================== */
+    /* ===================== hero section (بدون خلفية هنا) ===================== */
 
     .hero {
       border-radius: 20px;
@@ -217,7 +217,6 @@
     .social {
       text-align: center;
     }
-
     .social-list {
       list-style: none;
       display: flex;
@@ -226,50 +225,31 @@
       gap: 10px;
       margin-top: 10px;
     }
-
     .social-list li a {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
-      border-radius: 50%;
-      font-size: 24px;
-      color: white;
-      background: #333;
-      text-align: center;
-      width: 45px;
-      height: 45px;
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #15171f;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 13px;
     }
-
-    .social-list li a.facebook {
-      background-color: #3b5998;
-    }
-
-    .social-list li a.youtube {
-      background-color: #ff0000;
-    }
-
-    .social-list li a.instagram {
-      background-color: #e1306c;
-    }
-
-    .social-list li a.tiktok {
-      background-color: #000000;
-    }
-
-    .social-list li a.telegram {
-      background-color: #0088cc;
-    }
-
-    .social-list li a:hover {
-      background-color: #ff3333;
-    }
-
     .social-list li a span {
-      font-size: 18px; /* حجم الأيقونات */
+      opacity: 0.8;
     }
 
-    /* ===================== الكروت الجديدة داخل stories-container ========== */
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.25); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.5; }
+    }
+
+    @media (min-width: 768px) {
+      .hero-title { font-size: 46px; }
+      .hero-subtitle { font-size: 18px; }
+      .section { padding: 26px 24px; }
+    }
+
+    /* ========== الكروت الجديدة داخل stories-container ========== */
 
     .stories-container {
       max-width: 1300px;
@@ -452,6 +432,7 @@
         <p class="story-tag">قصة رعب حقيقية</p>
         <div class="story-actions">
           <span class="story-age">+18</span>
+          <!-- هنا التعديل -->
           <a href="noemia.html" class="story-btn">ادخل القصة</a>
         </div>
       </div>
@@ -485,11 +466,11 @@
         تابعنا على منصات التواصل لتصلك أحدث التسجيلات والقصص أولاً بأول:
       </p>
       <ul class="social-list">
-        <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank" class="facebook"><span>🔵</span> فيسبوك <span>/ صفحة آخر تسجيل</span></a></li>
-        <li><a href="https://www.youtube.com/@a5ertasgeel" target="_blank" class="youtube"><span>🔴</span> يوتيوب <span>/ قناة آخر تسجيل</span></a></li>
-        <li><a href="https://www.tiktok.com/@a5ertasgeel" target="_blank" class="tiktok"><span>⚫</span> تيك توك <span>/ مقاطع قصيرة مرعبة</span></a></li>
-        <li><a href="https://instagram.com/" target="_blank" class="instagram"><span>🟣</span> إنستجرام <span>/ لقطات وصور من الكواليس</span></a></li>
-        <li><a href="https://t.me/+4yg9BkgyndY4ZmQ0" target="_blank" class="telegram"><span>✈️</span> تليجرام <span>/ نشرات وتسجيلات كاملة</span></a></li>
+        <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank">🔵 فيسبوك <span>/ صفحة آخر تسجيل</span></a></li>
+        <li><a href="https://youtube.com/" target="_blank">🔴 يوتيوب <span>/ قناة آخر تسجيل</span></a></li>
+        <li><a href="https://tiktok.com/" target="_blank">⚫ تيك توك <span>/ مقاطع قصيرة مرعبة</span></a></li>
+        <li><a href="https://instagram.com/" target="_blank">🟣 إنستجرام <span>/ لقطات وصور من الكواليس</span></a></li>
+        <li><a href="https://t.me/" target="_blank">✈️ تليجرام <span>/ نشرات وتسجيلات كاملة</span></a></li>
       </ul>
     </section>
 

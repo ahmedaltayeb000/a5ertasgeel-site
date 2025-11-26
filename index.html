@@ -156,7 +156,7 @@
       padding: 32px 16px 64px;
     }
 
-    /* ===================== hero section (بدون خلفية هنا) ===================== */
+    /* ===================== hero section ===================== */
 
     .hero {
       border-radius: 20px;
@@ -237,6 +237,18 @@
       opacity: 0.8;
     }
 
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.25); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.5; }
+    }
+
+    @media (min-width: 768px) {
+      .hero-title { font-size: 46px; }
+      .hero-subtitle { font-size: 18px; }
+      .section { padding: 26px 24px; }
+    }
+
     /* ========== الروابط السوشيال الجديدة ========== */
 
     .social-list li a {
@@ -292,30 +304,4 @@
         ده صوت الحقيقة اللي فضِل من ملفات  
         اتختمت بـ <span style="color:#ff0000;">سري جدًا</span> واترمت بعيد عن عيون الناس.
         <br><br>
-        هنا… في <span style="color:#ff5555; font-weight:bold;">آخر تسجيل</span>  
-        كل همسة ليها قصة…  
-        وكل صمت وراه حكاية…  
-        لأن كل شيء بيبدأ  
-        لما <span style="color:#cc0000;">الأنوار بتطفي</span> 💀
-      </p>
-    </header>
-
-    <!-- السوشيال -->
-    <section class="section social">
-      <h2 class="section-title">تابع “آخر تسجيل”</h2>
-      <p class="section-text">
-        تابعنا على منصات التواصل لتصلك أحدث التسجيلات والقصص أولاً بأول:
-      </p>
-      <ul class="social-list">
-        <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank" class="facebook">📘</a></li>
-        <li><a href="https://youtube.com/" target="_blank" class="youtube">🎥</a></li>
-        <li><a href="https://tiktok.com/" target="_blank" class="tiktok">🎶</a></li>
-        <li><a href="https://instagram.com/" target="_blank" class="instagram">📸</a></li>
-        <li><a href="https://t.me/" target="_blank" class="telegram">✈️</a></li>
-      </ul>
-    </section>
-
-  </div>
-
-</body>
-</html>
+        هنا… في <span style=

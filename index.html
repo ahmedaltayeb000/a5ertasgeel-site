@@ -5,6 +5,7 @@
   <title>آخر تسجيل</title>
 
   <style>
+
     /* ===================== الخلفية الجديدة للهيدر ===================== */
 
     .hero-with-bg {
@@ -473,55 +474,7 @@
       </ul>
     </section>
 
-    <!-- بوت المحادثة مع Gemini -->
-    <section class="section chat">
-      <h2 class="section-title">محادثة مع بوت "آخر تسجيل" 🤖</h2>
-      <div class="chat-container">
-        <div class="header">محادثة مع بوت "آخر تسجيل"</div>
-        <div class="messages" id="chat-box">
-          <div class="message bot">أهلاً! أنا بوت "آخر تسجيل"، كيف يمكنني مساعدتك اليوم؟</div>
-        </div>
-        <div class="input-area">
-          <input type="text" id="user-input" placeholder="اكتب رسالتك هنا..." />
-          <button onclick="sendMessage()" id="send-btn">إرسال</button>
-        </div>
-      </div>
-    </section>
-
   </div>
 
-  <script type="module">
-    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
-
-    const API_KEY = "AIzaSyAxjGQdYStJU6_oXFVFBmJ-m7BJf_KUN44"; 
-    const genAI = new GoogleGenerativeAI(API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-    const chatBox = document.getElementById('chat-box');
-    const userInput = document.getElementById('user-input');
-    const sendBtn = document.getElementById('send-btn');
-
-    userInput.addEventListener("keypress", function(event) {
-        if (event.key === "Enter") {
-            sendMessage();
-        }
-    });
-
-    window.sendMessage = async function() {
-        const text = userInput.value;
-        if (!text) return;
-
-        addMessage(text, 'user');
-        userInput.value = '';
-        sendBtn.disabled = true;
-        sendBtn.innerText = "..." ;
-
-        try {
-if (!API_KEY || !API_KEY.startsWith("AIza")) {
-                throw new Error("AIzaSyAxjGQdYStJU6_oXFVFBmJ-m7BJf_KUN44");
-            }
-
-            const result = await model.generateContent(text);
-            const response = await result.response;
-            const textResponse = response.text();
-            add
+</body>
+</html>

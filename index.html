@@ -5,9 +5,7 @@
   <title>آخر تسجيل</title>
 
   <style>
-
     /* ===================== الخلفية الجديدة للهيدر ===================== */
-
     .hero-with-bg {
       position: relative;
       background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat;
@@ -37,7 +35,6 @@
     }
 
     /* ====================== العنوان المرعب ====================== */
-
     .scary-title {
       font-size: 48px;
       text-align: center;
@@ -74,7 +71,6 @@
     }
 
     /* ===================== الكروت الأصلية ===================== */
-
     .story-list {
       max-width: 1300px;
       width: 100%;
@@ -127,7 +123,6 @@
     }
 
     /* ===================== reset + global ===================== */
-
     * {
       box-sizing: border-box;
       margin: 0;
@@ -156,67 +151,96 @@
       padding: 32px 16px 64px;
     }
 
-    /* ===================== hero section (بدون خلفية هنا) ===================== */
+    /* ===================== Chat Section ===================== */
+    .chat-container {
+      width: 400px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+      margin: 0 auto;
+      padding: 10px;
+    }
 
-    .hero {
-      border-radius: 20px;
+    .header {
+      background: #007bff;
+      color: white;
+      padding: 15px;
       text-align: center;
+      font-weight: bold;
     }
 
-    .hero-title {
-      font-size: 38px;
-      letter-spacing: 2px;
+    .messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
-    .hero-title span {
-      color: #ff3b3b;
-      font-weight: 800;
+
+    .message {
+      padding: 10px;
+      border-radius: 10px;
+      max-width: 80%;
+      line-height: 1.4;
     }
-    .hero-subtitle {
-      margin-top: 16px;
-      font-size: 16px;
-      color: #e0e0e0;
+
+    .user {
+      background: #007bff;
+      color: white;
+      align-self: flex-end;
+      border-bottom-left-radius: 0;
     }
-    .hero-btn {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 12px 28px;
-      border-radius: 999px;
-      background: #ff3b3b;
-      color: #ffffff;
-      font-weight: 700;
+
+    .bot {
+      background: #e9ecef;
+      color: #333;
+      align-self: flex-start;
+      border-bottom-right-radius: 0;
+    }
+
+    .input-area {
+      padding: 15px;
+      border-top: 1px solid #ddd;
+      display: flex;
+      gap: 10px;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
       border: none;
+      border-radius: 5px;
       cursor: pointer;
-      box-shadow: 0 10px 24px rgba(255,59,59,0.4);
-    }
-    .hero-btn:hover {
-      background: #ff2020;
+      font-weight: bold;
     }
 
-    /* ===================== sections ===================== */
-
-    .section {
-      background: #0e1014;
-      border-radius: 18px;
-      padding: 24px 32px;
-      margin: 0 auto 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      max-width: 1300px;
-      width: 100%;
+    button:hover {
+      background: #0056b3;
     }
 
-    .section-title {
-      font-size: 22px;
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
-    .section-text {
-      color: #d5d5d5;
-      font-size: 15px;
+    button:disabled {
+      background: #ccc;
     }
 
+    /* ===================== السوشيال ===================== */
     .social {
       text-align: center;
     }
+
     .social-list {
       list-style: none;
       display: flex;
@@ -225,256 +249,188 @@
       gap: 10px;
       margin-top: 10px;
     }
+
     .social-list li a {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: #15171f;
-      border: 1px solid rgba(255,255,255,0.08);
-      font-size: 13px;
-    }
-    .social-list li a span {
-      opacity: 0.8;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.25); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.5; }
-    }
-
-    @media (min-width: 768px) {
-      .hero-title { font-size: 46px; }
-      .hero-subtitle { font-size: 18px; }
-      .section { padding: 26px 24px; }
-    }
-
-    /* ========== الكروت الجديدة داخل stories-container ========== */
-
-    .stories-container {
-      max-width: 1300px;
-      width: 100%;
-      margin: 30px auto 40px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+      display: inline-flex;
       justify-content: center;
-    }
-
-    .stories-container .story-card {
-      background: #0e0e10;
-      border-radius: 15px;
-      padding: 20px;
-      width: 340px;
-      margin: 0;
-      text-align: center;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-    }
-
-    .stories-container .story-image {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 15px;
-    }
-
-    .stories-container .story-title {
-      font-size: 22px;
-      color: #fff;
-      margin-bottom: 5px;
-    }
-
-    .stories-container .story-tag {
-      color: #bbb;
-      margin-bottom: 15px;
-    }
-
-    .stories-container .story-actions {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
       align-items: center;
-    }
-
-    .stories-container .story-age {
-      background: #b30000;
-      color: #fff;
-      padding: 6px 10px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 15px;
-    }
-
-    .stories-container .story-btn {
-      background: #ff3333;
+      padding: 12px;
+      border-radius: 50%;
+      font-size: 24px;
       color: white;
-      padding: 8px 14px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-
-    .stories-container .story-btn:hover {
-      background: #ff4444;
-      text-decoration: none;
-    }
-
-    /* =====================================================
-       قسم "رسالة إلى الزائر" – نسخة مرعبة + لينك فيسبوك
-    ====================================================== */
-
-    .section-visitor {
-      position: relative;
-      overflow: hidden;
-      background: radial-gradient(circle at top, #280000, #050608);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 80, 80, 0.18);
-      box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.85),
-        inset 0 0 40px rgba(0, 0, 0, 0.9);
-    }
-
-    .section-visitor::before {
-      content: "";
-      position: absolute;
-      inset: -10%;
-      background:
-        radial-gradient(circle at center, rgba(255, 255, 255, 0.04), transparent 60%),
-        radial-gradient(circle at bottom, rgba(0, 0, 0, 0.8), transparent 55%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .section-visitor * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .visitor-title {
-      text-align: right;
-      font-size: 24px;
-      letter-spacing: 1px;
-    }
-
-    .visitor-text {
-      margin-top: 10px;
-      font-size: 16px;
-      line-height: 2;
-      color: #e6e6e6;
-    }
-
-    .visitor-text .hl {
-      color: #ff4b4b;
-      font-weight: 600;
-    }
-
-    .visitor-text .logo-text {
-      color: #ff6666;
-      font-weight: 700;
-    }
-
-    .fb-link {
-      margin-top: 18px;
+      background: #333;
       text-align: center;
+      width: 45px;
+      height: 45px;
     }
 
-    .fb-link a {
-      color: #ff5555;
-      font-weight: 700;
-      font-size: 17px;
-      text-decoration: none;
+    .social-list li a.facebook {
+      background-color: #3b5998;
     }
 
-    .fb-link a:hover {
-      color: #ff7777;
-      text-decoration: underline;
+    .social-list li a.youtube {
+      background-color: #ff0000;
     }
 
-    .fb-arrow {
-      display: inline-block;
-      font-size: 24px;
-      margin-left: 6px;
-      animation: pulse 1.2s infinite;
+    .social-list li a.instagram {
+      background-color: #e1306c;
     }
 
+    .social-list li a.tiktok {
+      background-color: #000000;
+    }
+
+    .social-list li a.telegram {
+      background-color: #0088cc;
+    }
+
+    .social-list li a:hover {
+      background-color: #ff3333;
+    }
+
+    .social-list li a span {
+      font-size: 18px; /* حجم الأيقونات */
+    }
   </style>
 </head>
 <body>
 
-  <div class="page">
+<div class="page">
+  <header class="hero hero-with-bg">
+    <h1 class="scary-title">آخر تسجيل</h1>
+    <p class="hero-subtitle">
+      في غُرف <span style="color:#ff3333;">مقفولة</span> من سنين طويلة…  
+      اتخبّى فيها <span style="color:#ff8844;">سر</span> ورا سر، مفيش غير اللي عاشه يقدر يحكيه.
+      <br><br>
+      اللي هتسمعه في <span style="color:#ff2222; font-weight:bold;">آخر تسجيل</span>  
+      مش <span style="color:#ff4444;">خيال</span>…  
+      ولا كلام معمولّ عشان يرعبك.
+      <br><br>
+      ده صوت الحقيقة اللي فضِل من ملفات  
+      اتختمت بـ <span style="color:#ff0000;">سري جدًا</span> واترمت بعيد عن عيون الناس.
+      <br><br>
+      هنا… في <span style="color:#ff5555; font-weight:bold;">آخر تسجيل</span>  
+      كل همسة ليها قصة…  
+      وكل صمت وراه حكاية…  
+      لأن كل شيء بيبدأ  
+      لما <span style="color:#cc0000;">الأنوار بتطفي</span> 💀
+    </p>
+  </header>
 
-    <header class="hero hero-with-bg">
-      <h1 class="scary-title">آخر تسجيل</h1>
-      <p class="hero-subtitle">
-        في غُرف <span style="color:#ff3333;">مقفولة</span> من سنين طويلة…  
-        اتخبّى فيها <span style="color:#ff8844;">سر</span> ورا سر، مفيش غير اللي عاشه يقدر يحكيه.
-        <br><br>
-        اللي هتسمعه في <span style="color:#ff2222; font-weight:bold;">آخر تسجيل</span>  
-        مش <span style="color:#ff4444;">خيال</span>…  
-        ولا كلام معمولّ عشان يرعبك.
-        <br><br>
-        ده صوت الحقيقة اللي فضِل من ملفات  
-        اتختمت بـ <span style="color:#ff0000;">سري جدًا</span> واترمت بعيد عن عيون الناس.
-        <br><br>
-        هنا… في <span style="color:#ff5555; font-weight:bold;">آخر تسجيل</span>  
-        كل همسة ليها قصة…  
-        وكل صمت وراه حكاية…  
-        لأن كل شيء بيبدأ  
-        لما <span style="color:#cc0000;">الأنوار بتطفي</span> 💀
-      </p>
-    </header>
-
-    <!-- الكروت -->
-    <div class="stories-container">
-      <div class="story-card">
-        <img src="images/Gemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
-        <h3 class="story-title">نويميا والكيان</h3>
-        <p class="story-tag">قصة رعب حقيقية</p>
-        <div class="story-actions">
-          <span class="story-age">+18</span>
-          <!-- هنا التعديل -->
-          <a href="noemia.html" class="story-btn">ادخل القصة</a>
-        </div>
+  <!-- الكروت -->
+  <div class="stories-container">
+    <div class="story-card">
+      <img src="images/Gemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
+      <h3 class="story-title">نويميا والكيان</h3>
+      <p class="story-tag">قصة رعب حقيقية</p>
+      <div class="story-actions">
+        <span class="story-age">+18</span>
+        <a href="noemia.html" class="story-btn">ادخل القصة</a>
       </div>
     </div>
-
-    <!-- رسالة إلى الزائر – النسخة المرعبة -->
-    <section class="section section-visitor">
-      <h2 class="section-title visitor-title">رسالة إلى الزائر</h2>
-      <p class="section-text visitor-text">
-        لو عندك <span class="hl">قصة رعب حقيقية</span>… تسجيل قديم مخبّي في تليفونك…  
-        أو موقف لسه لحد دلوقتي لما بتفتكره <span class="hl">جسمك بيقشعر</span>…  
-        متسيّبوش جوّه عقلك لوحده.
-        <br><br>
-        في <span class="logo-text">"آخر تسجيل"</span> تقدر تبعت حكايتك  
-        <span class="hl">بدون اسم</span>… وإحنا نسمعها ونحوّلها لملف صوتي مرعب  
-        يحافظ على كل تفاصيلها.
-      </p>
-
-      <div class="fb-link">
-        <span class="fb-arrow">🩸✋</span>
-        <a href="https://www.facebook.com/a5ertasgeel" target="_blank">
-          صفحة "آخر تسجيل" على فيسبوك
-        </a>
-      </div>
-    </section>
-
-    <!-- السوشيال -->
-    <section class="section social">
-      <h2 class="section-title">تابع “آخر تسجيل”</h2>
-      <p class="section-text">
-        تابعنا على منصات التواصل لتصلك أحدث التسجيلات والقصص أولاً بأول:
-      </p>
-      <ul class="social-list">
-        <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank">🔵 فيسبوك <span>/ صفحة آخر تسجيل</span></a></li>
-        <li><a href="https://youtube.com/" target="_blank">🔴 يوتيوب <span>/ قناة آخر تسجيل</span></a></li>
-        <li><a href="https://tiktok.com/" target="_blank">⚫ تيك توك <span>/ مقاطع قصيرة مرعبة</span></a></li>
-        <li><a href="https://instagram.com/" target="_blank">🟣 إنستجرام <span>/ لقطات وصور من الكواليس</span></a></li>
-        <li><a href="https://t.me/" target="_blank">✈️ تليجرام <span>/ نشرات وتسجيلات كاملة</span></a></li>
-      </ul>
-    </section>
-
   </div>
 
+  <!-- رسالة إلى الزائر – النسخة المرعبة -->
+  <section class="section section-visitor">
+    <h2 class="section-title visitor-title">رسالة إلى الزائر</h2>
+    <p class="section-text visitor-text">
+      لو عندك <span class="hl">قصة رعب حقيقية</span>… تسجيل قديم مخبّي في تليفونك…  
+      أو موقف لسه لحد دلوقتي لما بتفتكره <span class="hl">جسمك بيقشعر</span>…  
+      متسيّبوش جوّه عقلك لوحده.
+      <br><br>
+      في <span class="logo-text">"آخر تسجيل"</span> تقدر تبعت حكايتك  
+      <span class="hl">بدون اسم</span>… وإحنا نسمعها ونحوّلها لملف صوتي مرعب  
+      يحافظ على كل تفاصيلها.
+    </p>
+    <div class="fb-link">
+      <span class="fb-arrow">🩸✋</span>
+      <a href="https://www.facebook.com/a5ertasgeel" target="_blank">صفحة "آخر تسجيل" على فيسبوك</a>
+    </div>
+  </section>
+
+  <!-- شات بوت مع Gemini -->
+  <div class="chat-container">
+    <div class="header">محادثة مع بوت آخر تسجيل 🤖</div>
+    <div class="messages" id="chat-box">
+      <div class="message bot">أهلاً! أنا بوت آخر تسجيل، كيف يمكنني مساعدتك اليوم؟</div>
+    </div>
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="اكتب رسالتك هنا..." />
+      <button onclick="sendMessage()" id="send-btn">إرسال</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+    // ⚠️ ضع مفتاحك هنا بدلاً من الكلمة الإنجليزية
+    const API_KEY = "YOUR_API_KEY_HERE"; // استبدل بهذا المفتاح الذي حصلت عليه من خدمة AI
+
+    const genAI = new GoogleGenerativeAI(API_KEY);
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+    const chatBox = document.getElementById('chat-box');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    // جعل زر Enter يرسل الرسالة أيضاً
+    userInput.addEventListener("keypress", function(event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    });
+
+    window.sendMessage = async function() {
+        const text = userInput.value;
+        if (!text) return;
+
+        // عرض رسالة المستخدم
+        addMessage(text, 'user');
+        userInput.value = '';
+        sendBtn.disabled = true;
+        sendBtn.innerText = "..." ;
+
+        try {
+            // إرسال الرسالة إلى Gemini
+            const result = await model.generateContent(text);
+            const response = await result.response;
+            const textResponse = response.text();
+            
+            // عرض رد Gemini
+            addMessage(textResponse, 'bot');
+        } catch (error) {
+            console.error(error);
+            addMessage("عذراً، حدث خطأ في الاتصال.", 'bot');
+        }
+
+        sendBtn.disabled = false;
+        sendBtn.innerText = "إرسال";
+    }
+
+    function addMessage(text, sender) {
+        const div = document.createElement('div');
+        div.className = `message ${sender}`;
+        div.innerText = text;
+        chatBox.appendChild(div);
+        chatBox.scrollTop = chatBox.scrollHeight; // النزول لأسفل تلقائياً
+    }
+  </script>
+
+  <!-- السوشيال -->
+  <section class="section social">
+    <h2 class="section-title">تابع “آخر تسجيل”</h2>
+    <p class="section-text">
+      تابعنا على منصات التواصل لتصلك أحدث التسجيلات والقصص أولاً بأول:
+    </p>
+    <ul class="social-list">
+      <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank" class="facebook"><span>🔵</span> فيسبوك <span>/ صفحة آخر تسجيل</span></a></li>
+      <li><a href="https://youtube.com/" target="_blank" class="youtube"><span>🔴</span> يوتيوب <span>/ قناة آخر تسجيل</span></a></li>
+      <li><a href="https://tiktok.com/" target="_blank" class="tiktok"><span>⚫</span> تيك توك <span>/ مقاطع قصيرة مرعبة</span></a></li>
+      <li><a href="https://instagram.com/" target="_blank" class="instagram"><span>🟣</span> إنستجرام <span>/ لقطات وصور من الكواليس</span></a></li>
+      <li><a href="https://t.me/" target="_blank" class="telegram"><span>✈️</span> تليجرام <span>/ نشرات وتسجيلات كاملة</span></a></li>
+    </ul>
+  </section>
+
+</div>
 </body>
 </html>

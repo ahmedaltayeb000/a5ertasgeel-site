@@ -27,7 +27,7 @@
       inset: 0;
       background:
         radial-gradient(circle at top, rgba(42,0,0,0.85), rgba(5,6,8,0.96)),
-        rgba(0,0,0,0.35);
+        rgba(0,0,0,0.4);
       backdrop-filter: blur(2px);
     }
 
@@ -73,6 +73,59 @@
       100% { transform: translateY(0px) rotate(0deg); }
     }
 
+    /* ===================== الكروت الأصلية ===================== */
+
+    .story-list {
+      max-width: 1300px;
+      width: 100%;
+      margin: 40px auto 60px;
+    }
+
+    .story-card {
+      margin-top: 16px;
+      padding: 16px 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #13151c, #1a0c0c);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .story-title {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: #ffdddd;
+    }
+
+    .story-meta {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 8px;
+    }
+
+    .story-text {
+      font-size: 14px;
+      color: #dcdcdc;
+      margin-bottom: 10px;
+    }
+
+    .story-link {
+      font-weight: 700;
+      color: #ff4b4b;
+    }
+
+    .story-btn {
+      background: #d32f2f;
+      padding: 8px 18px;
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .story-btn:hover {
+      background: #ff4444;
+    }
+
     /* ===================== reset + global ===================== */
 
     * {
@@ -103,7 +156,7 @@
       padding: 32px 16px 64px;
     }
 
-    /* ===================== hero section ===================== */
+    /* ===================== hero section (بدون خلفية هنا) ===================== */
 
     .hero {
       border-radius: 20px;
@@ -114,18 +167,15 @@
       font-size: 38px;
       letter-spacing: 2px;
     }
-
     .hero-title span {
       color: #ff3b3b;
       font-weight: 800;
     }
-
     .hero-subtitle {
       margin-top: 16px;
       font-size: 16px;
       color: #e0e0e0;
     }
-
     .hero-btn {
       display: inline-block;
       margin-top: 24px;
@@ -138,7 +188,6 @@
       cursor: pointer;
       box-shadow: 0 10px 24px rgba(255,59,59,0.4);
     }
-
     .hero-btn:hover {
       background: #ff2020;
     }
@@ -160,18 +209,14 @@
       margin-bottom: 10px;
       color: #ffffff;
     }
-
     .section-text {
       color: #d5d5d5;
       font-size: 15px;
     }
 
-    /* ===================== قسم التواصل ===================== */
-
     .social {
       text-align: center;
     }
-
     .social-list {
       list-style: none;
       display: flex;
@@ -180,7 +225,6 @@
       gap: 10px;
       margin-top: 10px;
     }
-
     .social-list li a {
       display: inline-block;
       padding: 8px 14px;
@@ -189,12 +233,23 @@
       border: 1px solid rgba(255,255,255,0.08);
       font-size: 13px;
     }
-
     .social-list li a span {
       opacity: 0.8;
     }
 
-    /* ===================== قصص - كروت ===================== */
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.25); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.5; }
+    }
+
+    @media (min-width: 768px) {
+      .hero-title { font-size: 46px; }
+      .hero-subtitle { font-size: 18px; }
+      .section { padding: 26px 24px; }
+    }
+
+    /* ========== الكروت الجديدة داخل stories-container ========== */
 
     .stories-container {
       max-width: 1300px;
@@ -264,19 +319,18 @@
       text-decoration: none;
     }
 
-
-    /* ============================================================
-       نسخة مرعبة مطوّرة لقسم "رسالة إلى الزائر"
-    ============================================================ */
+    /* =====================================================
+       قسم "رسالة إلى الزائر" – نسخة مرعبة + لينك فيسبوك
+    ====================================================== */
 
     .section-visitor {
       position: relative;
       overflow: hidden;
       background: radial-gradient(circle at top, #280000, #050608);
       border-radius: 20px;
-      border: 1px solid rgba(255, 80, 80, 0.15);
+      border: 1px solid rgba(255, 80, 80, 0.18);
       box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.8),
+        0 18px 40px rgba(0, 0, 0, 0.85),
         inset 0 0 40px rgba(0, 0, 0, 0.9);
     }
 
@@ -319,13 +373,36 @@
       font-weight: 700;
     }
 
+    .fb-link {
+      margin-top: 18px;
+      text-align: center;
+    }
+
+    .fb-link a {
+      color: #ff5555;
+      font-weight: 700;
+      font-size: 17px;
+      text-decoration: none;
+    }
+
+    .fb-link a:hover {
+      color: #ff7777;
+      text-decoration: underline;
+    }
+
+    .fb-arrow {
+      display: inline-block;
+      font-size: 24px;
+      margin-left: 6px;
+      animation: pulse 1.2s infinite;
+    }
+
   </style>
 </head>
 <body>
 
   <div class="page">
 
-    <!-- الهيدر -->
     <header class="hero hero-with-bg">
       <h1 class="scary-title">آخر تسجيل</h1>
       <p class="hero-subtitle">
@@ -347,7 +424,7 @@
       </p>
     </header>
 
-    <!-- كروت القصص -->
+    <!-- الكروت -->
     <div class="stories-container">
       <div class="story-card">
         <img src="images/Gemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
@@ -360,49 +437,35 @@
       </div>
     </div>
 
-    <!-- ===================== رسالة إلى الزائر (الإصدار المرعب) ===================== -->
-
+    <!-- رسالة إلى الزائر – النسخة المرعبة -->
     <section class="section section-visitor">
       <h2 class="section-title visitor-title">رسالة إلى الزائر</h2>
       <p class="section-text visitor-text">
-
-        لو عندك <span class="hl">قصة رعب حقيقية</span>…  
-        تسجيل قديم مخبّي في تليفونك…  
+        لو عندك <span class="hl">قصة رعب حقيقية</span>… تسجيل قديم مخبّي في تليفونك…  
         أو موقف لسه لحد دلوقتي لما بتفتكره <span class="hl">جسمك بيقشعر</span>…  
         متسيّبوش جوّه عقلك لوحده.
-
         <br><br>
-
-        في <span class="logo-text">"آخر تسجيل"</span>  
-        تقدر تبعت حكايتك  
-        <span class="hl">بدون اسم… بدون صورة… بدون أي بيانات</span>.
-
-        <br><br>
-
-        إحنا هنسمعها، نراجعها، نعيد صياغتها،  
-        ونحوّلها لملف سري بيتحكى بصوت مرعب  
-        يحفظ كل كلمة حصلت.
-
-        <br><br>
-
-        ابعت قصتك أو تسجيلك من أي منصة من منصّاتنا…  
-        وإحنا متعهدين نحافظ على <span class="hl">سريّتك</span>  
-        ونخلي صوتك يوصل…  
-        حتى لو <span class="hl">مش عايز حد يعرف إنه صوتك</span>.
-
+        في <span class="logo-text">"آخر تسجيل"</span> تقدر تبعت حكايتك  
+        <span class="hl">بدون اسم</span>… وإحنا نسمعها ونحوّلها لملف صوتي مرعب  
+        يحافظ على كل تفاصيلها.
       </p>
+
+      <div class="fb-link">
+        <span class="fb-arrow">🩸✋</span>
+        <a href="https://www.facebook.com/a5ertasgeel" target="_blank">
+          صفحة "آخر تسجيل" على فيسبوك
+        </a>
+      </div>
     </section>
 
-
-    <!-- ===================== روابط السوشيال ===================== -->
-
+    <!-- السوشيال -->
     <section class="section social">
       <h2 class="section-title">تابع “آخر تسجيل”</h2>
       <p class="section-text">
         تابعنا على منصات التواصل لتصلك أحدث التسجيلات والقصص أولاً بأول:
       </p>
       <ul class="social-list">
-        <li><a href="https://facebook.com/" target="_blank">🔵 فيسبوك <span>/ صفحة آخر تسجيل</span></a></li>
+        <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank">🔵 فيسبوك <span>/ صفحة آخر تسجيل</span></a></li>
         <li><a href="https://youtube.com/" target="_blank">🔴 يوتيوب <span>/ قناة آخر تسجيل</span></a></li>
         <li><a href="https://tiktok.com/" target="_blank">⚫ تيك توك <span>/ مقاطع قصيرة مرعبة</span></a></li>
         <li><a href="https://instagram.com/" target="_blank">🟣 إنستجرام <span>/ لقطات وصور من الكواليس</span></a></li>

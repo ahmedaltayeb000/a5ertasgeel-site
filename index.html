@@ -125,16 +125,17 @@
       border-radius: 20px;
       padding: 24px 26px 32px;
       box-shadow: 0 14px 35px rgba(0,0,0,0.75);
-      text-align: center;
     }
 
     .h18-header {
       width: 260px;
-      margin: 0 auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      /* هنا اللي يخلّي الكارت ناحية الشمال في الديسكتوب */
+      margin-left: 0;
+      margin-right: auto;
     }
 
     .h18-header img {
@@ -165,6 +166,13 @@
     .h18-btn:hover {
       background: #ff1111;
       transform: translateY(-1px);
+    }
+
+    /* موبايل: رجّع الكارت في النص */
+    @media (max-width: 768px) {
+      .h18-header {
+        margin: 0 auto;
+      }
     }
 
     /* ===== رسالة الزائر + السوشيال ===== */
@@ -228,12 +236,11 @@
       </p>
     </header>
 
-    <!-- ====== قسم قصص +18 (من غير قصص جوه) ====== -->
-    <section id="h18-section" class="horror18-section">
+    <!-- ====== قسم قصص +18 ====== -->
+    <section class="horror18-section">
       <div class="h18-header">
         <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
         <h2 class="h18-title">قصص رعب +18</h2>
-        <!-- يفتح صفحة القصص -->
         <a href="h18-stories.html" class="h18-btn">دخول القصص</a>
       </div>
     </section>

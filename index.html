@@ -73,7 +73,7 @@
       100% { transform: translateY(0px) rotate(0deg); }
     }
 
-    /* ===================== الكروت الأصلية ===================== */
+    /* ===================== الكروت الأصلية (للإستعمال العام) ===================== */
 
     .story-list {
       max-width: 1300px;
@@ -156,7 +156,7 @@
       padding: 32px 16px 64px;
     }
 
-    /* ===================== hero section (بدون خلفية هنا) ===================== */
+    /* ===================== hero section ===================== */
 
     .hero {
       border-radius: 20px;
@@ -249,12 +249,10 @@
       .section { padding: 26px 24px; }
     }
 
-    /* ========== الكروت الجديدة داخل stories-container ========== */
+    /* ========== الكروت داخل stories-container ========== */
 
     .stories-container {
-      max-width: 1300px;
       width: 100%;
-      margin: 24px auto 0;
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
@@ -322,25 +320,34 @@
     /* ===================== قسم قصص رعب +18 ===================== */
 
     .horror-section {
-      text-align: center;
+      width: 70%;            /* علشان يبقى على الشمال وفي مساحة لأقسام تانية بعدين */
+      margin-left: 0;
+      margin-right: auto;
     }
 
-    .horror-banner {
-      margin-bottom: 20px;
+    .horror-layout {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      justify-content: flex-start;
     }
 
     .horror-banner img {
-      width: 100%;
-      max-width: 800px;
+      width: 260px;
+      height: 420px;
+      max-width: 100%;
       border-radius: 18px;
+      object-fit: cover;
       display: block;
-      margin: 0 auto;
-      box-shadow: 0 14px 35px rgba(0,0,0,0.75);
+      box-shadow: 0 14px 35px rgba(0,0,0,0.85);
+    }
+
+    .horror-content {
+      flex: 1;
     }
 
     .horror-title {
       font-size: 26px;
-      margin-top: 16px;
       margin-bottom: 8px;
       color: #ff5555;
     }
@@ -348,10 +355,30 @@
     .horror-text {
       font-size: 15px;
       color: #d0d0d0;
+      margin-bottom: 18px;
     }
 
-    .horror-section .stories-container {
-      margin-top: 28px;
+    .horror-content .stories-container {
+      justify-content: flex-start; /* علشان الكارد يبقى ناحية اليمين جوه القسم */
+    }
+
+    @media (max-width: 768px) {
+      .horror-section {
+        width: 100%;
+        margin: 0 auto 20px;
+      }
+      .horror-layout {
+        flex-direction: column;
+        align-items: center;
+      }
+      .horror-content .stories-container {
+        justify-content: center;
+      }
+      .horror-banner img {
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+      }
     }
 
     /* =====================================================
@@ -461,25 +488,32 @@
 
     <!-- قسم قصص رعب +18 -->
     <section class="section horror-section">
-      <div class="horror-banner">
-        <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
-      </div>
-      <h2 class="section-title horror-title">قصص رعب +18</h2>
-      <p class="section-text horror-text">
-        ملفّات صوتية وحكايات حقيقية… مش لأي حد. هنا بنجمع القصص اللي بتسيب أثر في الدماغ لفترة طويلة،
-        ونحوّلها لتجربة تسمعها لوحدك بس.
-      </p>
+      <div class="horror-layout">
 
-      <div class="stories-container">
-        <div class="story-card">
-          <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
-          <h3 class="story-title">نويميا والكيان</h3>
-          <p class="story-tag">قصة رعب حقيقية</p>
-          <div class="story-actions">
-            <span class="story-age">+18</span>
-            <a href="noemia.html" class="story-btn">ادخل القصة</a>
+        <div class="horror-banner">
+          <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
+        </div>
+
+        <div class="horror-content">
+          <h2 class="section-title horror-title">قصص رعب +18</h2>
+          <p class="section-text horror-text">
+            هنا بيتجمع كل ملف صوتي وقصة حقيقية مش لأي حد. لو قلبك ثابت وبتدور على تجربة
+            تسمعها لوحدك في الضلمة… فإنت في المكان الصح.
+          </p>
+
+          <div class="stories-container">
+            <div class="story-card">
+              <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
+              <h3 class="story-title">نويميا والكيان</h3>
+              <p class="story-tag">قصة رعب حقيقية</p>
+              <div class="story-actions">
+                <span class="story-age">+18</span>
+                <a href="noemia.html" class="story-btn">ادخل القصة</a>
+              </div>
+            </div>
           </div>
         </div>
+
       </div>
     </section>
 

@@ -89,37 +89,13 @@
       padding: 32px 16px 64px;
     }
 
-    .hero {
-      border-radius: 20px;
-      text-align: center;
-    }
+    .hero { border-radius: 20px; text-align: center; }
 
-    .hero-title {
-      font-size: 38px;
-      letter-spacing: 2px;
-    }
-    .hero-title span {
-      color: #ff3b3b;
-      font-weight: 800;
-    }
     .hero-subtitle {
       margin-top: 16px;
       font-size: 16px;
       color: #e0e0e0;
     }
-    .hero-btn {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 12px 28px;
-      border-radius: 999px;
-      background: #ff3b3b;
-      color: #ffffff;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 10px 24px rgba(255,59,59,0.4);
-    }
-    .hero-btn:hover { background: #ff2020; }
 
     .section {
       background: #0e1014;
@@ -136,43 +112,8 @@
       margin-bottom: 10px;
       color: #ffffff;
     }
-    .section-text {
-      color: #d5d5d5;
-      font-size: 15px;
-    }
 
-    .social {
-      text-align: center;
-    }
-    .social-list {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .social-list li a {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: #15171f;
-      border: 1px solid rgba(255,255,255,0.08);
-      font-size: 13px;
-    }
-    .social-list li a span { opacity: 0.8; }
-
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.25); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.5; }
-    }
-
-    @media (min-width: 768px) {
-      .hero-title { font-size: 46px; }
-      .hero-subtitle { font-size: 18px; }
-      .section { padding: 26px 24px; }
-    }
+    .section-text { color: #d5d5d5; font-size: 15px; }
 
     /* ============= كارت قسم قصص رعب +18 ============= */
     .horror18-section {
@@ -183,46 +124,36 @@
       border-radius: 20px;
       padding: 24px 26px;
       box-shadow: 0 14px 35px rgba(0,0,0,0.75);
+      direction: ltr; /* نخلي ترتيب العناصر من الشمال لليمين في القسم ده بس */
     }
 
-    .h18-top {
+    /* الهيدر بتاع القسم: صورة + عنوان + زر تحت بعض على الشمال */
+    .h18-header {
+      width: 230px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 22px;
+      flex-direction: column;
       align-items: center;
-      justify-content: flex-start;   /* يخلي المحتوى يمشي عرضيًا بشكل طبيعي */
+      text-align: center;
+      margin-left: 0;   /* يلزق في الشمال */
     }
 
-    /* نخلي النص على اليمين والصورة على الشمال حتى مع rtl */
-    .h18-text {
-      order: 1;
-      flex: 1;
-      min-width: 220px;
-      text-align: right;
-    }
-
-    .h18-image {
-      order: 2;
-      flex: 0 0 210px;   /* حجم أصغر للصورة */
-    }
-
-    .h18-image img {
-      display: block;
+    .h18-header img {
       width: 100%;
       border-radius: 18px;
       box-shadow: 0 14px 30px rgba(0,0,0,0.8);
+      margin-bottom: 10px;
     }
 
     .h18-title {
-      font-size: 26px;
+      font-size: 22px;
       color: #ff4444;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
+      direction: rtl;
     }
 
     .h18-btn {
       display: inline-block;
-      margin-top: 8px;
-      padding: 10px 26px;
+      padding: 9px 24px;
       border-radius: 999px;
       background: #ff3333;
       color: #fff;
@@ -230,6 +161,7 @@
       box-shadow: 0 10px 25px rgba(255,51,51,0.45);
       text-decoration: none;
       transition: 0.25s;
+      direction: rtl;
     }
     .h18-btn:hover {
       background: #ff1111;
@@ -237,11 +169,23 @@
       transform: translateY(-1px);
     }
 
+    /* حاوية الهيدر + القصص */
+    .h18-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: flex-start;
+    }
+
+    /* القصص داخل نفس القسم */
     .h18-stories {
-      margin-top: 22px;
+      flex: 1;
+      min-width: 260px;
       display: flex;
       flex-wrap: wrap;
       gap: 18px;
+      justify-content: flex-start;
+      direction: rtl;  /* عشان النص يرجع عربي طبيعي */
     }
 
     .story-card {
@@ -303,19 +247,21 @@
       text-decoration: none;
     }
 
-    /* موبايل: خلي الكارت ينزل عمودي ويبقى كله في النص */
+    /* موبايل: تخلي الهيدر فوق والقصص تحت في عمود واحد */
     @media (max-width: 768px) {
-      .h18-top {
-        flex-direction: column-reverse;
+      .h18-layout {
+        flex-direction: column;
         align-items: center;
-        text-align: center;
       }
-      .h18-text {
-        text-align: center;
+      .h18-header {
+        margin: 0 auto;
+      }
+      .h18-stories {
+        justify-content: center;
       }
     }
 
-    /* ===== رسالة الزائر ===== */
+    /* ===== رسالة الزائر + سوشيال (نفس القديم) ===== */
     .section-visitor {
       position: relative;
       overflow: hidden;
@@ -326,7 +272,6 @@
         0 18px 40px rgba(0, 0, 0, 0.85),
         inset 0 0 40px rgba(0, 0, 0, 0.9);
     }
-
     .section-visitor::before {
       content: "";
       position: absolute;
@@ -337,51 +282,21 @@
       opacity: 0.9;
       pointer-events: none;
     }
+    .section-visitor * { position: relative; z-index: 1; }
 
-    .section-visitor * {
-      position: relative;
-      z-index: 1;
-    }
+    .visitor-title { text-align: right; font-size: 24px; letter-spacing: 1px; }
+    .visitor-text { margin-top: 10px; font-size: 16px; line-height: 2; color: #e6e6e6; }
+    .visitor-text .hl { color: #ff4b4b; font-weight: 600; }
+    .visitor-text .logo-text { color: #ff6666; font-weight: 700; }
 
-    .visitor-title {
-      text-align: right;
-      font-size: 24px;
-      letter-spacing: 1px;
-    }
-
-    .visitor-text {
-      margin-top: 10px;
-      font-size: 16px;
-      line-height: 2;
-      color: #e6e6e6;
-    }
-
-    .visitor-text .hl {
-      color: #ff4b4b;
-      font-weight: 600;
-    }
-
-    .visitor-text .logo-text {
-      color: #ff6666;
-      font-weight: 700;
-    }
-
-    .fb-link {
-      margin-top: 18px;
-      text-align: center;
-    }
-
+    .fb-link { margin-top: 18px; text-align: center; }
     .fb-link a {
       color: #ff5555;
       font-weight: 700;
       font-size: 17px;
       text-decoration: none;
     }
-
-    .fb-link a:hover {
-      color: #ff7777;
-      text-decoration: underline;
-    }
+    .fb-link a:hover { color: #ff7777; text-decoration: underline; }
 
     .fb-arrow {
       display: inline-block;
@@ -389,6 +304,25 @@
       margin-left: 6px;
       animation: pulse 1.2s infinite;
     }
+
+    .social { text-align: center; }
+    .social-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .social-list li a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #15171f;
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 13px;
+    }
+    .social-list li a span { opacity: 0.8; }
 
   </style>
 </head>
@@ -417,32 +351,32 @@
       </p>
     </header>
 
-    <!-- ====== كارت قصص رعب +18 ومعاه قصة نويميا ====== -->
+    <!-- ====== قسم قصص رعب +18 مع قصة نويميا جواه ====== -->
     <section class="horror18-section">
-      <div class="h18-top">
-        <!-- النص على اليمين -->
-        <div class="h18-text">
+      <div class="h18-layout">
+
+        <!-- الصورة + العنوان + الزر تحت الصورة مباشرة (على الشمال) -->
+        <div class="h18-header">
+          <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
           <h2 class="h18-title">قصص رعب +18</h2>
           <a href="#h18-stories" class="h18-btn">دخول القصص</a>
         </div>
 
-        <!-- الصورة على الشمال (أصغر) -->
-        <div class="h18-image">
-          <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
-        </div>
-      </div>
-
-      <!-- القصص اللي جوه القسم – حاليا نويميا والكيان -->
-      <div id="h18-stories" class="h18-stories">
-        <div class="story-card">
-          <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
-          <h3 class="story-title">نويميا والكيان</h3>
-          <p class="story-tag">قصة رعب حقيقية</p>
-          <div class="story-actions">
-            <span class="story-age">+18</span>
-            <a href="noemia.html" class="story-btn">ادخل القصة</a>
+        <!-- القصص داخل القسم -->
+        <div id="h18-stories" class="h18-stories">
+          <div class="story-card">
+            <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
+            <h3 class="story-title">نويميا والكيان</h3>
+            <p class="story-tag">قصة رعب حقيقية</p>
+            <div class="story-actions">
+              <span class="story-age">+18</span>
+              <a href="noemia.html" class="story-btn">ادخل القصة</a>
+            </div>
           </div>
+
+          <!-- هنا بعدين تضيف كروت قصص تانية بنفس الشكل -->
         </div>
+
       </div>
     </section>
 

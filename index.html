@@ -254,7 +254,7 @@
     .stories-container {
       max-width: 1300px;
       width: 100%;
-      margin: 30px auto 40px;
+      margin: 24px auto 0;
       display: flex;
       flex-wrap: wrap;
       gap: 20px;
@@ -317,6 +317,41 @@
     .stories-container .story-btn:hover {
       background: #ff4444;
       text-decoration: none;
+    }
+
+    /* ===================== قسم قصص رعب +18 ===================== */
+
+    .horror-section {
+      text-align: center;
+    }
+
+    .horror-banner {
+      margin-bottom: 20px;
+    }
+
+    .horror-banner img {
+      width: 100%;
+      max-width: 800px;
+      border-radius: 18px;
+      display: block;
+      margin: 0 auto;
+      box-shadow: 0 14px 35px rgba(0,0,0,0.75);
+    }
+
+    .horror-title {
+      font-size: 26px;
+      margin-top: 16px;
+      margin-bottom: 8px;
+      color: #ff5555;
+    }
+
+    .horror-text {
+      font-size: 15px;
+      color: #d0d0d0;
+    }
+
+    .horror-section .stories-container {
+      margin-top: 28px;
     }
 
     /* =====================================================
@@ -424,19 +459,29 @@
       </p>
     </header>
 
-    <!-- الكروت -->
-    <div class="stories-container">
-      <div class="story-card">
-        <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
-        <h3 class="story-title">نويميا والكيان</h3>
-        <p class="story-tag">قصة رعب حقيقية</p>
-        <div class="story-actions">
-          <span class="story-age">+18</span>
-          <!-- هنا التعديل -->
-          <a href="noemia.html" class="story-btn">ادخل القصة</a>
+    <!-- قسم قصص رعب +18 -->
+    <section class="section horror-section">
+      <div class="horror-banner">
+        <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
+      </div>
+      <h2 class="section-title horror-title">قصص رعب +18</h2>
+      <p class="section-text horror-text">
+        ملفّات صوتية وحكايات حقيقية… مش لأي حد. هنا بنجمع القصص اللي بتسيب أثر في الدماغ لفترة طويلة،
+        ونحوّلها لتجربة تسمعها لوحدك بس.
+      </p>
+
+      <div class="stories-container">
+        <div class="story-card">
+          <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
+          <h3 class="story-title">نويميا والكيان</h3>
+          <p class="story-tag">قصة رعب حقيقية</p>
+          <div class="story-actions">
+            <span class="story-age">+18</span>
+            <a href="noemia.html" class="story-btn">ادخل القصة</a>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <!-- رسالة إلى الزائر – النسخة المرعبة -->
     <section class="section section-visitor">
@@ -479,8 +524,8 @@
   <!-- =========================
        Botpress Chat Widget
   ========================== -->
-<script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"></script>
-<script src="https://files.bpcontent.cloud/2025/11/27/22/20251127225403-IQJ9GX5K.js" defer></script>
+  <script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"></script>
+  <script src="https://files.bpcontent.cloud/2025/11/27/22/20251127225403-IQJ9GX5K.js" defer></script>
 
 </body>
 </html>

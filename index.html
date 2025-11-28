@@ -190,20 +190,27 @@
       flex-wrap: wrap;
       gap: 22px;
       align-items: center;
+      justify-content: flex-start;   /* يخلي المحتوى يمشي عرضيًا بشكل طبيعي */
+    }
+
+    /* نخلي النص على اليمين والصورة على الشمال حتى مع rtl */
+    .h18-text {
+      order: 1;
+      flex: 1;
+      min-width: 220px;
+      text-align: right;
+    }
+
+    .h18-image {
+      order: 2;
+      flex: 0 0 210px;   /* حجم أصغر للصورة */
     }
 
     .h18-image img {
       display: block;
-      width: 260px;
-      max-width: 100%;
+      width: 100%;
       border-radius: 18px;
       box-shadow: 0 14px 30px rgba(0,0,0,0.8);
-    }
-
-    .h18-text {
-      flex: 1;
-      min-width: 220px;
-      text-align: right;
     }
 
     .h18-title {
@@ -294,6 +301,18 @@
     .story-btn:hover {
       background: #ff4444;
       text-decoration: none;
+    }
+
+    /* موبايل: خلي الكارت ينزل عمودي ويبقى كله في النص */
+    @media (max-width: 768px) {
+      .h18-top {
+        flex-direction: column-reverse;
+        align-items: center;
+        text-align: center;
+      }
+      .h18-text {
+        text-align: center;
+      }
     }
 
     /* ===== رسالة الزائر ===== */
@@ -401,16 +420,15 @@
     <!-- ====== كارت قصص رعب +18 ومعاه قصة نويميا ====== -->
     <section class="horror18-section">
       <div class="h18-top">
-        <!-- الصورة على الشمال -->
-        <div class="h18-image">
-          <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
-        </div>
-
-        <!-- العنوان + زر دخول القصص على اليمين -->
+        <!-- النص على اليمين -->
         <div class="h18-text">
           <h2 class="h18-title">قصص رعب +18</h2>
-          <!-- انت قلت بلاش وصف، فسيبناها من غير فقرة -->
           <a href="#h18-stories" class="h18-btn">دخول القصص</a>
+        </div>
+
+        <!-- الصورة على الشمال (أصغر) -->
+        <div class="h18-image">
+          <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
         </div>
       </div>
 

@@ -59,60 +59,61 @@
     /* كونتينر الكروت */
     .stories-wrap {
       display: flex;
-      justify-content: flex-end; /* الكارت على اليمين زي السكرين شوت */
+      justify-content: flex-end; /* يظهر على اليمين */
     }
 
+    /* ==== الكارت بعد التصغير ==== */
     .story-card {
       background: #0a0b0f;
       border-radius: 18px;
-      padding: 18px 16px 20px;
+      padding: 16px 14px 18px;
       text-align: center;
       box-shadow: 0 14px 32px rgba(0,0,0,0.8);
-      width: 260px;
+      width: 200px; /* ← التصغير هنا */
     }
 
     .story-image {
       width: 100%;
-      border-radius: 14px;
-      margin-bottom: 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
     }
 
     .story-title {
-      font-size: 18px;
+      font-size: 16px; /* أصغر */
       margin-bottom: 4px;
       color: #ffffff;
     }
 
     .story-tag {
-      font-size: 13px;
+      font-size: 12px;
       color: #bbbbbb;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .story-actions {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 10px;
+      gap: 8px; /* أصغر */
     }
 
     .story-age {
       background: #b30000;
       color: #fff;
-      padding: 6px 10px;
+      padding: 5px 8px;
       border-radius: 8px;
       font-weight: bold;
-      font-size: 13px;
+      font-size: 12px;
     }
 
     .story-btn {
       background: #ff3333;
       color: white;
-      padding: 7px 14px;
+      padding: 6px 12px;
       border-radius: 10px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 13px;
       transition: 0.3s;
     }
 
@@ -154,8 +155,6 @@
           <a href="noemia.html" class="story-btn">ادخل القصة</a>
         </div>
       </div>
-
-      <!-- لو حابب تضيف قصص بعدين انسخ الكارت ده وعدّل الاسم والصورة واللينك -->
 
     </div>
 

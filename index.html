@@ -2,6 +2,10 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+
+  <!-- مهم للموبايل – يخلي الموقع يبان مظبوط -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>آخر تسجيل</title>
 
   <style>
@@ -124,17 +128,16 @@
       border-radius: 20px;
       padding: 24px 26px;
       box-shadow: 0 14px 35px rgba(0,0,0,0.75);
-      direction: ltr; /* نخلي ترتيب العناصر من الشمال لليمين في القسم ده بس */
+      direction: ltr;
     }
 
-    /* الهيدر بتاع القسم: صورة + عنوان + زر تحت بعض على الشمال */
     .h18-header {
       width: 230px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      margin-left: 0;   /* يلزق في الشمال */
+      margin-left: 0;
     }
 
     .h18-header img {
@@ -163,13 +166,12 @@
       transition: 0.25s;
       direction: rtl;
     }
+
     .h18-btn:hover {
       background: #ff1111;
-      text-decoration: none;
       transform: translateY(-1px);
     }
 
-    /* حاوية الهيدر + القصص */
     .h18-layout {
       display: flex;
       flex-wrap: wrap;
@@ -177,7 +179,6 @@
       align-items: flex-start;
     }
 
-    /* القصص داخل نفس القسم */
     .h18-stories {
       flex: 1;
       min-width: 260px;
@@ -185,7 +186,7 @@
       flex-wrap: wrap;
       gap: 18px;
       justify-content: flex-start;
-      direction: rtl;  /* عشان النص يرجع عربي طبيعي */
+      direction: rtl;
     }
 
     .story-card {
@@ -247,7 +248,6 @@
       text-decoration: none;
     }
 
-    /* موبايل: تخلي الهيدر فوق والقصص تحت في عمود واحد */
     @media (max-width: 768px) {
       .h18-layout {
         flex-direction: column;
@@ -261,7 +261,7 @@
       }
     }
 
-    /* ===== رسالة الزائر + سوشيال (نفس القديم) ===== */
+    /* ===== رسالة الزائر + السوشيال ===== */
     .section-visitor {
       position: relative;
       overflow: hidden;
@@ -272,19 +272,8 @@
         0 18px 40px rgba(0, 0, 0, 0.85),
         inset 0 0 40px rgba(0, 0, 0, 0.9);
     }
-    .section-visitor::before {
-      content: "";
-      position: absolute;
-      inset: -10%;
-      background:
-        radial-gradient(circle at center, rgba(255, 255, 255, 0.04), transparent 60%),
-        radial-gradient(circle at bottom, rgba(0, 0, 0, 0.8), transparent 55%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-    .section-visitor * { position: relative; z-index: 1; }
 
-    .visitor-title { text-align: right; font-size: 24px; letter-spacing: 1px; }
+    .visitor-title { text-align: right; font-size: 24px; }
     .visitor-text { margin-top: 10px; font-size: 16px; line-height: 2; color: #e6e6e6; }
     .visitor-text .hl { color: #ff4b4b; font-weight: 600; }
     .visitor-text .logo-text { color: #ff6666; font-weight: 700; }
@@ -295,14 +284,6 @@
       font-weight: 700;
       font-size: 17px;
       text-decoration: none;
-    }
-    .fb-link a:hover { color: #ff7777; text-decoration: underline; }
-
-    .fb-arrow {
-      display: inline-block;
-      font-size: 24px;
-      margin-left: 6px;
-      animation: pulse 1.2s infinite;
     }
 
     .social { text-align: center; }
@@ -322,10 +303,9 @@
       border: 1px solid rgba(255,255,255,0.08);
       font-size: 13px;
     }
-    .social-list li a span { opacity: 0.8; }
-
   </style>
 </head>
+
 <body>
 
   <div class="page">
@@ -334,36 +314,26 @@
       <h1 class="scary-title">آخر تسجيل</h1>
       <p class="hero-subtitle">
         في غُرف <span style="color:#ff3333;">مقفولة</span> من سنين طويلة…  
-        اتخبّى فيها <span style="color:#ff8844;">سر</span> ورا سر، مفيش غير اللي عاشه يقدر يحكيه.
+        اتخبّى فيها <span style="color:#ff8844;">سر</span> ورا سر.
         <br><br>
-        اللي هتسمعه في <span style="color:#ff2222; font-weight:bold;">آخر تسجيل</span>  
-        مش <span style="color:#ff4444;">خيال</span>…  
-        ولا كلام معمولّ عشان يرعبك.
-        <br><br>
-        ده صوت الحقيقة اللي فضِل من ملفات  
-        اتختمت بـ <span style="color:#ff0000;">سري جدًا</span> واترمت بعيد عن عيون الناس.
-        <br><br>
-        هنا… في <span style="color:#ff5555; font-weight:bold;">آخر تسجيل</span>  
-        كل همسة ليها قصة…  
-        وكل صمت وراه حكاية…  
-        لأن كل شيء بيبدأ  
-        لما <span style="color:#cc0000;">الأنوار بتطفي</span> 💀
+        اللي هتسمعه هنا…  
+        مش خيال، ده صوت الحقيقة اللي فضل من ملفات اتختمت بـ  
+        <span style="color:#ff0000;font-weight:bold;">سري جدًا</span>.
       </p>
     </header>
 
-    <!-- ====== قسم قصص رعب +18 مع قصة نويميا جواه ====== -->
+    <!-- ====== قسم قصص +18 ====== -->
     <section class="horror18-section">
       <div class="h18-layout">
 
-        <!-- الصورة + العنوان + الزر تحت الصورة مباشرة (على الشمال) -->
         <div class="h18-header">
           <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
           <h2 class="h18-title">قصص رعب +18</h2>
           <a href="#h18-stories" class="h18-btn">دخول القصص</a>
         </div>
 
-        <!-- القصص داخل القسم -->
         <div id="h18-stories" class="h18-stories">
+
           <div class="story-card">
             <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
             <h3 class="story-title">نويميا والكيان</h3>
@@ -374,45 +344,40 @@
             </div>
           </div>
 
-          <!-- هنا بعدين تضيف كروت قصص تانية بنفس الشكل -->
         </div>
 
       </div>
     </section>
 
-    <!-- رسالة إلى الزائر -->
+    <!-- ===== رسالة إلى الزائر ===== -->
     <section class="section section-visitor">
       <h2 class="section-title visitor-title">رسالة إلى الزائر</h2>
       <p class="section-text visitor-text">
-        لو عندك <span class="hl">قصة رعب حقيقية</span>… تسجيل قديم مخبّي في تليفونك…  
-        أو موقف لسه لحد دلوقتي لما بتفتكره <span class="hl">جسمك بيقشعر</span>…  
-        متسيّبوش جوّه عقلك لوحده.
+        لو عندك <span class="hl">قصة رعب حقيقية</span>…  
+        أو تسجيل غريب…  
+        أو موقف لسه لما بتفتكره <span class="hl">جسمك بيقشعر</span>…
         <br><br>
-        في <span class="logo-text">"آخر تسجيل"</span> تقدر تبعت حكايتك  
-        <span class="hl">بدون اسم</span>… وإحنا نسمعها ونحوّلها لملف صوتي مرعب  
-        يحافظ على كل تفاصيلها.
+        تقدر تبعت حكايتك في <span class="logo-text">"آخر تسجيل"</span>  
+        بالكامل وبدون اسم…  
+        وإحنا نسمعها ونحوّلها لملف صوتي مرعب يحافظ على كل تفاصيلها.
       </p>
 
       <div class="fb-link">
-        <span class="fb-arrow">🩸✋</span>
         <a href="https://www.facebook.com/a5ertasgeel" target="_blank">
           صفحة "آخر تسجيل" على فيسبوك
         </a>
       </div>
     </section>
 
-    <!-- السوشيال -->
+    <!-- ===== السوشيال ===== -->
     <section class="section social">
       <h2 class="section-title">تابع “آخر تسجيل”</h2>
-      <p class="section-text">
-        تابعنا على منصات التواصل لتصلك أحدث التسجيلات والقصص أولاً بأول:
-      </p>
+      <p class="section-text">أحدث التسجيلات والقصص بتنزل أول بأول:</p>
       <ul class="social-list">
-        <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank">🔵 فيسبوك <span>/ صفحة آخر تسجيل</span></a></li>
-        <li><a href="https://youtube.com/" target="_blank">🔴 يوتيوب <span>/ قناة آخر تسجيل</span></a></li>
-        <li><a href="https://tiktok.com/" target="_blank">⚫ تيك توك <span>/ مقاطع قصيرة مرعبة</span></a></li>
-        <li><a href="https://instagram.com/" target="_blank">🟣 إنستجرام <span>/ لقطات وصور من الكواليس</span></a></li>
-        <li><a href="https://t.me/" target="_blank">✈️ تليجرام <span>/ نشرات وتسجيلات كاملة</span></a></li>
+        <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank">🔵 فيسبوك</a></li>
+        <li><a href="#" target="_blank">🔴 يوتيوب</a></li>
+        <li><a href="#" target="_blank">⚫ تيك توك</a></li>
+        <li><a href="#" target="_blank">🟣 إنستجرام</a></li>
       </ul>
     </section>
 

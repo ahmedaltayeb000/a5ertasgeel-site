@@ -125,16 +125,17 @@
       border-radius: 20px;
       padding: 24px 26px 32px;
       box-shadow: 0 14px 35px rgba(0,0,0,0.75);
-      text-align: center;
     }
 
     .h18-header {
-      width: 220px;           /* <-- هنا صغّرنا العرض */
-      margin: 0 auto;
+      width: 260px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      /* هنا اللي يخلّي الكارت ناحية الشمال في الديسكتوب */
+      margin-left: 0;
+      margin-right: auto;
     }
 
     .h18-header img {
@@ -145,14 +146,14 @@
     }
 
     .h18-title {
-      font-size: 20px;
+      font-size: 22px;
       color: #ff4444;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .h18-btn {
       display: inline-block;
-      padding: 8px 22px;
+      padding: 10px 26px;
       border-radius: 999px;
       background: #ff3333;
       color: #fff;
@@ -160,12 +161,18 @@
       box-shadow: 0 10px 25px rgba(255,51,51,0.45);
       text-decoration: none;
       transition: 0.25s;
-      font-size: 14px;
     }
 
     .h18-btn:hover {
       background: #ff1111;
       transform: translateY(-1px);
+    }
+
+    /* موبايل: رجّع الكارت في النص */
+    @media (max-width: 768px) {
+      .h18-header {
+        margin: 0 auto;
+      }
     }
 
     /* ===== رسالة الزائر + السوشيال ===== */

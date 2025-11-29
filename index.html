@@ -133,7 +133,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      /* هنا اللي يخلّي الكارت ناحية الشمال في الديسكتوب */
+      /* الكارت ناحية الشمال في الديسكتوب */
       margin-left: 0;
       margin-right: auto;
     }
@@ -192,12 +192,63 @@
     .visitor-text .hl { color: #ff4b4b; font-weight: 600; }
     .visitor-text .logo-text { color: #ff6666; font-weight: 700; }
 
-    .fb-link { margin-top: 18px; text-align: center; }
-    .fb-link a {
-      color: #ff5555;
-      font-weight: 700;
-      font-size: 17px;
-      text-decoration: none;
+    /* فورم رسائل الزائر */
+    .contact-form {
+      margin-top: 22px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-form .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: #ff7777;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #ff4444;
+      background: #0d0f12;
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    .contact-form textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: #888;
+    }
+
+    .contact-form button {
+      margin-top: 4px;
+      background: #ff3333;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: none;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255, 50, 50, 0.4);
+      transition: 0.3s;
+    }
+
+    .contact-form button:hover {
+      background: #ff1111;
+      transform: translateY(-1px);
     }
 
     .social { text-align: center; }
@@ -258,11 +309,34 @@
         وإحنا نسمعها ونحوّلها لملف صوتي مرعب يحافظ على كل تفاصيلها.
       </p>
 
-      <div class="fb-link">
-        <a href="https://www.facebook.com/a5ertasgeel" target="_blank">
-          صفحة "آخر تسجيل" على فيسبوك
-        </a>
-      </div>
+      <!-- فورم Formspree -->
+      <form
+        class="contact-form"
+        action="https://formspree.io/f/xgvjgzek"
+        method="POST"
+      >
+        <div class="form-group">
+          <label for="email">بريدك الإلكتروني (اختياري):</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="لو حابب نرد عليك… وإلا سيبه فاضي"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="message">قصتك أو رسالتك:</label>
+          <textarea
+            id="message"
+            name="message"
+            required
+            placeholder="اكتب تجربتك، قصتك، أو أي حاجة حاسس إنها آخر تسجيل…"
+          ></textarea>
+        </div>
+
+        <button type="submit">إرسال الرسالة</button>
+      </form>
     </section>
 
     <!-- ===== السوشيال ===== -->

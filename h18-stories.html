@@ -56,10 +56,12 @@
       margin-bottom: 30px;
     }
 
-    /* كونتينر الكروت */
+    /* كونتينر الكروت - بعد التصغير الحقيقي */
     .stories-wrap {
       display: flex;
-      justify-content: flex-end; /* يظهر على اليمين */
+      justify-content: flex-end;
+      max-width: 350px;       /* ← أهم تعديل */
+      margin-right: 0;        /* ← يخليه ملزوق يمين */
     }
 
     /* ==== الكارت بعد التصغير ==== */
@@ -69,7 +71,7 @@
       padding: 16px 14px 18px;
       text-align: center;
       box-shadow: 0 14px 32px rgba(0,0,0,0.8);
-      width: 200px; /* ← التصغير هنا */
+      width: 200px; /* ← عرض الكارت */
     }
 
     .story-image {
@@ -79,7 +81,7 @@
     }
 
     .story-title {
-      font-size: 16px; /* أصغر */
+      font-size: 16px;
       margin-bottom: 4px;
       color: #ffffff;
     }
@@ -94,7 +96,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 8px; /* أصغر */
+      gap: 8px;
     }
 
     .story-age {
@@ -119,12 +121,12 @@
 
     .story-btn:hover {
       background: #ff4444;
-      text-decoration: none;
     }
 
     @media (max-width: 768px) {
       .stories-wrap {
         justify-content: center;
+        max-width: 100%;
       }
     }
   </style>

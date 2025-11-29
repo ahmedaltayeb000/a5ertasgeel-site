@@ -3,67 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>آخر تسجيل</title>
+  <title>قصص رعب +18 - آخر تسجيل</title>
 
   <style>
-    /* ===================== الخلفية الجديدة للهيدر ===================== */
-    .hero-with-bg {
-      position: relative;
-      background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.65);
-      max-width: 1300px;
-      width: 100%;
-      margin: 0 auto 32px;
-      padding: 40px 24px;
-      text-align: center;
-    }
-
-    .hero-with-bg::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top, rgba(42,0,0,0.85), rgba(5,6,8,0.96)),
-        rgba(0,0,0,0.4);
-      backdrop-filter: blur(2px);
-    }
-
-    .hero-with-bg * {
-      position: relative;
-      z-index: 2;
-    }
-
-    .scary-title {
-      font-size: 48px;
-      text-align: center;
-      color: #ff2222;
-      position: relative;
-      font-family: "Creepster", sans-serif;
-      letter-spacing: 3px;
-      margin-bottom: 20px;
-    }
-
-    .scary-title::before,
-    .scary-title::after {
-      content: "🦇";
-      position: absolute;
-      font-size: 32px;
-      animation: fly 3s infinite linear;
-      color: #ff2222;
-    }
-
-    .scary-title::before { left: -40px; top: -10px; }
-    .scary-title::after  { right: -40px; top: -10px; }
-
-    @keyframes fly {
-      0% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(20deg); }
-      100% { transform: translateY(0px) rotate(0deg); }
-    }
-
-    /* ===================== reset + global ===================== */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -85,272 +27,139 @@
 
     .page {
       max-width: 1400px;
-      width: 100%;
       margin: 0 auto;
-      padding: 32px 16px 64px;
+      padding: 24px 16px 64px;
     }
 
-    .hero { border-radius: 20px; text-align: center; }
-
-    .hero-subtitle {
-      margin-top: 16px;
-      font-size: 16px;
-      color: #e0e0e0;
-    }
-
-    .section {
-      background: #0e1014;
-      border-radius: 18px;
-      padding: 24px 32px;
-      margin: 0 auto 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-      max-width: 1300px;
-      width: 100%;
-    }
-
-    .section-title {
-      font-size: 22px;
-      margin-bottom: 10px;
-      color: #ffffff;
-    }
-
-    .section-text { color: #d5d5d5; font-size: 15px; }
-
-    /* ============= كارت قسم قصص رعب +18 ============= */
-    .horror18-section {
-      max-width: 1300px;
-      width: 100%;
-      margin: 0 auto 30px;
-      background: #0e1014;
-      border-radius: 20px;
-      padding: 24px 26px 32px;
-      box-shadow: 0 14px 35px rgba(0,0,0,0.75);
-    }
-
-    .h18-header {
-      width: 260px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      /* الكارت ناحية الشمال في الديسكتوب */
-      margin-left: 0;
-      margin-right: auto;
-    }
-
-    .h18-header img {
-      width: 100%;
-      border-radius: 18px;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.8);
-      margin-bottom: 12px;
-    }
-
-    .h18-title {
-      font-size: 22px;
-      color: #ff4444;
-      margin-bottom: 12px;
-    }
-
-    .h18-btn {
-      display: inline-block;
-      padding: 10px 26px;
-      border-radius: 999px;
-      background: #ff3333;
-      color: #fff;
-      font-weight: 700;
-      box-shadow: 0 10px 25px rgba(255,51,51,0.45);
-      text-decoration: none;
-      transition: 0.25s;
-    }
-
-    .h18-btn:hover {
-      background: #ff1111;
-      transform: translateY(-1px);
-    }
-
-    /* موبايل: رجّع الكارت في النص */
-    @media (max-width: 768px) {
-      .h18-header {
-        margin: 0 auto;
-      }
-    }
-
-    /* ===== رسالة الزائر + السوشيال ===== */
-    .section-visitor {
-      position: relative;
-      overflow: hidden;
-      background: radial-gradient(circle at top, #280000, #050608);
-      border-radius: 20px;
-      border: 1px solid rgba(255, 80, 80, 0.18);
-      box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.85),
-        inset 0 0 40px rgba(0, 0, 0, 0.9);
-    }
-
-    .visitor-title { text-align: right; font-size: 24px; }
-    .visitor-text { margin-top: 10px; font-size: 16px; line-height: 2; color: #e6e6e6; }
-    .visitor-text .hl { color: #ff4b4b; font-weight: 600; }
-    .visitor-text .logo-text { color: #ff6666; font-weight: 700; }
-
-    /* فورم رسائل الزائر */
-    .contact-form {
-      margin-top: 22px;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .contact-form .form-group label {
-      display: block;
-      margin-bottom: 6px;
-      color: #ff7777;
-      font-weight: 600;
+    /* لينك الرجوع */
+    .back-link {
+      margin-bottom: 20px;
       font-size: 14px;
+      text-align: right;
     }
 
-    .contact-form input,
-    .contact-form textarea {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid #ff4444;
-      background: #0d0f12;
-      color: #ffffff;
-      font-size: 14px;
-    }
-
-    .contact-form textarea {
-      min-height: 130px;
-      resize: vertical;
-    }
-
-    .contact-form input::placeholder,
-    .contact-form textarea::placeholder {
-      color: #888;
-    }
-
-    .contact-form button {
-      margin-top: 4px;
-      background: #ff3333;
-      padding: 10px 20px;
-      border-radius: 999px;
-      border: none;
-      color: #ffffff;
+    .back-link a {
+      color: #ff3333;
       font-weight: bold;
-      font-size: 15px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(255, 50, 50, 0.4);
+      text-decoration: none;
+    }
+
+    .back-link a:hover {
+      color: #ff5555;
+    }
+
+    /* عنوان الصفحة */
+    .page-title {
+      text-align: center;
+      font-size: 28px;
+      color: #ff3333;
+      margin-bottom: 30px;
+    }
+
+    /* كونتينر الكروت */
+    .stories-wrap {
+      display: flex;
+      justify-content: flex-end; /* الكارت على اليمين زي السكرين شوت */
+    }
+
+    .story-card {
+      background: #0a0b0f;
+      border-radius: 18px;
+      padding: 18px 16px 20px;
+      text-align: center;
+      box-shadow: 0 14px 32px rgba(0,0,0,0.8);
+      width: 260px;
+    }
+
+    .story-image {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 12px;
+    }
+
+    .story-title {
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: #ffffff;
+    }
+
+    .story-tag {
+      font-size: 13px;
+      color: #bbbbbb;
+      margin-bottom: 12px;
+    }
+
+    .story-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .story-age {
+      background: #b30000;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 13px;
+    }
+
+    .story-btn {
+      background: #ff3333;
+      color: white;
+      padding: 7px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
       transition: 0.3s;
     }
 
-    .contact-form button:hover {
-      background: #ff1111;
-      transform: translateY(-1px);
+    .story-btn:hover {
+      background: #ff4444;
+      text-decoration: none;
     }
 
-    .social { text-align: center; }
-    .social-list {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .social-list li a {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: #15171f;
-      border: 1px solid rgba(255,255,255,0.08);
-      font-size: 13px;
+    @media (max-width: 768px) {
+      .stories-wrap {
+        justify-content: center;
+      }
     }
   </style>
 </head>
-
 <body>
 
   <div class="page">
 
-    <header class="hero hero-with-bg">
-      <h1 class="scary-title">آخر تسجيل</h1>
-      <p class="hero-subtitle">
-        في غُرف <span style="color:#ff3333;">مقفولة</span> من سنين طويلة…  
-        اتخبّى فيها <span style="color:#ff8844;">سر</span> ورا سر.
-        <br><br>
-        اللي هتسمعه هنا…  
-        مش خيال، ده صوت الحقيقة اللي فضل من ملفات اتختمت بـ  
-        <span style="color:#ff0000;font-weight:bold;">سري جدًا</span>.
-      </p>
-    </header>
+    <!-- رجوع للصفحة الرئيسية -->
+    <div class="back-link">
+      <a href="index.html">⬅️ الرجوع للصفحة الرئيسية</a>
+    </div>
 
-    <!-- ====== قسم قصص +18 ====== -->
-    <section class="horror18-section">
-      <div class="h18-header">
-        <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
-        <h2 class="h18-title">قصص رعب +18</h2>
-        <a href="h18-stories.html" class="h18-btn">دخول القصص</a>
+    <!-- عنوان القسم -->
+    <h1 class="page-title">قصص رعب +18</h1>
+
+    <!-- كروت القصص -->
+    <div class="stories-wrap">
+
+      <!-- نويميا والكيان -->
+      <div class="story-card">
+        <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg"
+             alt="نويميا والكيان" class="story-image">
+        <h2 class="story-title">نويميا والكيان</h2>
+        <p class="story-tag">قصة رعب حقيقية</p>
+        <div class="story-actions">
+          <span class="story-age">+18</span>
+          <a href="noemia.html" class="story-btn">ادخل القصة</a>
+        </div>
       </div>
-    </section>
 
-    <!-- ===== رسالة إلى الزائر ===== -->
-    <section class="section section-visitor">
-      <h2 class="section-title visitor-title">رسالة إلى الزائر</h2>
-      <p class="section-text visitor-text">
-        لو عشت قصة رعب لسه مش قادر تنساها، وعايز نحولها لسرد صوتي قوي وكأنك أنت اللي بتحكيها…<br>
-        ابعتلنا قصتك، واطمن… هويتك في أمان ولن يظهر اسمك عند الإرسال.
-      </p>
+      <!-- لو حابب تضيف قصص بعدين انسخ الكارت ده وعدّل الاسم والصورة واللينك -->
 
-      <!-- فورم Formspree -->
-      <form
-        class="contact-form"
-        action="https://formspree.io/f/xgvjgzek"
-        method="POST"
-      >
-        <div class="form-group">
-          <label for="email">بريدك الإلكتروني (اختياري):</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            placeholder="لو حابب نرد عليك… وإلا سيبه فاضي"
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="message">قصتك أو رسالتك:</label>
-          <textarea
-            id="message"
-            name="message"
-            required
-            placeholder="اكتب تجربتك، قصتك، أو أي حاجة حاسس إنها آخر تسجيل…"
-          ></textarea>
-        </div>
-
-        <button type="submit">إرسال الرسالة</button>
-      </form>
-    </section>
-
-    <!-- ===== السوشيال ===== -->
-    <section class="section social">
-      <h2 class="section-title">تابع “آخر تسجيل”</h2>
-      <p class="section-text">أحدث التسجيلات والقصص بتنزل أول بأول:</p>
-      <ul class="social-list">
-        <li><a href="https://www.facebook.com/a5ertasgeel" target="_blank">🔵 فيسبوك</a></li>
-        <li><a href="#" target="_blank">🔴 يوتيوب</a></li>
-        <li><a href="#" target="_blank">⚫ تيك توك</a></li>
-        <li><a href="#" target="_blank">🟣 إنستجرام</a></li>
-      </ul>
-    </section>
+    </div>
 
   </div>
-
-  <!-- Botpress -->
-  <script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"></script>
-  <script src="https://files.bpcontent.cloud/2025/11/27/22/20251127225403-IQJ9GX5K.js" defer></script>
 
 </body>
 </html>

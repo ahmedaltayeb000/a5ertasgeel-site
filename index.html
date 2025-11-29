@@ -43,6 +43,12 @@
       font-family: "Creepster", sans-serif;
       letter-spacing: 3px;
       margin-bottom: 20px;
+      /* تأثير Glitch */
+      animation: glitch 2.5s infinite alternate;
+      text-shadow:
+        0 0 4px rgba(255, 0, 0, 0.8),
+        2px 0 6px rgba(0, 255, 255, 0.4),
+        -2px 0 6px rgba(255, 0, 255, 0.4);
     }
 
     .scary-title::before,
@@ -58,9 +64,73 @@
     .scary-title::after  { right: -40px; top: -10px; }
 
     @keyframes fly {
-      0% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(20deg); }
+      0%   { transform: translateY(0px) rotate(0deg); }
+      50%  { transform: translateY(-10px) rotate(20deg); }
       100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    /* Glitch بسيط على العنوان */
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+        text-shadow:
+          0 0 4px rgba(255, 0, 0, 0.8),
+          2px 0 6px rgba(0, 255, 255, 0.4),
+          -2px 0 6px rgba(255, 0, 255, 0.4);
+      }
+      20% {
+        transform: translate(-1px, 1px);
+        text-shadow:
+          -2px 0 6px rgba(255, 0, 0, 0.9),
+          3px 0 8px rgba(0, 255, 255, 0.6),
+          -3px 0 8px rgba(255, 0, 255, 0.6);
+      }
+      40% {
+        transform: translate(1px, -1px);
+        text-shadow:
+          2px 0 6px rgba(255, 0, 0, 0.9),
+          -3px 0 8px rgba(0, 255, 255, 0.6),
+          3px 0 8px rgba(255, 0, 255, 0.6);
+      }
+      60% {
+        transform: translate(0.5px, 0);
+      }
+      80% {
+        transform: translate(-0.5px, 0);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+
+    /* ===================== لمبة تسجيل REC ===================== */
+    .rec-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: -6px;
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: #ff7777;
+      opacity: 0.95;
+    }
+
+    .rec-indicator .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ff3333;
+      box-shadow: 0 0 12px rgba(255,50,50,0.9);
+      animation: recBlink 1s infinite;
+    }
+
+    .rec-indicator .rec-text {
+      letter-spacing: 2px;
+    }
+
+    @keyframes recBlink {
+      0%, 60% { opacity: 1; }
+      61%, 100% { opacity: 0.1; }
     }
 
     /* ===================== reset + global ===================== */
@@ -136,6 +206,15 @@
       border-radius: 18px;
       box-shadow: 0 14px 30px rgba(0,0,0,0.8);
       margin-bottom: 12px;
+      transition: 0.3s;
+    }
+
+    /* Hover مجنون على الكارت */
+    .h18-header:hover img {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow:
+        0 22px 50px rgba(0,0,0,1),
+        0 0 30px rgba(255,0,0,0.8);
     }
 
     .h18-title {
@@ -175,6 +254,29 @@
       box-shadow:
         0 18px 40px rgba(0, 0, 0, 0.85),
         inset 0 0 40px rgba(0, 0, 0, 0.9);
+    }
+
+    /* ضوء أحمر خفيف بيتحرك في الخلفية */
+    .section-visitor::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background:
+        radial-gradient(circle at top left, rgba(255,0,0,0.22), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(255,0,0,0.12), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+      animation: moveGlow 8s infinite alternate;
+    }
+
+    .section-visitor > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes moveGlow {
+      0%   { transform: translateX(-10px) translateY(0); }
+      100% { transform: translateX(10px) translateY(-5px); }
     }
 
     .visitor-title { text-align: right; font-size: 24px; }
@@ -236,6 +338,14 @@
       transform: translateY(-1px);
     }
 
+    /* فلاش أحمر لحظة الضغط */
+    .contact-form button:active {
+      box-shadow:
+        0 0 0 rgba(255,50,50,0),
+        0 0 30px rgba(255,50,50,1);
+      transform: scale(0.98);
+    }
+
     .social { text-align: center; }
     .social-list {
       list-style: none;
@@ -262,6 +372,13 @@
 
     <header class="hero hero-with-bg">
       <h1 class="scary-title">آخر تسجيل</h1>
+
+      <!-- لمبة REC -->
+      <div class="rec-indicator">
+        <span class="dot"></span>
+        <span class="rec-text">REC</span>
+      </div>
+
       <p class="hero-subtitle">
         في غُرف <span style="color:#ff3333;">مقفولة</span> من سنين طويلة…  
         اتخبّى فيها <span style="color:#ff8844;">سر</span> ورا سر.
@@ -289,9 +406,8 @@
         ابعتلنا قصتك، واطمن… هويتك في أمان ولن يظهر اسمك عند الإرسال.
       </p>
 
-      <!-- =================== الفورم الجديد الصحيح =================== -->
+      <!-- الفورم -->
       <form class="contact-form" action="https://formspree.io/f/xgvjgzek" method="POST">
-
         <label>
           بريدك الإلكتروني (اختياري):
           <input type="email" name="email" placeholder="لو حابب نرد عليك… وإلا سيبه فاضي">
@@ -304,8 +420,6 @@
 
         <button type="submit">إرسال الرسالة</button>
       </form>
-      <!-- ========================================================== -->
-
     </section>
 
     <!-- ===== السوشيال ===== -->

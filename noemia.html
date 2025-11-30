@@ -334,6 +334,35 @@
         </div>
       </div>
 
+      <!-- قسم الاشتراك والتحميل -->
+      <div class="download-box" style="text-align:center; margin:22px 0 10px;">
+        <p style="font-size:13px; color:#ccc; margin-bottom:10px;">
+          لو حابب تحتفظ بالتسجيل على جهازك… اشترك الأول في قناة
+          <span style="color:#ff5555; font-weight:bold;">"آخر تسجيل"</span> على يوتيوب 👇
+        </p>
+
+        <a href="https://www.youtube.com/@a5ertasgeel" target="_blank"
+           style="display:inline-block; margin-bottom:10px; padding:8px 18px; border-radius:999px;
+                  background:#ff0000; color:#fff; font-size:14px; font-weight:bold; text-decoration:none;">
+          🔴 فتح قناة يوتيوب
+        </a>
+        <br>
+
+        <button id="unlockDownload"
+          style="margin-top:6px; padding:6px 14px; border-radius:999px; border:none; cursor:pointer;
+                 background:#151515; color:#ffdddd; font-size:12px;">
+          ✅ أنا اشتركت – إظهار رابط التحميل
+        </button>
+
+        <div id="downloadLink" style="margin-top:10px; display:none;">
+          <a href="audio/download%20(4).wav" download
+             style="display:inline-block; padding:8px 18px; border-radius:999px;
+                    background:#ff3333; color:#fff; font-size:14px; font-weight:bold; text-decoration:none;">
+            ⬇️ تحميل ملف الصوت
+          </a>
+        </div>
+      </div>
+
       <hr style="margin:22px 0; border-color: rgba(255,255,255,0.06);" />
 
       <div class="story-text">
@@ -450,6 +479,11 @@
       <a href="h18-stories.html">⬅️ الرجوع لقسم قصص رعب +18</a>
     </div>
 
+    <!-- حقوق النشر -->
+    <div style="margin-top:20px; text-align:center; font-size:12px; color:#888;">
+      جميع الحقوق محفوظة © آخر تسجيل – لا يُسمح بنسخ أو إعادة نشر المحتوى النصي أو الصوتي دون إذن مسبق.
+    </div>
+
   </div>
 
   <script>
@@ -471,6 +505,18 @@
     audioEl.addEventListener('ended', function () {
       playerBox.classList.remove('is-playing');
     });
+
+    // إظهار زر التحميل بعد ما المستخدم يضغط "أنا اشتركت"
+    const unlockBtn   = document.getElementById('unlockDownload');
+    const downloadBox = document.getElementById('downloadLink');
+
+    if (unlockBtn && downloadBox) {
+      unlockBtn.addEventListener('click', function () {
+        downloadBox.style.display = 'block';
+        unlockBtn.textContent = '✅ تم إظهار رابط التحميل';
+        unlockBtn.disabled = true;
+      });
+    }
   </script>
 
 </body>

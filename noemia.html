@@ -313,6 +313,32 @@
 
 <body>
 
+  <!-- حماية الصفحة بتسجيل الدخول عبر Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
+      authDomain: "a5er-tasgeel.firebaseapp.com",
+      projectId: "a5er-tasgeel",
+      storageBucket: "a5er-tasgeel.firebasestorage.app",
+      messagingSenderId: "239464150088",
+      appId: "1:239464150088:web:71a7288812dcfefc9c147d",
+      measurementId: "G-ZJRXVJG9JQ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        alert("يجب تسجيل الدخول أولاً للوصول إلى هذه الصفحة");
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+
   <div class="page">
 
     <!-- هيدر زي الصفحة الرئيسية -->

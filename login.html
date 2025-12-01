@@ -8,9 +8,24 @@
     input { width:80%; padding:10px; margin:10px 0; border-radius:8px; border:none; }
     button { padding:10px 20px; margin-top:15px; border-radius:8px; border:none; cursor:pointer; background:#ff3333; color:#fff; font-size:16px; }
     .box { max-width:400px; margin:auto; background:#1a1a1a; padding:25px; border-radius:12px; }
-    a { color:#ff5555; }
+    a { color:#ff5555; cursor:pointer; }
+    .google-btn {
+      background:#ffffff; 
+      color:#000; 
+      width:80%;
+      margin-top:15px;
+      border-radius:8px;
+      font-size:16px;
+      padding:10px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+    }
   </style>
 </head>
+
 <body>
 
 <div class="box">
@@ -20,23 +35,43 @@
   <input type="password" id="password" placeholder="كلمة السر">
 
   <button onclick="login()">تسجيل الدخول</button>
-  <p>لا تمتلك حساب؟ <a href="#" onclick="showSignup()">إنشاء حساب جديد</a></p>
 
+  <!-- زر تسجيل الدخول بجوجل -->
+  <div class="google-btn" onclick="loginWithGoogle()">
+    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="20">
+    تسجيل الدخول عبر Google
+  </div>
+
+  <p>لا تمتلك حساب؟ <a onclick="showSignup()">إنشاء حساب جديد</a></p>
+
+  <!-- إنشاء الحساب -->
   <div id="signupBox" style="display:none;">
     <h3>إنشاء حساب</h3>
     <input type="email" id="signupEmail" placeholder="البريد الإلكتروني">
     <input type="password" id="signupPassword" placeholder="كلمة السر">
     <button onclick="signup()">إنشاء حساب</button>
   </div>
-
 </div>
+
 
 <script type="module">
 
+  /* -------------------- Firebase Imports -------------------- */
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } 
-  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+  import { 
+    getAuth, 
+    signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword, 
+    GoogleAuthProvider,
+    signInWithPopup
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+  import { 
+    getAnalytics, 
+    logEvent 
+  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+
+  /* -------------------- Firebase Config -------------------- */
   const firebaseConfig = {
     apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
     authDomain: "a5er-tasgeel.firebaseapp.com",
@@ -47,33 +82,58 @@
     measurementId: "G-ZJRXVJG9JQ"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
+  const app       = initializeApp(firebaseConfig);
+  const auth      = getAuth(app);
+  const analytics = getAnalytics(app);
 
-  // تسجيل الدخوول
+
+  /* -------------------- تسجيل الدخول -------------------- */
   window.login = function() {
     const email = document.getElementById("email").value;
-    const pass = document.getElementById("password").value;
+    const pass  = document.getElementById("password").value;
 
     signInWithEmailAndPassword(auth, email, pass)
       .then(() => {
+        logEvent(analytics, 'login', { method: 'password' }); // ⭐ يسجل في Analytics
         alert("تم تسجيل الدخول!");
-        window.location.href = "noemia.html"; // ← عدّلها للصفحة اللي فيها التحميل
+        window.location.href = "noemia.html";
       })
       .catch(e => alert(e.message));
   }
 
-  // إنشاء حساب جديد
+
+  /* -------------------- إنشاء حساب جديد -------------------- */
   window.signup = function() {
     const email = document.getElementById("signupEmail").value;
-    const pass = document.getElementById("signupPassword").value;
+    const pass  = document.getElementById("signupPassword").value;
 
     createUserWithEmailAndPassword(auth, email, pass)
-      .then(() => alert("تم إنشاء الحساب – قم بتسجيل الدخول الآن"))
+      .then(() => {
+        logEvent(analytics, 'sign_up', { method: 'password' }); // ⭐ يسجل في Analytics
+        alert("تم إنشاء الحساب – تم تسجيل دخولك الآن");
+        window.location.href = "noemia.html";
+      })
       .catch(e => alert(e.message));
   }
 
-  // إظهار صندوق التسجيل
+
+  /* -------------------- تسجيل الدخول بجوجل -------------------- */
+  window.loginWithGoogle = function() {
+    const provider = new GoogleAuthProvider();
+
+    signInWithPopup(auth, provider)
+      .then(result => {
+        logEvent(analytics, 'login', { method: 'google' }); // ⭐ يسجل في Analytics
+        alert("تم تسجيل الدخول عبر Google!");
+        window.location.href = "noemia.html";
+      })
+      .catch(error => {
+        alert(error.message);
+      });
+  }
+
+
+  /* -------------------- إظهار صندوق التسجيل -------------------- */
   window.showSignup = function() {
     document.getElementById("signupBox").style.display = "block";
   }

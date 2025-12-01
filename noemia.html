@@ -87,6 +87,23 @@
       font-size: 15px;
     }
 
+    /* زر الرجوع */
+    .back-link {
+      margin: 10px 0 20px;
+      text-align: right;
+    }
+
+    .back-link a {
+      color: #ff3333;
+      font-weight: bold;
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    .back-link a:hover {
+      color: #ff5555;
+    }
+
     /* ===== بوكس القصة ===== */
     .story-box {
       background: radial-gradient(circle at top, #1b0000, #050608);
@@ -115,25 +132,18 @@
       white-space: pre-line;
     }
 
+    /* منع النسخ / التحديد */
+    .story-text.no-copy {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      cursor: default;
+    }
+
     .player-box {
       margin-top: 20px;
       text-align: center;
-    }
-
-    .back-link {
-      margin-top: 25px;
-      text-align: center;
-    }
-
-    .back-link a {
-      color: #ff3333;
-      font-weight: bold;
-      font-size: 15px;
-      text-decoration: none;
-    }
-
-    .back-link a:hover {
-      color: #ff5555;
     }
 
     /* ===== مشغّل صوت موجات رعب ===== */
@@ -300,6 +310,11 @@
       </p>
     </header>
 
+    <!-- زر الرجوع فوق بوكس القصة -->
+    <div class="back-link">
+      <a href="h18-stories.html">⬅️ الرجوع لقسم قصص رعب +18</a>
+    </div>
+
     <section class="story-box">
       <h1 class="story-title">نويميا والكيان</h1>
       <div class="story-meta">تصنيف: رعب / سحر / لعنة عائلية – +18</div>
@@ -365,7 +380,7 @@
 
       <hr style="margin:22px 0; border-color: rgba(255,255,255,0.06);" />
 
-      <div class="story-text">
+      <div class="story-text no-copy">
 السحر… موجود…
 ومش لعب عيال…
 ولا كلمة… بتتقال في الضلمة…
@@ -474,11 +489,6 @@
       </div>
     </section>
 
-    <!-- زر الرجوع -->
-    <div class="back-link">
-      <a href="h18-stories.html">⬅️ الرجوع لقسم قصص رعب +18</a>
-    </div>
-
     <!-- حقوق النشر -->
     <div style="margin-top:20px; text-align:center; font-size:12px; color:#888;">
       جميع الحقوق محفوظة © آخر تسجيل – لا يُسمح بنسخ أو إعادة نشر المحتوى النصي أو الصوتي دون إذن مسبق.
@@ -530,6 +540,21 @@
         unlockBtn.disabled = true;
       });
     }
+
+    // منع كليك يمين
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+
+    // منع بعض اختصارات الكيبورد (Ctrl + U / S / C / P)
+    document.addEventListener('keydown', function (e) {
+      if (e.ctrlKey) {
+        const key = e.key.toLowerCase();
+        if (['u', 's', 'c', 'p'].includes(key)) {
+          e.preventDefault();
+        }
+      }
+    });
   </script>
 
 </body>

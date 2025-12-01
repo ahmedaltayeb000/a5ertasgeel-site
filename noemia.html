@@ -87,21 +87,31 @@
       font-size: 15px;
     }
 
-    /* زر الرجوع */
-    .back-link {
+    /* أزرار الرجوع فوق وتحت */
+    .back-links {
       margin: 10px 0 20px;
-      text-align: right;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
     }
 
-    .back-link a {
-      color: #ff3333;
-      font-weight: bold;
-      font-size: 15px;
+    .back-links a {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #15171f;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
       text-decoration: none;
     }
 
-    .back-link a:hover {
-      color: #ff5555;
+    .back-links a:hover {
+      background: #ff3333;
+      border-color: #ff3333;
+      color: #fff;
     }
 
     /* ===== بوكس القصة ===== */
@@ -294,6 +304,9 @@
       .ap-wave {
         width: 100%;
       }
+      .back-links {
+        justify-content: center;
+      }
     }
   </style>
 </head>
@@ -310,8 +323,9 @@
       </p>
     </header>
 
-    <!-- زر الرجوع فوق بوكس القصة -->
-    <div class="back-link">
+    <!-- أزرار الرجوع (أعلى الصفحة) -->
+    <div class="back-links">
+      <a href="index.html">⬅️ الرجوع للصفحة الرئيسية</a>
       <a href="h18-stories.html">⬅️ الرجوع لقسم قصص رعب +18</a>
     </div>
 
@@ -488,6 +502,12 @@
 استنى… التسجيل التاني…
       </div>
     </section>
+
+    <!-- أزرار الرجوع (أسفل الصفحة) -->
+    <div class="back-links">
+      <a href="index.html">⬅️ الرجوع للصفحة الرئيسية</a>
+      <a href="h18-stories.html">⬅️ الرجوع لقسم قصص رعب +18</a>
+    </div>
 
     <!-- حقوق النشر -->
     <div style="margin-top:20px; text-align:center; font-size:12px; color:#888;">

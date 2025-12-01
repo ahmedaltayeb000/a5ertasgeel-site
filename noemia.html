@@ -382,10 +382,11 @@
 
 <body>
 
-  <!-- مراقبة حالة التسجيل عبر Firebase (بدون إجبار فتح الصفحة) -->
+  <!-- مراقبة حالة التسجيل عبر Firebase + Analytics -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
@@ -397,8 +398,16 @@
       measurementId: "G-ZJRXVJG9JQ"
     };
 
-    const app = initializeApp(firebaseConfig);
+    const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+
+    // 🔥 Analytics: تسجيل زيارة الصفحة
+    try {
+      const analytics = getAnalytics(app);
+      logEvent(analytics, 'page_view');
+    } catch (err) {
+      console.error('Firebase Analytics error:', err);
+    }
 
     // لو فيه مستخدم مسجّل نحفظ الحالة في localStorage
     onAuthStateChanged(auth, user => {
@@ -514,7 +523,7 @@
 بقى كله صريخ… وخضّة… وصوت خطوات… في الضلمة…
 كل ما نحاول نهرب… الرعب… ييجري ورانا…
 كل ما نوّر شمعة… النور… يطفي فجأة…
-والليل… كان ليه صوت… بيتنفس… تقيل… بارد… قريب أوي…
+والليل… كان ليه صوت… بيتتنفس… تقيل… بارد… قريب أوي…
 وكإنه… شايف… ومستني…
 كنت وقتها عندي واحد وعشرين سنة…
 ماركوس… جوزي… كان بيشتغل طول اليوم…

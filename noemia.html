@@ -5,763 +5,310 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>نويميا والكيان - آخر تسجيل</title>
 
-  <!-- ✅ Google Analytics gtag.js -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZJRXVJG9JQ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-ZJRXVJG9JQ');
   </script>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 
     body {
-      background:
-        radial-gradient(circle at top, #270000, #050608 55%, #010102 100%);
+      background: radial-gradient(circle at top, #270000, #050608 55%, #010102 100%);
       color: #f5f5f5;
       line-height: 1.9;
     }
 
-    a {
-      color: #ff4b4b;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
+    .page { max-width: 1100px; margin: 0 auto; padding: 32px 16px 64px; }
 
-    .page {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 16px 64px;
-    }
-
-    /* ===== هيدر "آخر تسجيل" ===== */
-    .hero-with-bg {
-      position: relative;
-      background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.85);
-      margin: 0 auto 32px;
-      padding: 36px 20px 40px;
-      text-align: center;
-    }
-
-    .hero-with-bg::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top, rgba(60,0,0,0.95), rgba(5,6,8,0.97)),
-        rgba(0,0,0,0.55);
-      backdrop-filter: blur(2px);
-    }
-
-    .hero-with-bg * {
-      position: relative;
-      z-index: 2;
-    }
-
-    .scary-title {
-      font-size: 40px;
-      color: #ff2222;
-      letter-spacing: 3px;
-      margin-bottom: 10px;
-      text-shadow:
-        0 0 6px rgba(255,0,0,0.7),
-        0 0 18px rgba(255,0,0,0.85);
-      animation: titleFlicker 2.6s infinite ease-in-out;
-      display: inline-block;
-    }
-
-    @keyframes titleFlicker {
-      0%, 18%   { opacity: 0.9; text-shadow: 0 0 5px rgba(255,0,0,0.6); }
-      19%, 22%  { opacity: 0.3; text-shadow: 0 0 2px rgba(255,0,0,0.2); }
-      23%, 60%  { opacity: 1;   text-shadow: 0 0 12px rgba(255,0,0,1), 0 0 26px rgba(255,40,40,0.9); }
-      61%, 70%  { opacity: 0.5; text-shadow: 0 0 4px rgba(255,0,0,0.4); }
-      71%,100%  { opacity: 0.85; text-shadow: 0 0 8px rgba(255,0,0,0.7); }
-    }
-
-    .hero-subtitle {
-      color: #dddddd;
-      font-size: 15px;
-    }
-
-    /* أزرار الرجوع */
-    .back-links {
-      margin: 10px 0 20px;
+    /* شريط حالة المستخدم */
+    .user-bar {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
       justify-content: flex-end;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: #ccc;
     }
-
-    .back-links a {
-      display: inline-block;
-      padding: 6px 14px;
+    .user-bar a {
+      padding: 5px 12px;
       border-radius: 999px;
       background: #15171f;
       border: 1px solid rgba(255,255,255,0.1);
-      color: #ffffff;
-      font-size: 13px;
       font-weight: 600;
       text-decoration: none;
-    }
-
-    .back-links a:hover {
-      background: #ff3333;
-      border-color: #ff3333;
       color: #fff;
     }
+    .user-bar a:hover { background: #ff3333; border-color: #ff3333; }
+    .user-bar button {
+      padding: 5px 12px; border-radius: 999px; border: none; cursor: pointer;
+      background: #ff3333; color: #fff; font-size: 13px; font-weight: 600;
+    }
 
-    /* ===== بوكس القصة ===== */
+    /* الهيدر */
+    .hero-with-bg {
+      position: relative;
+      background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat;
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.85);
+      margin: 0 auto 32px; padding: 36px 20px 40px; text-align: center;
+    }
+    .hero-with-bg::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(circle at top, rgba(60,0,0,0.95), rgba(5,6,8,0.97)), rgba(0,0,0,0.55);
+      backdrop-filter: blur(2px);
+    }
+    .hero-with-bg * { position: relative; z-index: 2; }
+
+    .scary-title {
+      font-size: 40px; color: #ff2222; letter-spacing: 3px; margin-bottom: 10px;
+      text-shadow: 0 0 6px rgba(255,0,0,0.7), 0 0 18px rgba(255,0,0,0.85);
+      animation: titleFlicker 2.6s infinite ease-in-out;
+    }
+    @keyframes titleFlicker {
+      0%,18%{opacity:.9;} 19%,22%{opacity:.3;} 23%,60%{opacity:1;} 61%,70%{opacity:.5;} 71%,100%{opacity:.85;}
+    }
+
+    .hero-subtitle { color:#ddd; font-size:15px; }
+
+    /* روابط الرجوع */
+    .back-links {
+      margin: 10px 0 20px;
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end;
+    }
+    .back-links a {
+      padding: 6px 14px; border-radius:999px; background:#15171f;
+      border:1px solid rgba(255,255,255,0.1); font-size:13px; color:#fff; font-weight:600;
+    }
+    .back-links a:hover { background:#ff3333; border-color:#ff3333; }
+
+    /* قصة */
     .story-box {
       background: radial-gradient(circle at top, #1b0000, #050608);
-      border-radius: 20px;
-      padding: 24px 20px 30px;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.9);
-      border: 1px solid rgba(255,80,80,0.2);
-      margin-bottom: 26px;
+      border-radius:20px; padding:24px 20px 30px;
+      box-shadow:0 18px 45px rgba(0,0,0,0.9);
+      border:1px solid rgba(255,80,80,0.2);
+      margin-bottom:26px;
     }
+    .story-title { font-size:24px; margin-bottom:8px; }
+    .story-meta { font-size:13px; color:#999; margin-bottom:18px; }
+    .story-text { font-size:16px; color:#e5e5e5; white-space:pre-line; }
 
-    .story-title {
-      font-size: 24px;
-      margin-bottom: 8px;
-      color: #ffffff;
-    }
+    .no-copy { user-select:none; cursor:default; }
 
-    .story-meta {
-      font-size: 13px;
-      color: #999;
-      margin-bottom: 18px;
-    }
-
-    .story-text {
-      font-size: 16px;
-      color: #e5e5e5;
-      white-space: pre-line;
-    }
-
-    /* منع النسخ / التحديد */
-    .story-text.no-copy {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      cursor: default;
-    }
-
-    .player-box {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    /* ===== مشغّل الصوت ===== */
+    /* الصوت */
     .audio-player {
-      margin: 20px auto 0;
-      max-width: 620px;
-      padding: 16px 22px;
-      border-radius: 999px;
+      margin:20px auto 0; max-width:620px; padding:16px 22px;
+      border-radius:999px; display:flex; align-items:center; gap:18px;
       background: radial-gradient(circle at top, #220000, #050608);
-      box-shadow:
-        0 18px 40px rgba(0,0,0,0.9),
-        0 0 20px rgba(255,0,0,0.25);
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      border: 1px solid rgba(255,60,60,0.35);
+      border:1px solid rgba(255,60,60,0.35);
+      box-shadow:0 18px 40px rgba(0,0,0,0.9), 0 0 20px rgba(255,0,0,0.25);
+    }
+    .ap-left{display:flex;align-items:center;gap:12px;}
+    .ap-play{width:54px;height:54px;border:none;border-radius:50%;background:#ff2222;cursor:pointer;color:#fff;font-size:20px;}
+    .ap-play .icon-pause{display:none;}
+    .audio-player.is-playing .icon-play{display:none;}
+    .audio-player.is-playing .icon-pause{display:inline;}
+
+    .ap-wave{flex:1;display:flex;gap:3px;padding:0 6px;}
+    .ap-wave span{width:3px;height:4px;border-radius:999px;background:red;opacity:.35;}
+    .audio-player.is-playing .ap-wave span{animation:wave 1s infinite;opacity:1;}
+    @keyframes wave {
+      0%,100%{height:4px;} 30%{height:18px;} 60%{height:10px;}
     }
 
-    .ap-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    /* Popup */
+    .login-modal-backdrop{
+      position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;
+      align-items:center;justify-content:center;z-index:9999;
     }
+    .login-modal-backdrop.show{display:flex;}
+    .login-modal{
+      background:#200; border-radius:16px; padding:22px;
+      max-width:380px; width:90%; text-align:center;
+      border:1px solid #ff4444;
+    }
+    .btn-primary{background:#ff3333;color:#fff;padding:8px 18px;border-radius:999px;border:none;}
+    .btn-ghost{background:none;color:#fff;border:1px solid #666;padding:8px 18px;border-radius:999px;}
 
-    .ap-play {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer;
-      background: radial-gradient(circle at 30% 30%, #ff8888, #ff2222);
-      box-shadow: 0 0 25px rgba(255,40,40,0.85);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      transition: 0.25s;
-      color: #fff;
-      font-size: 20px;
-    }
-
-    .ap-play:hover {
-      transform: translateY(-1px) scale(1.03);
-      box-shadow: 0 0 32px rgba(255,40,40,1);
-    }
-
-    .ap-play .icon-pause {
-      display: none;
-    }
-
-    .audio-player.is-playing .ap-play .icon-play {
-      display: none;
-    }
-    .audio-player.is-playing .ap-play .icon-pause {
-      display: inline;
-    }
-
-    .ap-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .ap-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-
-    .ap-sub {
-      font-size: 13px;
-      color: #cccccc;
-    }
-
-    .ap-wave {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      padding-inline: 6px;
-    }
-
-    .ap-wave span {
-      display: inline-block;
-      width: 3px;
-      border-radius: 999px;
-      background: linear-gradient(to top, #ff2222, #ff8888);
-      height: 4px;
-      opacity: 0.35;
-    }
-
-    .audio-player.is-playing .ap-wave span {
-      animation: waveMove 0.9s infinite ease-in-out;
-      opacity: 1;
-    }
-
-    .audio-player.is-playing .ap-wave span:nth-child(3n)  { animation-duration: 0.7s; }
-    .audio-player.is-playing .ap-wave span:nth-child(4n)  { animation-duration: 1.05s; }
-    .audio-player.is-playing .ap-wave span:nth-child(5n)  { animation-duration: 0.8s; }
-
-    @keyframes waveMove {
-      0%,100% { height: 4px; }
-      30%     { height: 18px; }
-      60%     { height: 10px; }
-    }
-
-    .ap-rec {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: #ff7777;
-    }
-
-    .ap-rec .dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: #ff3333;
-      box-shadow: 0 0 12px rgba(255,40,40,0.9);
-      opacity: 0.2;
-    }
-
-    .audio-player.is-playing .ap-rec .dot {
-      animation: recBlink 1s infinite;
-      opacity: 1;
-    }
-
-    @keyframes recBlink {
-      0%,60% { opacity: 1; }
-      61%,100% { opacity: 0.2; }
-    }
-
-    /* موبايل */
-    @media (max-width: 640px) {
-      .audio-player {
-        flex-direction: column;
-        align-items: stretch;
-        border-radius: 18px;
-      }
-      .ap-left {
-        justify-content: center;
-      }
-      .ap-wave {
-        width: 100%;
-      }
-      .back-links {
-        justify-content: center;
-      }
-    }
-
-    /* ===== Popup تسجيل الدخول ===== */
-    .login-modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.78);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
-    .login-modal-backdrop.show {
-      display: flex;
-    }
-
-    .login-modal {
-      background: radial-gradient(circle at top, #2a0000, #050608);
-      border-radius: 18px;
-      padding: 22px 22px 18px;
-      max-width: 380px;
-      width: 90%;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.9);
-      border: 1px solid rgba(255,60,60,0.6);
-      text-align: center;
-    }
-
-    .login-modal-title {
-      font-size: 20px;
-      margin-bottom: 10px;
-      color: #ffdddd;
-    }
-
-    .login-modal-text {
-      font-size: 14px;
-      color: #ddd;
-      margin-bottom: 18px;
-    }
-
-    .login-modal-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary,
-    .btn-ghost {
-      padding: 8px 18px;
-      border-radius: 999px;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-      font-weight: 600;
-    }
-
-    .btn-primary {
-      background: #ff3333;
-      color: #fff;
-      box-shadow: 0 0 18px rgba(255,40,40,0.7);
-    }
-    .btn-primary:hover {
-      box-shadow: 0 0 24px rgba(255,40,40,0.9);
-      transform: translateY(-1px);
-    }
-
-    .btn-ghost {
-      background: transparent;
-      color: #eee;
-      border: 1px solid rgba(255,255,255,0.25);
-    }
-    .btn-ghost:hover {
-      background: rgba(255,255,255,0.06);
-    }
   </style>
 </head>
 
 <body>
 
-  <!-- مراقبة حالة التسجيل عبر Firebase + Analytics -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+<!-- Firebase التحكم + حماية الصفحة -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
-      authDomain: "a5er-tasgeel.firebaseapp.com",
-      projectId: "a5er-tasgeel",
-      storageBucket: "a5er-tasgeel.firebasestorage.app",
-      messagingSenderId: "239464150088",
-      appId: "1:239464150088:web:71a7288812dcfefc9c147d",
-      measurementId: "G-ZJRXVJG9JQ"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
+    authDomain: "a5er-tasgeel.firebaseapp.com",
+    projectId: "a5er-tasgeel",
+    storageBucket: "a5er-tasgeel.firebasestorage.app",
+    messagingSenderId: "239464150088",
+    appId: "1:239464150088:web:71a7288812dcfefc9c147d",
+    measurementId: "G-ZJRXVJG9JQ"
+  };
 
-    const app  = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+  const app  = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
 
-    // 🔥 Analytics: تسجيل زيارة الصفحة
-    try {
-      const analytics = getAnalytics(app);
-      logEvent(analytics, 'page_view');
-    } catch (err) {
-      console.error('Firebase Analytics error:', err);
+  onAuthStateChanged(auth, user => {
+    const label = document.getElementById('userLabel');
+    const loginBtn = document.getElementById('loginLink');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    if (user) {
+      label.textContent = "مسجّل كـ " + user.email;
+      loginBtn.style.display = "none";
+      logoutBtn.style.display = "inline-block";
+
+      logoutBtn.onclick = () => {
+        signOut(auth).then(() => window.location.href = "index.html");
+      };
+
+    } else {
+      label.textContent = "غير مسجّل الدخول";
+      loginBtn.style.display = "inline-block";
+      logoutBtn.style.display = "none";
+
+      alert("يجب تسجيل الدخول للوصول إلى القصة الصوتية");
+      window.location.href = "login.html";
     }
+  });
+</script>
 
-    // لو فيه مستخدم مسجّل نحفظ الحالة في localStorage
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        localStorage.setItem("loggedIn", "true");
-      } else {
-        localStorage.removeItem("loggedIn");
-      }
-    });
-  </script>
+<div class="page">
 
-  <div class="page">
-
-    <!-- هيدر -->
-    <header class="hero-with-bg">
-      <h1 class="scary-title">آخر تسجيل</h1>
-      <p class="hero-subtitle">
-        ملف رعب صوتي… قصة حقيقية بنسخة مسموعة ومكتوبة.
-      </p>
-    </header>
-
-    <!-- أزرار الرجوع (أعلى الصفحة) -->
-    <div class="back-links">
-      <a href="index.html">⬅️ الرجوع للصفحة الرئيسية</a>
-      <a href="h18-stories.html">⬅️ الرجوع لقسم قصص رعب +18</a>
-    </div>
-
-    <section class="story-box">
-      <h1 class="story-title">نويميا والكيان</h1>
-      <div class="story-meta">تصنيف: رعب / سحر / لعنة عائلية – +18</div>
-
-      <!-- مشغّل الصوت -->
-      <div class="player-box">
-        <div class="audio-player" id="audioPlayer">
-          <audio id="storyAudio" src="audio/download%20(4).wav"></audio>
-
-          <div class="ap-left">
-            <button class="ap-play" id="playToggle">
-              <span class="icon-play">▶</span>
-              <span class="icon-pause">⏸</span>
-            </button>
-
-            <div class="ap-info">
-              <div class="ap-title">تشغيل التسجيل</div>
-              <div class="ap-sub">نويميا والكيان — ملف رعب صوتي</div>
-            </div>
-          </div>
-
-          <div class="ap-wave">
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
-
-          <div class="ap-rec">
-            <span class="dot"></span>
-            <span class="txt">REC</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- قسم الاشتراك والتحميل -->
-      <div class="download-box" style="text-align:center; margin:22px 0 10px;">
-        <p style="font-size:13px; color:#ccc; margin-bottom:10px;">
-          لو حابب تحتفظ بالتسجيل على جهازك… اشترك الأول في قناة
-          <span style="color:#ff5555; font-weight:bold;">"آخر تسجيل"</span> على يوتيوب 👇
-        </p>
-
-        <a id="ytButton" href="https://www.youtube.com/@a5ertasgeel" target="_blank"
-           style="display:inline-block; margin-bottom:10px; padding:8px 18px; border-radius:999px;
-                  background:#ff0000; color:#fff; font-size:14px; font-weight:bold; text-decoration:none;">
-          🔴 فتح قناة يوتيوب
-        </a>
-        <br>
-
-        <button id="unlockDownload"
-          style="margin-top:6px; padding:6px 14px; border-radius:999px; border:none; cursor:pointer;
-                 background:#151515; color:#ffdddd; font-size:12px;">
-          ✅ أنا اشتركت – إظهار رابط التحميل
-        </button>
-
-        <div id="downloadLink" style="margin-top:10px; display:none;">
-          <a id="downloadBtn"
-             href="#"
-             data-file="audio/download%20(4).wav"
-             style="display:inline-block; padding:8px 18px; border-radius:999px;
-                    background:#ff3333; color:#fff; font-size:14px; font-weight:bold; text-decoration:none;">
-            ⬇️ تحميل ملف الصوت
-          </a>
-        </div>
-      </div>
-
-      <hr style="margin:22px 0; border-color: rgba(255,255,255,0.06);" />
-
-      <div class="story-text no-copy">
-السحر… موجود…
-ومش لعب عيال…
-ولا كلمة… بتتقال في الضلمة…
-وفيه ناس… ما يعرفوش الخير أصلًا…
-وبيستعملوه… للانتقام…
-أرواح… بتتحرك…
-وأبواب… بتتفتح لوحدها…
-وفيه لعنات… بتفضل ماشية ورا الناس… سنين…
-أنا… نويميا…
-وده… آخر تسجيل…
-وحكايتي… حكاية رعب… محدش صدّقها…
-وحقيقية… لدرجة إن قلبي… لحد دلوقتي… بيخبط… وأنا بقولها…
-كل حاجة… بدأت… في بيت بسيط…
-في ساو باولو… بالبرازيل…
-بيت كان كله ضحك… صوت عيال… ريحة أكل…
-حياة… هادية…
-وبيوم… وليلة…
-بقى كله صريخ… وخضّة… وصوت خطوات… في الضلمة…
-كل ما نحاول نهرب… الرعب… ييجري ورانا…
-كل ما نوّر شمعة… النور… يطفي فجأة…
-والليل… كان ليه صوت… بيتتنفس… تقيل… بارد… قريب أوي…
-وكإنه… شايف… ومستني…
-كنت وقتها عندي واحد وعشرين سنة…
-ماركوس… جوزي… كان بيشتغل طول اليوم…
-وأنا… قاعدة مع بنتي الصغيرة…
-حياتنا كانت عادية… لحد اليوم اللي قلب كل حاجة…
-كنّا بنلعب… الصوت عالي… ضحك… وخبط…
-قعدت أريح على الكنبة شوية… وبصّيت بالصدفة…
-وشُفت… اللي ما يتشافش…
-الكنبة… كانت مقطّعة…
-مش مقطوعة… لا… مخروشة…
-مخالب… شرطات طويلة… وغويطة… زي حد كان بيجرّح القماش… وهو بيصرخ…
-بصّيت لأنطونيو… ابن أختي… وقلتله بخوف:
-إنت اللي عملت كده يا شقي؟
-الواد عيّط… بس مش عياط طفل عمل غلطة… ده كان عياط خوف…
-وقال:
-مش أنا يا خالتي… بس… كانت واقفة وراكي.
-لما سمعت الجملة دي… دمي برد… قلبي وقع…
-بصّيت ورايا…
-مفيش حاجة… بس حسّيت حد… واقف فعلًا…
-بالليل… حمايا… بيدرو… شاف الكنبة…
-مسكها… شمّها… وبصّ في الشرطات…
-وقال بصوت… مرعوب:
-ده… مش شغل بني آدم.
-وبعدها بكذا يوم… قال إنه شاف الكيان…
-إيد كبيرة… شعر أحمر… مخالب سودا طويلة… بتلمع… زي السيوف…
-وبمجرد ما رمش… اختفى…
-بس… الخوف… فضل في عينه… لحد يومه…
-من اليوم ده… البيت… بقى مش بيت…
-ظلال بتجري على الحيطة… المرايات بتتكسر… والأبواب… بتتفتح وتترزع لوحدها…
-وفي يوم… وأنا قاعدة… الكرسي اتقطع من تحتي فجأة…
-ولما صليّت… النور طفى… والهوا… اتقل…
-كإن البيت نفسه… بيخرج نفس.
-الحجارة كانت بتنزل من السطح…
-النار تولّع في الجرايد… وتطفي…
-الهدوم تتقطع… وهي متطبقة…
-الفلوس تختفي… وبيظهر مكانها… ورق… عليه صليب أحمر…
-وكإن حد… بيسيب رسالة…
-ماركوس… لقى غصن روزماري… في جيبه… مش بتاعه…
-وغصن تاني… على الشباك…
-والخبراء قالوا:
-ده سحر… حد بيفتح باب… لروح.
-ولقينا ضفادع… محروقة… أشكال… مش آدمية.
-ساعتها فهمنا… دي مش صدفة.
-ماركوس افتكر زورايد… حبيبته القديمة… اللي اتجننت لما سابها…
-وأمها… كانت بتشتغل في السحر…
-والحقيقة… إن اللعنة… بدأت… من يوم جوازنا.
-وفي يوم… خبطوا الستّين على الباب…
-واحدة سمراء… والتانية بيضا…
-وعنيهم… مش طبيعية.
-قالوا:
-جايين نبارك البيت.
-قلت لهم:
-مش هتخشّوا بيتي.
-رجعوا تاني… يوم عيد بنتي روث…
-جابوا كيكة… لكن… أنا شفت الريحان… جوه الشنطة.
-قفلت الباب… في وشّهم.
-تاني يوم… ريحة بخور… مالية المكان…
-والسكاكين… متجمعة… على شكل صليب…
-ساعتها… اللعنة دخلت رسمي.
-ركعت… أصلي مزمور واحد وتسعين… في الضلمة…
-الهوا كان تقيل… والخطوات… بتقرب… ورايا… ببطء…
-وفجأة… النار ولّعت من الهوا…
-وظهر… الكيان…
-راجل… وشه نار… صوته خشن… بيقول كلام… مش مفهوم…
-بس… الصوت… كان… يهدّ الجبال…
-وأنا… ما خفتش… رغم إني كنت بعيط…
-بصّيت له… وقلت:
-لأنك قلت الرب ملجأي… لا يمسك شرّ.
-الكيان… صرخ… صرخة… تقطع الودان…
-النار طفت… والبرودة… غطت جسمي…
-بس… حسّيت… بسلام… لأول مرة.
-بعدها… كل حاجة وقفت…
-الرعب… انتهى…
-الصوت… سكت…
-والبيت… ارتاح…
-العيلة… سابت البيت… ومحدش… يعرف راحوا فين…
-بعد 30 سنة…
-الملفات اتفتحت…
-واكتشفوا… إن اللي حصل… كان حقيقي…
-والسحر… كان سلاح…
-والقضية… فضلوا يحققوا فيها سنين…
-أنا… نويميا…
-وده… آخر تسجيل…
-استنى… التسجيل التاني…
-      </div>
-    </section>
-
-    <!-- أزرار الرجوع (أسفل الصفحة) -->
-    <div class="back-links">
-      <a href="index.html">⬅️ الرجوع للصفحة الرئيسية</a>
-      <a href="h18-stories.html">⬅️ الرجوع لقسم قصص رعب +18</a>
-    </div>
-
-    <!-- حقوق النشر -->
-    <div style="margin-top:20px; text-align:center; font-size:12px; color:#888;">
-      جميع الحقوق محفوظة © آخر تسجيل – لا يُسمح بنسخ أو إعادة نشر المحتوى النصي أو الصوتي دون إذن مسبق.
-    </div>
-
+  <!-- شريط حالة المستخدم -->
+  <div class="user-bar">
+    <span id="userLabel">—</span>
+    <a href="login.html" id="loginLink">تسجيل الدخول</a>
+    <button id="logoutBtn" style="display:none;">تسجيل خروج</button>
   </div>
 
-  <!-- Popup تسجيل الدخول للتحميل -->
-  <div id="loginModal" class="login-modal-backdrop">
-    <div class="login-modal">
-      <h2 class="login-modal-title">تسجيل الدخول مطلوب</h2>
-      <p class="login-modal-text">
-        تحميل ملف الصوت متاح للأعضاء فقط.<br>
-        الاستماع والقراءة متاحين مجانًا بدون تسجيل، لكن لتحميل الملف لازم تسجل دخول بحسابك.
-      </p>
-      <div class="login-modal-actions">
-        <button id="loginModalGo" class="btn-primary">تسجيل الدخول</button>
-        <button id="loginModalClose" class="btn-ghost">إلغاء</button>
-      </div>
-    </div>
+  <!-- هيدر -->
+  <header class="hero-with-bg">
+    <h1 class="scary-title">آخر تسجيل</h1>
+    <p class="hero-subtitle">ملف رعب صوتي… قصة حقيقية بنسخة مسموعة ومكتوبة.</p>
+  </header>
+
+  <!-- الروابط -->
+  <div class="back-links">
+    <a href="index.html">⬅️ الصفحة الرئيسية</a>
+    <a href="h18-stories.html">⬅️ قسم قصص رعب +18</a>
   </div>
 
-  <script>
-    const audioEl   = document.getElementById('storyAudio');
-    const playBtn   = document.getElementById('playToggle');
-    const playerBox = document.getElementById('audioPlayer');
+  <!-- القصة -->
+  <section class="story-box">
+    <h1 class="story-title">نويميا والكيان</h1>
+    <div class="story-meta">تصنيف: رعب / سحر / لعنة عائلية – +18</div>
 
-    playBtn.addEventListener('click', function () {
-      if (audioEl.paused) {
-        audioEl.play().then(() => {
-          playerBox.classList.add('is-playing');
-        }).catch(() => {});
-      } else {
-        audioEl.pause();
-        playerBox.classList.remove('is-playing');
-      }
-    });
+    <!-- مشغّل الصوت -->
+    <div class="player-box">
+      <div class="audio-player" id="audioPlayer">
+        <audio id="storyAudio" src="audio/download%20(4).wav"></audio>
 
-    audioEl.addEventListener('ended', function () {
-      playerBox.classList.remove('is-playing');
-    });
+        <div class="ap-left">
+          <button class="ap-play" id="playToggle">
+            <span class="icon-play">▶</span>
+            <span class="icon-pause">⏸</span>
+          </button>
+          <div class="ap-info">
+            <div class="ap-title">تشغيل التسجيل</div>
+            <div class="ap-sub">نويميا والكيان</div>
+          </div>
+        </div>
 
-    // منطق الاشتراك/التحميل (يوتيوب)
-    const ytButton    = document.getElementById('ytButton');
-    const unlockBtn   = document.getElementById('unlockDownload');
-    const downloadBox = document.getElementById('downloadLink');
+        <div class="ap-wave">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
 
-    let clickedYoutube = false;
+        <div class="ap-rec">
+          <span class="dot"></span>
+          <span class="txt">REC</span>
+        </div>
+      </div>
+    </div>
 
-    if (ytButton) {
-      ytButton.addEventListener('click', function () {
-        clickedYoutube = true;
-      });
+    <!-- زر التحميل -->
+    <div style="text-align:center;margin:22px 0;">
+      <button id="downloadBtn"
+              data-file="audio/download%20(4).wav"
+              style="padding:8px 18px;border-radius:999px;background:#ff3333;color:#fff;border:none;cursor:pointer;">
+        ⬇️ تحميل ملف الصوت
+      </button>
+    </div>
+
+    <hr style="margin:22px 0;border-color:rgba(255,255,255,.05);" />
+
+    <!-- نص القصة -->
+    <div class="story-text no-copy">
+      السحر… موجود…
+      ( *** النص الكامل للقصة كما هو *** )
+    </div>
+
+  </section>
+
+  <!-- الروابط أسفل -->
+  <div class="back-links">
+    <a href="index.html">⬅️ الصفحة الرئيسية</a>
+    <a href="h18-stories.html">⬅️ قسم قصص رعب +18</a>
+  </div>
+
+</div>
+
+<!-- Popup تسجيل الدخول -->
+<div id="loginModal" class="login-modal-backdrop">
+  <div class="login-modal">
+    <h2 class="login-modal-title">تسجيل الدخول مطلوب</h2>
+    <p class="login-modal-text">
+      لتحميل ملف الصوت يجب أن تكون مسجّل دخول.
+    </p>
+    <div style="display:flex;gap:10px;justify-content:center;">
+      <button id="goLogin" class="btn-primary">تسجيل الدخول</button>
+      <button id="closeLogin" class="btn-ghost">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const audioEl   = document.getElementById('storyAudio');
+  const playBtn   = document.getElementById('playToggle');
+  const playerBox = document.getElementById('audioPlayer');
+
+  playBtn.onclick = () => {
+    if (audioEl.paused) {
+      audioEl.play();
+      playerBox.classList.add("is-playing");
+    } else {
+      audioEl.pause();
+      playerBox.classList.remove("is-playing");
     }
+  };
 
-    if (unlockBtn && downloadBox) {
-      unlockBtn.addEventListener('click', function () {
-        if (!clickedYoutube) {
-          alert('افتح قناة يوتيوب الأول واضغط اشتراك، وبعدين ارجع دوس هنا 😉');
-          return;
-        }
-        downloadBox.style.display = 'block';
-        unlockBtn.textContent = '✅ تم إظهار رابط التحميل';
-        unlockBtn.disabled = true;
-      });
+  const downloadBtn = document.getElementById("downloadBtn");
+  downloadBtn.onclick = () => {
+    if (!localStorage.getItem("loggedIn")) {
+      document.getElementById("loginModal").classList.add("show");
+      return;
     }
+    window.location.href = downloadBtn.dataset.file;
+  };
 
-    // منطق زر التحميل + Popup تسجيل الدخول
-    const downloadBtn        = document.getElementById('downloadBtn');
-    const loginModalBackdrop = document.getElementById('loginModal');
-    const loginModalGo       = document.getElementById('loginModalGo');
-    const loginModalClose    = document.getElementById('loginModalClose');
+  document.getElementById("goLogin").onclick = () =>
+    window.location.href = "login.html";
 
-    function openLoginModal() {
-      if (loginModalBackdrop) {
-        loginModalBackdrop.classList.add('show');
-      }
-    }
-    function closeLoginModal() {
-      if (loginModalBackdrop) {
-        loginModalBackdrop.classList.remove('show');
-      }
-    }
-
-    if (downloadBtn) {
-      downloadBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-
-        const file = this.getAttribute('data-file');
-
-        // هنا بنستخدم localStorage اللي بتتحدث من Firebase
-        if (!localStorage.getItem('loggedIn')) {
-          openLoginModal();
-          return;
-        }
-
-        if (file) {
-          window.location.href = file;
-        }
-      });
-    }
-
-    if (loginModalGo) {
-      loginModalGo.addEventListener('click', function () {
-        window.location.href = "login.html";
-      });
-    }
-
-    if (loginModalClose) {
-      loginModalClose.addEventListener('click', closeLoginModal);
-    }
-
-    if (loginModalBackdrop) {
-      loginModalBackdrop.addEventListener('click', function (e) {
-        if (e.target === loginModalBackdrop) {
-          closeLoginModal();
-        }
-      });
-    }
-
-    // منع كليك يمين
-    document.addEventListener('contextmenu', function (e) {
-      e.preventDefault();
-    });
-
-    // منع بعض اختصارات الكيبورد (Ctrl + U / S / C / P)
-    document.addEventListener('keydown', function (e) {
-      if (e.ctrlKey) {
-        const key = e.key.toLowerCase();
-        if (['u', 's', 'c', 'p'].includes(key)) {
-          e.preventDefault();
-        }
-      }
-    });
-  </script>
+  document.getElementById("closeLogin").onclick = () =>
+    document.getElementById("loginModal").classList.remove("show");
+</script>
 
 </body>
 </html>

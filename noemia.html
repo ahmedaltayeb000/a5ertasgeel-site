@@ -15,7 +15,12 @@
   </script>
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
 
     body {
       background: radial-gradient(circle at top, #270000, #050608 55%, #010102 100%);
@@ -23,18 +28,32 @@
       line-height: 1.9;
     }
 
-    .page { max-width: 1100px; margin: 0 auto; padding: 32px 16px 64px; }
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 16px 64px;
+    }
 
-    /* شريط حالة المستخدم */
+    /* شريط حالة المستخدم (موحّد مع باقي الصفحات) */
     .user-bar {
       display: flex;
       justify-content: flex-end;
       align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
+      padding: 10px 18px;
       font-size: 13px;
       color: #ccc;
+      background: #0c0c0c;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
+
+    .user-bar span {
+      max-width: 220px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .user-bar a {
       padding: 5px 12px;
       border-radius: 999px;
@@ -43,105 +62,243 @@
       font-weight: 600;
       text-decoration: none;
       color: #fff;
+      font-size: 13px;
     }
-    .user-bar a:hover { background: #ff3333; border-color: #ff3333; }
+
+    .user-bar a:hover {
+      background: #ff3333;
+      border-color: #ff3333;
+      color: #fff;
+    }
+
     .user-bar button {
-      padding: 5px 12px; border-radius: 999px; border: none; cursor: pointer;
-      background: #ff3333; color: #fff; font-size: 13px; font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: #ff3333;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
     }
 
     /* الهيدر */
     .hero-with-bg {
       position: relative;
       background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat;
-      border-radius: 20px; overflow: hidden;
+      border-radius: 20px;
+      overflow: hidden;
       box-shadow: 0 18px 40px rgba(0,0,0,0.85);
-      margin: 0 auto 32px; padding: 36px 20px 40px; text-align: center;
+      margin: 0 auto 32px;
+      padding: 36px 20px 40px;
+      text-align: center;
     }
+
     .hero-with-bg::before {
-      content: ""; position: absolute; inset: 0;
-      background: radial-gradient(circle at top, rgba(60,0,0,0.95), rgba(5,6,8,0.97)), rgba(0,0,0,0.55);
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top, rgba(60,0,0,0.95), rgba(5,6,8,0.97)),
+        rgba(0,0,0,0.55);
       backdrop-filter: blur(2px);
     }
-    .hero-with-bg * { position: relative; z-index: 2; }
+
+    .hero-with-bg * {
+      position: relative;
+      z-index: 2;
+    }
 
     .scary-title {
-      font-size: 40px; color: #ff2222; letter-spacing: 3px; margin-bottom: 10px;
-      text-shadow: 0 0 6px rgba(255,0,0,0.7), 0 0 18px rgba(255,0,0,0.85);
+      font-size: 40px;
+      color: #ff2222;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      text-shadow:
+        0 0 6px rgba(255,0,0,0.7),
+        0 0 18px rgba(255,0,0,0.85);
       animation: titleFlicker 2.6s infinite ease-in-out;
     }
+
     @keyframes titleFlicker {
-      0%,18%{opacity:.9;} 19%,22%{opacity:.3;} 23%,60%{opacity:1;} 61%,70%{opacity:.5;} 71%,100%{opacity:.85;}
+      0%,18%{opacity:.9;}
+      19%,22%{opacity:.3;}
+      23%,60%{opacity:1;}
+      61%,70%{opacity:.5;}
+      71%,100%{opacity:.85;}
     }
 
-    .hero-subtitle { color:#ddd; font-size:15px; }
+    .hero-subtitle {
+      color:#ddd;
+      font-size:15px;
+    }
 
     /* روابط الرجوع */
     .back-links {
       margin: 10px 0 20px;
-      display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: flex-end;
     }
-    .back-links a {
-      padding: 6px 14px; border-radius:999px; background:#15171f;
-      border:1px solid rgba(255,255,255,0.1); font-size:13px; color:#fff; font-weight:600;
-    }
-    .back-links a:hover { background:#ff3333; border-color:#ff3333; }
 
-    /* قصة */
+    .back-links a {
+      padding: 6px 14px;
+      border-radius:999px;
+      background:#15171f;
+      border:1px solid rgba(255,255,255,0.1);
+      font-size:13px;
+      color:#fff;
+      font-weight:600;
+      text-decoration: none;
+    }
+
+    .back-links a:hover {
+      background:#ff3333;
+      border-color:#ff3333;
+    }
+
+    /* القصة */
     .story-box {
       background: radial-gradient(circle at top, #1b0000, #050608);
-      border-radius:20px; padding:24px 20px 30px;
+      border-radius:20px;
+      padding:24px 20px 30px;
       box-shadow:0 18px 45px rgba(0,0,0,0.9);
       border:1px solid rgba(255,80,80,0.2);
       margin-bottom:26px;
     }
-    .story-title { font-size:24px; margin-bottom:8px; }
-    .story-meta { font-size:13px; color:#999; margin-bottom:18px; }
-    .story-text { font-size:16px; color:#e5e5e5; white-space:pre-line; }
 
-    .no-copy { user-select:none; cursor:default; }
+    .story-title {
+      font-size:24px;
+      margin-bottom:8px;
+    }
 
-    /* الصوت */
+    .story-meta {
+      font-size:13px;
+      color:#999;
+      margin-bottom:18px;
+    }
+
+    .story-text {
+      font-size:16px;
+      color:#e5e5e5;
+      white-space:pre-line;
+    }
+
+    .no-copy {
+      user-select:none;
+      cursor:default;
+    }
+
+    /* مشغّل الصوت */
     .audio-player {
-      margin:20px auto 0; max-width:620px; padding:16px 22px;
-      border-radius:999px; display:flex; align-items:center; gap:18px;
+      margin:20px auto 0;
+      max-width:620px;
+      padding:16px 22px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      gap:18px;
       background: radial-gradient(circle at top, #220000, #050608);
       border:1px solid rgba(255,60,60,0.35);
-      box-shadow:0 18px 40px rgba(0,0,0,0.9), 0 0 20px rgba(255,0,0,0.25);
+      box-shadow:
+        0 18px 40px rgba(0,0,0,0.9),
+        0 0 20px rgba(255,0,0,0.25);
     }
-    .ap-left{display:flex;align-items:center;gap:12px;}
-    .ap-play{width:54px;height:54px;border:none;border-radius:50%;background:#ff2222;cursor:pointer;color:#fff;font-size:20px;}
+
+    .ap-left {
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .ap-play {
+      width:54px;
+      height:54px;
+      border:none;
+      border-radius:50%;
+      background:#ff2222;
+      cursor:pointer;
+      color:#fff;
+      font-size:20px;
+    }
+
     .ap-play .icon-pause{display:none;}
     .audio-player.is-playing .icon-play{display:none;}
     .audio-player.is-playing .icon-pause{display:inline;}
 
-    .ap-wave{flex:1;display:flex;gap:3px;padding:0 6px;}
-    .ap-wave span{width:3px;height:4px;border-radius:999px;background:red;opacity:.35;}
-    .audio-player.is-playing .ap-wave span{animation:wave 1s infinite;opacity:1;}
+    .ap-wave{
+      flex:1;
+      display:flex;
+      gap:3px;
+      padding:0 6px;
+    }
+
+    .ap-wave span{
+      width:3px;
+      height:4px;
+      border-radius:999px;
+      background:red;
+      opacity:.35;
+    }
+
+    .audio-player.is-playing .ap-wave span{
+      animation:wave 1s infinite;
+      opacity:1;
+    }
+
     @keyframes wave {
-      0%,100%{height:4px;} 30%{height:18px;} 60%{height:10px;}
+      0%,100%{height:4px;}
+      30%{height:18px;}
+      60%{height:10px;}
     }
 
     /* Popup */
     .login-modal-backdrop{
-      position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;
-      align-items:center;justify-content:center;z-index:9999;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.8);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
     }
+
     .login-modal-backdrop.show{display:flex;}
+
     .login-modal{
-      background:#200; border-radius:16px; padding:22px;
-      max-width:380px; width:90%; text-align:center;
+      background:#200;
+      border-radius:16px;
+      padding:22px;
+      max-width:380px;
+      width:90%;
+      text-align:center;
       border:1px solid #ff4444;
     }
-    .btn-primary{background:#ff3333;color:#fff;padding:8px 18px;border-radius:999px;border:none;}
-    .btn-ghost{background:none;color:#fff;border:1px solid #666;padding:8px 18px;border-radius:999px;}
 
+    .btn-primary{
+      background:#ff3333;
+      color:#fff;
+      padding:8px 18px;
+      border-radius:999px;
+      border:none;
+      cursor:pointer;
+    }
+
+    .btn-ghost{
+      background:none;
+      color:#fff;
+      border:1px solid #666;
+      padding:8px 18px;
+      border-radius:999px;
+      cursor:pointer;
+    }
   </style>
 </head>
 
 <body>
 
-<!-- Firebase التحكم + حماية الصفحة -->
+<!-- Firebase التحكم + حماية الصفحة + شريط المستخدم -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
   import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -156,29 +313,51 @@
     measurementId: "G-ZJRXVJG9JQ"
   };
 
+  const ADMIN_EMAIL = "ahmed.altayeb01000@gmail.com";
+
   const app  = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  onAuthStateChanged(auth, user => {
-    const label = document.getElementById('userLabel');
-    const loginBtn = document.getElementById('loginLink');
-    const logoutBtn = document.getElementById('logoutBtn');
+  const userLabel     = document.getElementById('userLabel');
+  const loginBtn      = document.getElementById('loginLink');
+  const logoutBtn     = document.getElementById('logoutBtn');
+  const profileLink   = document.getElementById('profileLink');
+  const dashboardLink = document.getElementById('dashboardLink');
 
+  onAuthStateChanged(auth, user => {
     if (user) {
-      label.textContent = "مسجّل كـ " + user.email;
-      loginBtn.style.display = "none";
-      logoutBtn.style.display = "inline-block";
+      // مستخدم داخل
+      localStorage.setItem("loggedIn", "true");
+
+      userLabel.textContent = "مسجّل كـ " + (user.email || "مستخدم");
+      loginBtn.style.display    = "none";
+      logoutBtn.style.display   = "inline-block";
+      profileLink.style.display = "inline-block";
+
+      if (user.email === ADMIN_EMAIL) {
+        dashboardLink.style.display = "inline-block";
+      } else {
+        dashboardLink.style.display = "none";
+      }
 
       logoutBtn.onclick = () => {
-        signOut(auth).then(() => window.location.href = "index.html");
+        signOut(auth).then(() => {
+          localStorage.removeItem("loggedIn");
+          window.location.href = "index.html";
+        });
       };
 
     } else {
-      label.textContent = "غير مسجّل الدخول";
-      loginBtn.style.display = "inline-block";
-      logoutBtn.style.display = "none";
+      // مش مسجّل → منعه من الصفحة كلها
+      localStorage.removeItem("loggedIn");
 
-      alert("يجب تسجيل الدخول للوصول إلى القصة الصوتية");
+      userLabel.textContent       = "غير مسجّل الدخول";
+      loginBtn.style.display      = "inline-block";
+      logoutBtn.style.display     = "none";
+      profileLink.style.display   = "none";
+      dashboardLink.style.display = "none";
+
+      alert("يجب تسجيل الدخول للوصول إلى القصة الصوتية.");
       window.location.href = "login.html";
     }
   });
@@ -188,8 +367,18 @@
 
   <!-- شريط حالة المستخدم -->
   <div class="user-bar">
-    <span id="userLabel">—</span>
+    <span id="userLabel">غير مسجّل الدخول</span>
+
+    <!-- يظهر بعد تسجيل الدخول -->
+    <a href="profile.html" id="profileLink" style="display:none;">الملف الشخصي</a>
+
+    <!-- للأدمن فقط -->
+    <a href="dashboard.html" id="dashboardLink" style="display:none;">لوحة التحكم</a>
+
+    <!-- يظهر لو مش مسجّل -->
     <a href="login.html" id="loginLink">تسجيل الدخول</a>
+
+    <!-- يظهر لو مسجّل -->
     <button id="logoutBtn" style="display:none;">تسجيل خروج</button>
   </div>
 
@@ -265,7 +454,7 @@
 
 </div>
 
-<!-- Popup تسجيل الدخول -->
+<!-- Popup تسجيل الدخول للتحميل (استخدام إضافي لو حبيت تخليه للتحميل بس لاحقًا) -->
 <div id="loginModal" class="login-modal-backdrop">
   <div class="login-modal">
     <h2 class="login-modal-title">تسجيل الدخول مطلوب</h2>
@@ -284,30 +473,41 @@
   const playBtn   = document.getElementById('playToggle');
   const playerBox = document.getElementById('audioPlayer');
 
-  playBtn.onclick = () => {
-    if (audioEl.paused) {
-      audioEl.play();
-      playerBox.classList.add("is-playing");
-    } else {
-      audioEl.pause();
-      playerBox.classList.remove("is-playing");
-    }
-  };
+  if (playBtn && audioEl && playerBox) {
+    playBtn.onclick = () => {
+      if (audioEl.paused) {
+        audioEl.play();
+        playerBox.classList.add("is-playing");
+      } else {
+        audioEl.pause();
+        playerBox.classList.remove("is-playing");
+      }
+    };
+  }
 
   const downloadBtn = document.getElementById("downloadBtn");
-  downloadBtn.onclick = () => {
-    if (!localStorage.getItem("loggedIn")) {
-      document.getElementById("loginModal").classList.add("show");
-      return;
-    }
-    window.location.href = downloadBtn.dataset.file;
-  };
+  const loginModal  = document.getElementById("loginModal");
 
-  document.getElementById("goLogin").onclick = () =>
-    window.location.href = "login.html";
+  if (downloadBtn) {
+    downloadBtn.onclick = () => {
+      if (!localStorage.getItem("loggedIn")) {
+        if (loginModal) loginModal.classList.add("show");
+        return;
+      }
+      window.location.href = downloadBtn.dataset.file;
+    };
+  }
 
-  document.getElementById("closeLogin").onclick = () =>
-    document.getElementById("loginModal").classList.remove("show");
+  const goLogin    = document.getElementById("goLogin");
+  const closeLogin = document.getElementById("closeLogin");
+
+  if (goLogin) {
+    goLogin.onclick = () => window.location.href = "login.html";
+  }
+
+  if (closeLogin && loginModal) {
+    closeLogin.onclick = () => loginModal.classList.remove("show");
+  }
 </script>
 
 </body>

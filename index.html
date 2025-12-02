@@ -580,7 +580,11 @@
       getFirestore,
       collection,
       addDoc,
-      serverTimestamp
+      serverTimestamp,
+      doc,
+      getDoc,
+      setDoc,
+      updateDoc
     } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -605,17 +609,18 @@
     const profileLink    = document.getElementById("profileLink");
     const dashboardLink  = document.getElementById("dashboardLink");
 
-    const ratingFab          = document.getElementById("ratingFab");
-    const ratingModal        = document.getElementById("ratingModal");
-    const ratingClose        = document.getElementById("ratingClose");
-    const popupRatingForm    = document.getElementById("popupRatingForm");
-    const popupRatingValueEl = document.getElementById("popupRatingValue");
-    const popupRatingCommentEl = document.getElementById("popupRatingComment");
-    const popupRatingMsgEl   = document.getElementById("popupRatingMessage");
+    const ratingFab             = document.getElementById("ratingFab");
+    const ratingModal           = document.getElementById("ratingModal");
+    const ratingClose           = document.getElementById("ratingClose");
+    const popupRatingForm       = document.getElementById("popupRatingForm");
+    const popupRatingValueEl    = document.getElementById("popupRatingValue");
+    const popupRatingCommentEl  = document.getElementById("popupRatingComment");
+    const popupRatingMsgEl      = document.getElementById("popupRatingMessage");
 
     let currentUser = null;
 
-    onAuthStateChanged(auth, user => {
+    // ===== حالة المستخدم + تحميل التقييم القديم لو موجود =====
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         currentUser = user;
         localStorage.setItem("loggedIn", "true");
@@ -642,6 +647,32 @@
           };
         }
 
+        // 👇 هنا بنجيب التقييم القديم لو موجود
+        try {
+          const ratingRef = doc(db, "siteRatings", user.uid);
+          const snap = await getDoc(ratingRef);
+
+          if (snap.exists()) {
+            const data = snap.data();
+
+            if (popupRatingValueEl) {
+              popupRatingValueEl.value    = (data.rating ?? "").toString();
+              popupRatingValueEl.disabled = true; // يمنع تغيير الرقم
+            }
+
+            if (popupRatingMsgEl) {
+              popupRatingMsgEl.textContent = "لقد سجّلت تقييمك مسبقًا ⭐ يمكنك إضافة تعليق فقط.";
+              popupRatingMsgEl.style.display = "block";
+            }
+
+            if (popupRatingCommentEl && !popupRatingCommentEl.value) {
+              popupRatingCommentEl.placeholder = "تقدر تعدّل تعليقك أو تكتب واحد جديد ✍️";
+            }
+          }
+        } catch (err) {
+          console.error("Error loading previous rating:", err);
+        }
+
       } else {
         currentUser = null;
         localStorage.removeItem("loggedIn");
@@ -654,11 +685,14 @@
       }
     });
 
-    // فتح وغلق المودال
+    // ===== فتح وغلق المودال =====
     if (ratingFab && ratingModal) {
       ratingFab.addEventListener("click", () => {
         ratingModal.classList.add("show");
-        if (popupRatingMsgEl) popupRatingMsgEl.style.display = "none";
+        if (popupRatingMsgEl && popupRatingValueEl && !popupRatingValueEl.disabled) {
+          // لو مفيش تقييم قديم، خبي رسالة التكرار
+          popupRatingMsgEl.style.display = "none";
+        }
       });
     }
 
@@ -668,7 +702,6 @@
       });
     }
 
-    // غلق عند الضغط على الخلفية المظللة
     if (ratingModal) {
       ratingModal.addEventListener("click", (e) => {
         if (e.target === ratingModal) {
@@ -677,7 +710,7 @@
       });
     }
 
-    // إرسال التقييم
+    // ===== إرسال / تحديث التقييم =====
     if (popupRatingForm) {
       popupRatingForm.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -691,18 +724,64 @@
         }
 
         try {
-          await addDoc(collection(db, "siteRatings"), {
-            rating: Number(ratingVal),
-            comment: comment || null,
-            createdAt: serverTimestamp(),
-            userEmail: currentUser ? currentUser.email : null,
-            userId: currentUser ? currentUser.uid : null
-          });
+          // لو المستخدم عامل لوجين → نخزن بالتعرف بتاعه
+          if (currentUser) {
+            const ratingRef = doc(db, "siteRatings", currentUser.uid);
+            const snap = await getDoc(ratingRef);
 
+            if (snap.exists()) {
+              // ✅ تقييم قديم موجود → نحدّث التعليق فقط
+              await updateDoc(ratingRef, {
+                comment: comment || snap.data().comment || null,
+                lastUpdated: serverTimestamp()
+              });
+
+              if (popupRatingMsgEl) {
+                popupRatingMsgEl.textContent = "تم حفظ تعليقك 🩸";
+                popupRatingMsgEl.style.display = "block";
+              }
+            } else {
+              // ⭐ أول مرة يقيّم
+              await setDoc(ratingRef, {
+                rating: Number(ratingVal),
+                comment: comment || null,
+                createdAt: serverTimestamp(),
+                userEmail: currentUser.email || null,
+                userId: currentUser.uid
+              });
+
+              if (popupRatingMsgEl) {
+                popupRatingMsgEl.textContent = "شكراً لتقييمك! 🩸";
+                popupRatingMsgEl.style.display = "block";
+              }
+
+              // اقفل تغيير الرقم بعد أول تقييم
+              popupRatingValueEl.disabled = true;
+            }
+          } else {
+            // زائر مش عامل لوجين → تقييم عادي بدون ربط بحساب
+            await addDoc(collection(db, "siteRatings"), {
+              rating: Number(ratingVal),
+              comment: comment || null,
+              createdAt: serverTimestamp(),
+              userEmail: null,
+              userId: null
+            });
+
+            if (popupRatingMsgEl) {
+              popupRatingMsgEl.textContent = "شكراً لتقييمك! 🩸";
+              popupRatingMsgEl.style.display = "block";
+            }
+          }
+
+          // reset للفورم بس نرجّع قيمة التقييم لو كان disabled
+          const savedRating = ratingVal;
           popupRatingForm.reset();
-          if (popupRatingMsgEl) popupRatingMsgEl.style.display = "block";
+          if (popupRatingValueEl.disabled) {
+            popupRatingValueEl.value = savedRating;
+          }
 
-          // بعد ثانية ونص اقفل المودال
+          // اقفل المودال بعد ثانية ونص
           setTimeout(() => {
             if (popupRatingMsgEl) popupRatingMsgEl.style.display = "none";
             ratingModal.classList.remove("show");

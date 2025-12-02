@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>الملف الشخصي - آخر تسجيل</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #050608;
+      color: #f5f5f5;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+    }
+    .user-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      align-items: center;
+      background: #0c0c0c;
+      padding: 10px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 13px;
+      color: #ccc;
+    }
+    .user-bar span {
+      max-width: 220px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .user-bar a,
+    .user-bar button {
+      padding: 6px 15px;
+      border-radius: 999px;
+      background: #15171f;
+      border: 1px solid rgba(255,255,255,0.1);
+      font-weight: 600;
+      text-decoration: none;
+      color: #fff;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .user-bar a:hover,
+    .user-bar button:hover {
+      background: #ff3333;
+      border-color: #ff3333;
+    }
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 16px 64px;
+    }
+    .card {
+      background: #0e1014;
+      border-radius: 18px;
+      padding: 24px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    }
+    .card h1 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 24px;
+    }
+    .field-label {
+      font-size: 14px;
+      color: #aaa;
+    }
+    .field-value {
+      font-size: 16px;
+      margin-bottom: 14px;
+    }
+    a.simple-link {
+      color: #ff4b4b;
+      text-decoration: none;
+    }
+    a.simple-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- شريط حالة المستخدم -->
+  <div class="user-bar">
+    <span id="userLabel">غير مسجّل الدخول</span>
+
+    <!-- يظهر بعد تسجيل الدخول -->
+    <a href="profile.html" id="profileLink" style="display:none;">الملف الشخصي</a>
+
+    <!-- للأدمن فقط -->
+    <a href="dashboard.html" id="dashboardLink" style="display:none;">لوحة التحكم</a>
+
+    <!-- يظهر لو مش مسجّل -->
+    <a href="login.html" id="loginLink">تسجيل الدخول</a>
+
+    <!-- يظهر لو مسجّل -->
+    <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
+  </div>
+
+  <div class="page">
+    <div class="card">
+      <h1>الملف الشخصي</h1>
+      <p>هنا تقدر تشوف بيانات حسابك المسجّل بيه في آخر تسجيل.</p>
+
+      <div class="field-label">البريد الإلكتروني:</div>
+      <div class="field-value" id="userEmail">غير متاح</div>
+
+      <div class="field-label">UID (معرّف المستخدم):</div>
+      <div class="field-value" id="userId">غير متاح</div>
+
+      <hr style="margin:20px 0;border-color:rgba(255,255,255,.08);" />
+
+      <p>
+        ⬅️ <a class="simple-link" href="index.html">الرجوع للصفحة الرئيسية</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Firebase Auth -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
+      authDomain: "a5er-tasgeel.firebaseapp.com",
+      projectId: "a5er-tasgeel",
+      storageBucket: "a5er-tasgeel.firebasestorage.app",
+      messagingSenderId: "239464150088",
+      appId: "1:239464150088:web:71a7288812dcfefc9c147d",
+      measurementId: "G-ZJRXVJG9JQ"
+    };
+
+    const ADMIN_EMAIL = "ahmed.altayeb01000@gmail.com";
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const userLabel      = document.getElementById("userLabel");
+    const loginLink      = document.getElementById("loginLink");
+    const logoutBtn      = document.getElementById("logoutBtn");
+    const profileLink    = document.getElementById("profileLink");
+    const dashboardLink  = document.getElementById("dashboardLink");
+    const userEmailEl    = document.getElementById("userEmail");
+    const userIdEl       = document.getElementById("userId");
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        localStorage.setItem("loggedIn", "true");
+
+        if (userLabel) userLabel.textContent = "مسجّل كـ " + (user.email || "مستخدم");
+        if (loginLink) loginLink.style.display     = "none";
+        if (logoutBtn) logoutBtn.style.display     = "inline-block";
+        if (profileLink) profileLink.style.display = "inline-block";
+
+        if (user.email === ADMIN_EMAIL) {
+          if (dashboardLink) dashboardLink.style.display = "inline-block";
+        }
+
+        if (userEmailEl) userEmailEl.textContent = user.email || "غير معروف";
+        if (userIdEl)    userIdEl.textContent    = user.uid  || "غير معروف";
+
+        if (logoutBtn) {
+          logoutBtn.onclick = () => {
+            signOut(auth).then(() => {
+              localStorage.removeItem("loggedIn");
+              window.location.href = "index.html";
+            });
+          };
+        }
+
+      } else {
+        // لو مش مسجّل → رجّعه لتسجيل الدخول
+        localStorage.removeItem("loggedIn");
+
+        if (userLabel) userLabel.textContent = "غير مسجّل الدخول";
+        if (loginLink) loginLink.style.display = "inline-block";
+        if (logoutBtn) logoutBtn.style.display = "none";
+        if (profileLink) profileLink.style.display = "none";
+        if (dashboardLink) dashboardLink.style.display = "none";
+
+        alert("يجب تسجيل الدخول لعرض الملف الشخصي.");
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -20,6 +20,13 @@
       color: #ccc;
     }
 
+    .user-bar span {
+      max-width: 220px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .user-bar a {
       padding: 6px 15px;
       border-radius: 999px;
@@ -28,6 +35,7 @@
       font-weight: 600;
       text-decoration: none;
       color: #fff;
+      font-size: 13px;
     }
 
     .user-bar a:hover {
@@ -44,11 +52,12 @@
       background: #ff3333;
       color: #fff;
       font-weight: 600;
+      font-size: 13px;
     }
 
     /* ===================== باقي تصميم الصفحة (كله كما هو) ===================== */
 
-    /* ===================== الخلفية الجديدة للهيدر ===================== */
+    /* الخلفية الجديدة للهيدر */
     .hero-with-bg {
       position: relative;
       background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat;
@@ -173,7 +182,17 @@
   <!-- ====== شريط حالة المستخدم ====== -->
   <div class="user-bar">
     <span id="userLabel">غير مسجّل الدخول</span>
+
+    <!-- يظهر بعد تسجيل الدخول -->
+    <a href="profile.html" id="profileLink" style="display:none;">الملف الشخصي</a>
+
+    <!-- يظهر للأدمن فقط -->
+    <a href="dashboard.html" id="dashboardLink" style="display:none;">لوحة التحكم</a>
+
+    <!-- يظهر لو مش مسجّل -->
     <a href="login.html" id="loginLink">تسجيل الدخول</a>
+
+    <!-- يظهر لو مسجّل -->
     <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
   </div>
 
@@ -226,27 +245,50 @@
       measurementId: "G-ZJRXVJG9JQ"
     };
 
+    const ADMIN_EMAIL = "ahmed.altayeb01000@gmail.com";
+
     const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    const userLabel = document.getElementById("userLabel");
-    const loginLink = document.getElementById("loginLink");
-    const logoutBtn = document.getElementById("logoutBtn");
+    const userLabel      = document.getElementById("userLabel");
+    const loginLink      = document.getElementById("loginLink");
+    const logoutBtn      = document.getElementById("logoutBtn");
+    const profileLink    = document.getElementById("profileLink");
+    const dashboardLink  = document.getElementById("dashboardLink");
 
     onAuthStateChanged(auth, user => {
       if (user) {
-        userLabel.textContent = "مسجّل كـ " + user.email;
-        loginLink.style.display = "none";
-        logoutBtn.style.display = "inline-block";
+        // مخزن حالة الدخول عشان الصفحات التانية تستخدمها
+        localStorage.setItem("loggedIn", "true");
+
+        userLabel.textContent = "مسجّل كـ " + (user.email || "مستخدم");
+        loginLink.style.display     = "none";
+        logoutBtn.style.display     = "inline-block";
+        profileLink.style.display   = "inline-block";
+
+        // إظهار لوحة التحكم للأدمن بس
+        if (user.email === ADMIN_EMAIL) {
+          dashboardLink.style.display = "inline-block";
+        } else {
+          dashboardLink.style.display = "none";
+        }
 
         logoutBtn.onclick = () => {
-          signOut(auth).then(() => window.location.href = "index.html");
+          signOut(auth).then(() => {
+            localStorage.removeItem("loggedIn");
+            window.location.href = "index.html";
+          });
         };
 
       } else {
-        userLabel.textContent = "غير مسجّل الدخول";
-        loginLink.style.display = "inline-block";
-        logoutBtn.style.display = "none";
+        // مستخدم مش داخل
+        localStorage.removeItem("loggedIn");
+
+        userLabel.textContent       = "غير مسجّل الدخول";
+        loginLink.style.display     = "inline-block";
+        logoutBtn.style.display     = "none";
+        profileLink.style.display   = "none";
+        dashboardLink.style.display = "none";
       }
     });
   </script>

@@ -14,11 +14,13 @@
   </script>
 
   <style>
+    /* ============ تنسيقات عامة ============ */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      scroll-behavior: smooth; /* تفعيل النزول الناعم عند الضغط على الزر */
     }
 
     body {
@@ -260,6 +262,7 @@
       margin-bottom: 26px;
       border: 1px solid rgba(255, 255, 255, 0.05);
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      scroll-margin-top: 20px; /* مسافة عشان لما ينزل ميبقاش لازق في الشاشة */
     }
     .comments-title {
       color: #ff3333;
@@ -337,14 +340,13 @@
     }
     .action-btn:hover { color: #fff; }
     
-    /* اللايك النشط */
     .liked { color: #ff3333 !important; }
     .heart-icon { font-size: 16px; }
 
     /* منطقة الردود */
     .replies-container {
       margin-top: 12px;
-      margin-right: 15px; /* إزاحة للداخل */
+      margin-right: 15px; 
       padding-right: 10px;
       border-right: 2px solid rgba(255,255,255,0.1);
     }
@@ -356,10 +358,9 @@
       font-size: 13px;
     }
 
-    /* فورم الرد المخفي */
     .reply-form-box {
       margin-top: 10px;
-      display: none; /* مخفي افتراضياً */
+      display: none;
       animation: fadeIn 0.3s;
     }
     .reply-form-box.open { display: block; }
@@ -389,9 +390,7 @@
       justify-content:center;
       z-index:9999;
     }
-
     .login-modal-backdrop.show{display:flex;}
-
     .login-modal{
       background:#200;
       border-radius:16px;
@@ -401,7 +400,6 @@
       text-align:center;
       border:1px solid #ff4444;
     }
-
     .btn-primary{
       background:#ff3333;
       color:#fff;
@@ -410,7 +408,6 @@
       border:none;
       cursor:pointer;
     }
-
     .btn-ghost{
       background:none;
       color:#fff;
@@ -449,7 +446,6 @@
   const auth = getAuth(app);
   const db   = getFirestore(app);
 
-  // عناصر واجهة المستخدم
   const userLabel = document.getElementById('userLabel');
   const loginBtn = document.getElementById('loginLink');
   const logoutBtn = document.getElementById('logoutBtn');
@@ -464,15 +460,16 @@
   const loadMoreBtn = document.getElementById("loadMoreBtn");
 
   let currentUser = null;
-  let commentsUnsubscribe = null; // عشان نوقف الاستماع القديم لما نغير العدد
-  let currentLimit = 3; // نبدأ بـ 3 تعليقات فقط
+  let commentsUnsubscribe = null; 
+  let currentLimit = 3; 
 
-  // 1. إدارة حالة المستخدم
   onAuthStateChanged(auth, user => {
     if (user) {
       currentUser = user;
       localStorage.setItem("loggedIn", "true");
-      userLabel.textContent = "مسجّل كـ " + (user.email.split('@')[0]);
+      
+      // هنا بيحط الاسم لو موجود، لو لأ يحط الإيميل
+      userLabel.textContent = "أهلاً، " + (user.displayName || user.email.split('@')[0]);
       
       loginBtn.style.display    = "none";
       logoutBtn.style.display   = "inline-block";
@@ -502,20 +499,18 @@
     }
   });
 
-  // 2. دالة جلب التعليقات (مع التحكم في العدد)
   function loadComments(limitVal) {
-    // لو فيه استماع قديم شغال، نوقفه الأول
     if (commentsUnsubscribe) commentsUnsubscribe();
 
     const q = query(
       collection(db, "comments"), 
       where("storyId", "==", STORY_ID),
       orderBy("createdAt", "desc"),
-      limit(limitVal) // هنا التحكم في العدد
+      limit(limitVal)
     );
 
     commentsUnsubscribe = onSnapshot(q, (snapshot) => {
-      commentsListEl.innerHTML = ""; // مسح القائمة لإعادة الرسم
+      commentsListEl.innerHTML = ""; 
 
       if (snapshot.empty) {
         commentsListEl.innerHTML = "<p style='color:#777;text-align:center;'>لسه مفيش تعليقات.. كن أول واحد! 👻</p>";
@@ -524,12 +519,9 @@
       }
 
       snapshot.forEach(docSnap => {
-        const commentData = docSnap.data();
-        const commentId = docSnap.id;
-        renderComment(commentId, commentData);
+        renderComment(docSnap.id, docSnap.data());
       });
 
-      // لو عدد التعليقات اللي راجعة أقل من الليمت، نخفي زرار "عرض الكل"
       if (snapshot.docs.length < limitVal) {
         loadMoreBtn.style.display = "none";
       } else {
@@ -538,23 +530,19 @@
     });
   }
 
-  // 3. دالة رسم التعليق الواحد (HTML)
   function renderComment(docId, data) {
     let timeStr = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString('ar-EG') : "...";
     
-    // حساب اللايكات
     const likesArr = data.likes || [];
     const likeCount = likesArr.length;
-    // هل المستخدم الحالي عامل لايك؟
     const isLiked = currentUser && likesArr.includes(currentUser.uid);
     const heartClass = isLiked ? "liked" : "";
 
-    // إنشاء العنصر
     const div = document.createElement("div");
     div.className = "single-comment";
     div.innerHTML = `
       <div class="comment-header">
-        <span class="comment-user">${data.userEmail ? data.userEmail.split('@')[0] : 'مجهول'}</span>
+        <span class="comment-user">${data.displayName ? data.displayName : (data.userEmail ? data.userEmail.split('@')[0] : 'مجهول')}</span>
         <span>${timeStr}</span>
       </div>
       <div class="comment-body">${data.text}</div>
@@ -578,39 +566,30 @@
 
     commentsListEl.appendChild(div);
 
-    // -- تفعيل زر اللايك --
     document.getElementById(`likeBtn-${docId}`).onclick = () => toggleLike(docId, likesArr);
 
-    // -- تفعيل زر إظهار الرد --
     document.getElementById(`replyToggle-${docId}`).onclick = () => {
       const box = document.getElementById(`replyBox-${docId}`);
       if (!currentUser) return alert("لازم تسجل دخول عشان ترد!");
       box.classList.toggle("open");
     };
 
-    // -- تفعيل زر إرسال الرد --
     document.getElementById(`sendReply-${docId}`).onclick = () => sendReply(docId);
 
-    // -- تحميل الردود الخاصة بالتعليق ده --
     loadReplies(docId);
   }
 
-  // 4. منطق اللايك (Toggle)
   async function toggleLike(commentId, currentLikes) {
     if (!currentUser) return alert("سجّل دخول عشان تعمل لايك ❤️");
     
     const commentRef = doc(db, "comments", commentId);
-    
     if (currentLikes.includes(currentUser.uid)) {
-      // إزالة اللايك
       await updateDoc(commentRef, { likes: arrayRemove(currentUser.uid) });
     } else {
-      // إضافة لايك
       await updateDoc(commentRef, { likes: arrayUnion(currentUser.uid) });
     }
   }
 
-  // 5. إرسال تعليق رئيسي
   if (submitCommentBtn) {
     submitCommentBtn.onclick = async () => {
       const text = commentInput.value.trim();
@@ -622,8 +601,9 @@
           storyId: STORY_ID,
           text: text,
           userEmail: currentUser.email,
+          displayName: currentUser.displayName || currentUser.email.split('@')[0], // حفظ الاسم
           createdAt: serverTimestamp(),
-          likes: [] // مصفوفة فاضية للايكات
+          likes: [] 
         });
         commentInput.value = ""; 
       } catch (err) {
@@ -632,60 +612,55 @@
     };
   }
 
-  // 6. إرسال رد (Sub-collection)
   async function sendReply(parentId) {
     const input = document.getElementById(`replyInput-${parentId}`);
     const text = input.value.trim();
     if (!text) return;
 
     try {
-      // بنحفظ الرد جوه "replies" داخل مستند التعليق الأصلي
       await addDoc(collection(db, "comments", parentId, "replies"), {
         text: text,
         userEmail: currentUser.email,
+        displayName: currentUser.displayName || currentUser.email.split('@')[0],
         createdAt: serverTimestamp()
       });
       input.value = "";
-      document.getElementById(`replyBox-${parentId}`).classList.remove("open"); // اقفل البوكس
+      document.getElementById(`replyBox-${parentId}`).classList.remove("open");
     } catch (err) {
       console.error(err);
-      alert("فشل الإرسال");
     }
   }
 
-  // 7. تحميل الردود لكل تعليق
   function loadReplies(parentId) {
     const repliesContainer = document.getElementById(`repliesList-${parentId}`);
     const q = query(
       collection(db, "comments", parentId, "replies"),
-      orderBy("createdAt", "asc") // القديم فوق والجديد تحت في الردود
+      orderBy("createdAt", "asc") 
     );
 
     onSnapshot(q, (snapshot) => {
-      repliesContainer.innerHTML = ""; // تنظيف
+      repliesContainer.innerHTML = ""; 
       snapshot.forEach(doc => {
         const data = doc.data();
         const rDiv = document.createElement("div");
         rDiv.className = "single-reply";
         rDiv.innerHTML = `
-          <strong style="color:#bbb">${data.userEmail ? data.userEmail.split('@')[0] : 'مجهول'}:</strong>
-          <span style="color:#ddd">${data.text}</span>
+          <strong style="color:#bbb">${data.displayName || 'مجهول'}:</strong>
+          <span style="color:#ddd"> ${data.text}</span>
         `;
         repliesContainer.appendChild(rDiv);
       });
     });
   }
 
-  // 8. زر "قراءة كل التعليقات"
   if (loadMoreBtn) {
     loadMoreBtn.onclick = () => {
-      currentLimit = 100; // رقم كبير عشان يجيب كله
+      currentLimit = 100; 
       loadComments(currentLimit);
-      loadMoreBtn.style.display = "none"; // اخفيه بعد ما تدوس
+      loadMoreBtn.style.display = "none";
     };
   }
 
-  // بدء التحميل عند فتح الصفحة (أول 3)
   loadComments(currentLimit);
 
 </script>
@@ -741,12 +716,19 @@
       </div>
     </div>
 
-    <div style="text-align:center;margin:22px 0;">
+    <div style="text-align:center; margin:24px 0; display:flex; flex-direction:column; align-items:center; gap:14px;">
+      
       <button id="downloadBtn"
               data-file="audio/download%20(4).wav"
-              style="padding:8px 18px;border-radius:999px;background:#ff3333;color:#fff;border:none;cursor:pointer;">
+              style="padding:10px 24px; border-radius:999px; background:#ff3333; color:#fff; border:none; cursor:pointer; font-weight:bold; font-size:14px; box-shadow: 0 4px 15px rgba(255,51,51,0.4);">
         ⬇️ تحميل ملف الصوت
       </button>
+
+      <a href="#commentsArea" 
+         style="padding:8px 20px; border-radius:999px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#ccc; text-decoration:none; font-size:13px; transition:0.3s;">
+        💬 أترك تعليق
+      </a>
+
     </div>
 
     <hr style="margin:22px 0;border-color:rgba(255,255,255,.05);" />
@@ -860,7 +842,7 @@
     </div>
   </section>
 
-  <section class="comments-box">
+  <section class="comments-box" id="commentsArea">
     <h3 class="comments-title">نقاشات المستمعين (مرعب) 💬</h3>
     
     <div id="commentFormArea" style="display:none;">

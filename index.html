@@ -662,6 +662,7 @@
         const snap  = await getDocs(collection(db, "siteRatings"));
         const total = snap.size;
 
+        // أول تحميل أو تحديث بدون أنيميشن
         if (!animate) {
           displayedCount = total;
           numberSpan.textContent = total.toLocaleString("en-US");
@@ -693,8 +694,8 @@
       }
     }
 
-    // أول تحميل للصفحة → شغّل العداد
-    updateRatingCounter(true);
+    // أول تحميل للصفحة → عدّاد ثابت بدون حركة
+    updateRatingCounter(false);
 
     // ===== حالة المستخدم + تحميل التقييم القديم لو موجود =====
     onAuthStateChanged(auth, async (user) => {
@@ -832,7 +833,7 @@
               }
 
               popupRatingValueEl.disabled = true;
-              // عدد التقييمات زاد → حدّث العدّاد
+              // عدد التقييمات زاد → حدّث العدّاد بأنيميشن
               updateRatingCounter(true);
             }
           } else {

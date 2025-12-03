@@ -10,7 +10,7 @@
     body {
       margin: 0;
       padding: 0;
-      background: #050608; /* خلفية سوداء مثل الصورة */
+      background: #050608;
       color: #fff;
       height: 100vh;
       display: flex;
@@ -20,24 +20,25 @@
 
     /* الكارت */
     .login-card {
-      background: #111; /* لون رمادي غامق جداً */
+      background: #111;
       padding: 40px;
       border-radius: 12px;
       width: 100%;
       max-width: 400px;
       text-align: center;
       box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      position: relative;
     }
 
     h2 { margin-bottom: 25px; font-size: 24px; color: #fff; }
 
     /* الحقول */
-    .input-group { margin-bottom: 15px; }
+    .input-group { margin-bottom: 15px; text-align: right; }
     
     input {
       width: 100%;
       padding: 14px;
-      background: #2b2b36; /* لون الحقل في الصورة */
+      background: #2b2b36;
       border: 1px solid #444;
       border-radius: 6px;
       color: #fff;
@@ -52,7 +53,7 @@
     button.main-btn {
       width: 100%;
       padding: 12px;
-      background: #ff3333; /* أحمر */
+      background: #ff3333;
       color: #fff;
       border: none;
       border-radius: 6px;
@@ -64,7 +65,7 @@
     }
     button.main-btn:hover { background: #cc0000; }
 
-    /* التبديل بين الدخول وإنشاء حساب */
+    /* التبديل وروابط المساعدة */
     .toggle-area {
       margin-top: 20px;
       font-size: 14px;
@@ -78,12 +79,28 @@
     }
     .toggle-link:hover { text-decoration: underline; }
 
+    .forgot-pass {
+      display: block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: #aaa;
+      cursor: pointer;
+      text-align: right;
+    }
+    .forgot-pass:hover { color: #fff; text-decoration: underline; }
+
     /* إخفاء العناصر */
     .hidden { display: none; }
     
-    /* رسائل الخطأ */
+    /* رسائل */
     .error-msg {
       color: #ff5555;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
+    }
+    .success-msg {
+      color: #4caf50;
       font-size: 13px;
       margin-top: 10px;
       display: none;
@@ -102,6 +119,7 @@
       </div>
       <div class="input-group">
         <input type="password" id="loginPass" placeholder="كلمة السر">
+        <span class="forgot-pass" id="showReset">نسيت كلمة السر؟</span>
       </div>
       
       <button class="main-btn" id="btnLogin">تسجيل الدخول</button>
@@ -135,14 +153,38 @@
       </div>
     </div>
 
+    <div id="resetForm" class="hidden">
+      <h2>استعادة الحساب 🔒</h2>
+      <p style="font-size:13px; color:#ccc; margin-bottom:20px;">
+        اكتب بريدك الإلكتروني وهنبعتلك رابط لتعيين كلمة سر جديدة.
+      </p>
+
+      <div class="input-group">
+        <input type="email" id="resetEmail" placeholder="البريد الإلكتروني">
+      </div>
+
+      <button class="main-btn" id="btnReset">إرسال رابط الاستعادة</button>
+      
+      <p class="error-msg" id="resetError"></p>
+      <p class="success-msg" id="resetSuccess">تم الإرسال! راجع بريدك (و spam).</p>
+      
+      <div class="toggle-area">
+        <span class="toggle-link" id="backToLogin">الرجوع لتسجيل الدخول</span>
+      </div>
+    </div>
+
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } 
-    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { 
+      getAuth, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword, 
+      updateProfile, 
+      sendPasswordResetEmail 
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    // إعدادات مشروعك
     const firebaseConfig = {
       apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
       authDomain: "a5er-tasgeel.firebaseapp.com",
@@ -159,20 +201,27 @@
     // العناصر
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
+    const resetForm = document.getElementById('resetForm');
+
     const showSignup = document.getElementById('showSignup');
     const showLogin = document.getElementById('showLogin');
+    const showReset = document.getElementById('showReset');
+    const backToLogin = document.getElementById('backToLogin');
 
-    // التبديل بين الفورم
-    showSignup.onclick = () => {
+    // دالة للتبديل بين الشاشات
+    function switchView(viewId) {
       loginForm.classList.add('hidden');
-      signupForm.classList.remove('hidden');
-    };
-    showLogin.onclick = () => {
       signupForm.classList.add('hidden');
-      loginForm.classList.remove('hidden');
-    };
+      resetForm.classList.add('hidden');
+      document.getElementById(viewId).classList.remove('hidden');
+    }
 
-    // --- منطق تسجيل الدخول (Login) ---
+    showSignup.onclick = () => switchView('signupForm');
+    showLogin.onclick = () => switchView('loginForm');
+    showReset.onclick = () => switchView('resetForm');
+    backToLogin.onclick = () => switchView('loginForm');
+
+    // --- 1. تسجيل الدخول ---
     const btnLogin = document.getElementById('btnLogin');
     const loginError = document.getElementById('loginError');
 
@@ -181,12 +230,12 @@
       const pass = document.getElementById('loginPass').value;
       
       loginError.style.display = "none";
-      btnLogin.textContent = "جاري الدخول..."; // تغيير النص عشان يعرف إنه بيحمل
+      btnLogin.textContent = "جاري الدخول...";
 
       signInWithEmailAndPassword(auth, email, pass)
         .then(() => {
           localStorage.setItem("loggedIn", "true");
-          window.location.href = "index.html"; // توجيه للرئيسية
+          window.location.href = "index.html";
         })
         .catch((err) => {
           console.error(err);
@@ -196,7 +245,7 @@
         });
     };
 
-    // --- منطق إنشاء حساب جديد (Sign Up) وحفظ الاسم ---
+    // --- 2. إنشاء حساب جديد ---
     const btnSignup = document.getElementById('btnSignup');
     const signupError = document.getElementById('signupError');
 
@@ -208,7 +257,6 @@
 
       signupError.style.display = "none";
 
-      // التأكد إن الاسم مكتوب
       if(!fName || !lName) {
         signupError.textContent = "من فضلك اكتب اسمك الأول والأخير.";
         signupError.style.display = "block";
@@ -220,9 +268,8 @@
       createUserWithEmailAndPassword(auth, email, pass)
         .then(async (userCredential) => {
           const user = userCredential.user;
-          const fullName = fName + " " + lName; // دمج الاسمين
+          const fullName = fName + " " + lName;
 
-          // ⭐ هنا السحر: تحديث اسم المستخدم في فايربيس ⭐
           await updateProfile(user, {
             displayName: fullName
           });
@@ -243,6 +290,42 @@
           signupError.style.display = "block";
         });
     };
+
+    // --- 3. استعادة كلمة السر (الجديد) ---
+    const btnReset = document.getElementById('btnReset');
+    const resetError = document.getElementById('resetError');
+    const resetSuccess = document.getElementById('resetSuccess');
+
+    btnReset.onclick = () => {
+      const email = document.getElementById('resetEmail').value.trim();
+      
+      resetError.style.display = "none";
+      resetSuccess.style.display = "none";
+
+      if (!email) {
+        resetError.textContent = "اكتب الإيميل الأول.";
+        resetError.style.display = "block";
+        return;
+      }
+
+      btnReset.textContent = "جاري الإرسال...";
+
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          btnReset.textContent = "إرسال رابط الاستعادة";
+          resetSuccess.style.display = "block"; // رسالة نجاح خضراء
+        })
+        .catch((error) => {
+          console.error(error);
+          btnReset.textContent = "إرسال رابط الاستعادة";
+          let msg = "حصل خطأ، تأكد إن الإيميل صح.";
+          if(error.code === 'auth/user-not-found') msg = "الإيميل ده مش مسجل عندنا.";
+          
+          resetError.textContent = msg;
+          resetError.style.display = "block";
+        });
+    };
+
   </script>
 </body>
 </html>

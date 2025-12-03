@@ -3,131 +3,146 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>الملف الشخصي - آخر تسجيل</title>
-
+  <title>تسجيل الدخول - آخر تسجيل</title>
   <style>
+    /* تنسيق عام */
+    * { box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif; }
     body {
       margin: 0;
-      background: #050608;
-      color: #f5f5f5;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.7;
-    }
-    .user-bar {
+      padding: 0;
+      background: #050608; /* خلفية سوداء مثل الصورة */
+      color: #fff;
+      height: 100vh;
       display: flex;
-      justify-content: flex-end;
-      gap: 10px;
       align-items: center;
-      background: #0c0c0c;
-      padding: 10px 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-size: 13px;
+      justify-content: center;
+    }
+
+    /* الكارت */
+    .login-card {
+      background: #111; /* لون رمادي غامق جداً */
+      padding: 40px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    h2 { margin-bottom: 25px; font-size: 24px; color: #fff; }
+
+    /* الحقول */
+    .input-group { margin-bottom: 15px; }
+    
+    input {
+      width: 100%;
+      padding: 14px;
+      background: #2b2b36; /* لون الحقل في الصورة */
+      border: 1px solid #444;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 14px;
+      text-align: right;
+      outline: none;
+      transition: 0.3s;
+    }
+    input:focus { border-color: #ff3333; }
+    
+    /* الأزرار */
+    button.main-btn {
+      width: 100%;
+      padding: 12px;
+      background: #ff3333; /* أحمر */
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    button.main-btn:hover { background: #cc0000; }
+
+    /* التبديل بين الدخول وإنشاء حساب */
+    .toggle-area {
+      margin-top: 20px;
+      font-size: 14px;
       color: #ccc;
     }
-    .user-bar span {
-      max-width: 220px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .user-bar a,
-    .user-bar button {
-      padding: 6px 15px;
-      border-radius: 999px;
-      background: #15171f;
-      border: 1px solid rgba(255,255,255,0.1);
-      font-weight: 600;
-      text-decoration: none;
-      color: #fff;
-      font-size: 13px;
+    .toggle-link {
+      color: #ff3333;
       cursor: pointer;
-    }
-    .user-bar a:hover,
-    .user-bar button:hover {
-      background: #ff3333;
-      border-color: #ff3333;
-    }
-    .page {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 32px 16px 64px;
-    }
-    .card {
-      background: #0e1014;
-      border-radius: 18px;
-      padding: 24px 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    }
-    .card h1 {
-      margin-top: 0;
-      margin-bottom: 12px;
-      font-size: 24px;
-      color: #ff3333; /* لون أحمر للعنوان ليتماشى مع الثيم */
-    }
-    .field-label {
-      font-size: 14px;
-      color: #ff7777; /* تغيير بسيط للون لتمييز العناوين */
-      margin-top: 15px;
-    }
-    .field-value {
-      font-size: 16px;
-      margin-bottom: 5px;
-      color: #fff;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      padding-bottom: 5px;
-    }
-    a.simple-link {
-      color: #ff4b4b;
+      font-weight: bold;
       text-decoration: none;
     }
-    a.simple-link:hover {
-      text-decoration: underline;
+    .toggle-link:hover { text-decoration: underline; }
+
+    /* إخفاء العناصر */
+    .hidden { display: none; }
+    
+    /* رسائل الخطأ */
+    .error-msg {
+      color: #ff5555;
+      font-size: 13px;
+      margin-top: 10px;
+      display: none;
     }
   </style>
 </head>
 <body>
 
-  <div class="user-bar">
-    <span id="userLabel">غير مسجّل الدخول</span>
-
-    <a href="profile.html" id="profileLink" style="display:none;">الملف الشخصي</a>
-
-    <a href="dashboard.html" id="dashboardLink" style="display:none;">لوحة التحكم</a>
-
-    <a href="login.html" id="loginLink">تسجيل الدخول</a>
-
-    <button id="logoutBtn" style="display:none;">تسجيل الخروج</button>
-  </div>
-
-  <div class="page">
-    <div class="card">
-      <h1>الملف الشخصي</h1>
-      <p>هنا تقدر تشوف بيانات حسابك المسجّل بيه في آخر تسجيل.</p>
-
-      <div class="field-label">الاسم:</div>
-      <div class="field-value" id="userName">جاري التحميل...</div>
-
-      <div class="field-label">البريد الإلكتروني:</div>
-      <div class="field-value" id="userEmail">غير متاح</div>
-
-      <div class="field-label">UID (معرّف المستخدم):</div>
-      <div class="field-value" id="userId" style="font-family: monospace; color: #888;">غير متاح</div>
+  <div class="login-card">
+    
+    <div id="loginForm">
+      <h2>تسجيل الدخول</h2>
       
-      <div class="field-label">تاريخ الانضمام:</div>
-      <div class="field-value" id="joinDate">...</div>
-
-      <hr style="margin:20px 0;border-color:rgba(255,255,255,.08);" />
-
-      <p>
-        ⬅️ <a class="simple-link" href="index.html">الرجوع للصفحة الرئيسية</a>
-      </p>
+      <div class="input-group">
+        <input type="email" id="loginEmail" placeholder="البريد الإلكتروني">
+      </div>
+      <div class="input-group">
+        <input type="password" id="loginPass" placeholder="كلمة السر">
+      </div>
+      
+      <button class="main-btn" id="btnLogin">تسجيل الدخول</button>
+      <p class="error-msg" id="loginError"></p>
+      
+      <div class="toggle-area">
+        لا تمتلك حساب؟ <span class="toggle-link" id="showSignup">إنشاء حساب جديد</span>
+      </div>
     </div>
+
+    <div id="signupForm" class="hidden">
+      <h2>إنشاء حساب</h2>
+      
+      <div style="display:flex; gap:10px; margin-bottom:15px;">
+        <input type="text" id="regFirstName" placeholder="الاسم الأول" style="flex:1;">
+        <input type="text" id="regLastName" placeholder="الاسم الأخير" style="flex:1;">
+      </div>
+
+      <div class="input-group">
+        <input type="email" id="regEmail" placeholder="البريد الإلكتروني">
+      </div>
+      <div class="input-group">
+        <input type="password" id="regPass" placeholder="كلمة السر (6 أرقام عالأقل)">
+      </div>
+
+      <button class="main-btn" id="btnSignup">إنشاء حساب</button>
+      <p class="error-msg" id="signupError"></p>
+      
+      <div class="toggle-area">
+        لديك حساب بالفعل؟ <span class="toggle-link" id="showLogin">تسجيل الدخول</span>
+      </div>
+    </div>
+
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } 
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+    // إعدادات مشروعك
     const firebaseConfig = {
       apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
       authDomain: "a5er-tasgeel.firebaseapp.com",
@@ -138,73 +153,96 @@
       measurementId: "G-ZJRXVJG9JQ"
     };
 
-    const ADMIN_EMAIL = "ahmed.altayeb01000@gmail.com";
-
-    const app  = initializeApp(firebaseConfig);
+    const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    const userLabel      = document.getElementById("userLabel");
-    const loginLink      = document.getElementById("loginLink");
-    const logoutBtn      = document.getElementById("logoutBtn");
-    const profileLink    = document.getElementById("profileLink");
-    const dashboardLink  = document.getElementById("dashboardLink");
-    
-    // العناصر الجديدة
-    const userNameEl     = document.getElementById("userName");
-    const userEmailEl    = document.getElementById("userEmail");
-    const userIdEl       = document.getElementById("userId");
-    const joinDateEl     = document.getElementById("joinDate");
+    // العناصر
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const showSignup = document.getElementById('showSignup');
+    const showLogin = document.getElementById('showLogin');
 
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        localStorage.setItem("loggedIn", "true");
+    // التبديل بين الفورم
+    showSignup.onclick = () => {
+      loginForm.classList.add('hidden');
+      signupForm.classList.remove('hidden');
+    };
+    showLogin.onclick = () => {
+      signupForm.classList.add('hidden');
+      loginForm.classList.remove('hidden');
+    };
 
-        // عرض الاسم في الشريط العلوي
-        if (userLabel) userLabel.textContent = "أهلاً، " + (user.displayName || user.email.split('@')[0]);
-        
-        if (loginLink)   loginLink.style.display     = "none";
-        if (logoutBtn)   logoutBtn.style.display     = "inline-block";
-        if (profileLink) profileLink.style.display   = "inline-block";
+    // --- منطق تسجيل الدخول (Login) ---
+    const btnLogin = document.getElementById('btnLogin');
+    const loginError = document.getElementById('loginError');
 
-        if (user.email === ADMIN_EMAIL && dashboardLink) {
-          dashboardLink.style.display = "inline-block";
-        }
+    btnLogin.onclick = () => {
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPass').value;
+      
+      loginError.style.display = "none";
+      btnLogin.textContent = "جاري الدخول..."; // تغيير النص عشان يعرف إنه بيحمل
 
-        // عرض البيانات داخل الكارت
-        if (userNameEl)  userNameEl.textContent  = user.displayName || "غير متوفر";
-        if (userEmailEl) userEmailEl.textContent = user.email || "غير معروف";
-        if (userIdEl)    userIdEl.textContent    = user.uid  || "غير معروف";
-        
-        // عرض تاريخ الإنشاء (اختياري)
-        if (joinDateEl && user.metadata.creationTime) {
-           const date = new Date(user.metadata.creationTime);
-           joinDateEl.textContent = date.toLocaleDateString('ar-EG');
-        }
+      signInWithEmailAndPassword(auth, email, pass)
+        .then(() => {
+          localStorage.setItem("loggedIn", "true");
+          window.location.href = "index.html"; // توجيه للرئيسية
+        })
+        .catch((err) => {
+          console.error(err);
+          btnLogin.textContent = "تسجيل الدخول";
+          loginError.textContent = "خطأ: تأكد من الإيميل أو كلمة السر.";
+          loginError.style.display = "block";
+        });
+    };
 
-        if (logoutBtn) {
-          logoutBtn.onclick = () => {
-            signOut(auth).then(() => {
-              localStorage.removeItem("loggedIn");
-              window.location.href = "index.html"; // رجوع للرئيسية بعد تسجيل الخروج
-            });
-          };
-        }
+    // --- منطق إنشاء حساب جديد (Sign Up) وحفظ الاسم ---
+    const btnSignup = document.getElementById('btnSignup');
+    const signupError = document.getElementById('signupError');
 
-      } else {
-        // لو مش مسجّل → رجّعه لتسجيل الدخول
-        localStorage.removeItem("loggedIn");
+    btnSignup.onclick = () => {
+      const fName = document.getElementById('regFirstName').value.trim();
+      const lName = document.getElementById('regLastName').value.trim();
+      const email = document.getElementById('regEmail').value;
+      const pass = document.getElementById('regPass').value;
 
-        if (userLabel)      userLabel.textContent = "غير مسجّل الدخول";
-        if (loginLink)      loginLink.style.display = "inline-block";
-        if (logoutBtn)      logoutBtn.style.display = "none";
-        if (profileLink)    profileLink.style.display = "none";
-        if (dashboardLink)  dashboardLink.style.display = "none";
+      signupError.style.display = "none";
 
-        alert("يجب تسجيل الدخول لعرض الملف الشخصي.");
-        window.location.href = "login.html";
+      // التأكد إن الاسم مكتوب
+      if(!fName || !lName) {
+        signupError.textContent = "من فضلك اكتب اسمك الأول والأخير.";
+        signupError.style.display = "block";
+        return;
       }
-    });
-  </script>
 
+      btnSignup.textContent = "جاري الإنشاء...";
+
+      createUserWithEmailAndPassword(auth, email, pass)
+        .then(async (userCredential) => {
+          const user = userCredential.user;
+          const fullName = fName + " " + lName; // دمج الاسمين
+
+          // ⭐ هنا السحر: تحديث اسم المستخدم في فايربيس ⭐
+          await updateProfile(user, {
+            displayName: fullName
+          });
+
+          localStorage.setItem("loggedIn", "true");
+          alert("تم إنشاء الحساب بنجاح! أهلاً بك يا " + fullName);
+          window.location.href = "index.html";
+        })
+        .catch((err) => {
+          console.error(err);
+          btnSignup.textContent = "إنشاء حساب";
+          
+          let msg = "حصل مشكلة في التسجيل.";
+          if(err.code === 'auth/email-already-in-use') msg = "الإيميل ده مستخدم قبل كده.";
+          if(err.code === 'auth/weak-password') msg = "كلمة السر ضعيفة (لازم 6 حروف عالأقل).";
+          
+          signupError.textContent = msg;
+          signupError.style.display = "block";
+        });
+    };
+  </script>
 </body>
 </html>

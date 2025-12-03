@@ -79,6 +79,7 @@
     }
     .toggle-link:hover { text-decoration: underline; }
 
+    /* رابط نسيت كلمة السر */
     .forgot-pass {
       display: block;
       margin-top: 10px;
@@ -86,6 +87,7 @@
       color: #aaa;
       cursor: pointer;
       text-align: right;
+      transition: 0.3s;
     }
     .forgot-pass:hover { color: #fff; text-decoration: underline; }
 
@@ -100,7 +102,7 @@
       display: none;
     }
     .success-msg {
-      color: #4caf50;
+      color: #4caf50; /* أخضر */
       font-size: 13px;
       margin-top: 10px;
       display: none;
@@ -275,7 +277,7 @@
           });
 
           localStorage.setItem("loggedIn", "true");
-          alert("تم إنشاء الحساب بنجاح! أهلاً بك يا " + fullName);
+          alert("تم إنشاء الحساب بنجاح! أهلاً بك يا " + fName);
           window.location.href = "index.html";
         })
         .catch((err) => {

@@ -384,6 +384,31 @@
       font-size: 13px;
     }
 
+    /* ========== عدّاد التقييمات ========== */
+    #ratingCounter {
+      position: fixed;
+      bottom: 80px;
+      left: 24px;
+      font-size: 14px;
+      background: #0d0f12;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #ff3333;
+      color: #fff;
+      box-shadow: 0 6px 15px rgba(255,50,50,0.3);
+      z-index: 9998;
+    }
+
+    #ratingCounter.pop {
+      animation: ratingPop 0.3s ease-out;
+    }
+
+    @keyframes ratingPop {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.12); }
+      100% { transform: scale(1); }
+    }
+
     /* ========== زر التقييم العائم + المودال ========== */
     .rating-fab {
       position: fixed;
@@ -527,6 +552,12 @@
 
   </div>
 
+  <!-- عدّاد التقييمات -->
+  <p id="ratingCounter">
+    ⭐ الموقع مُقيّم من أكثر من
+    <span id="ratingCountNumber">0</span> زائر
+  </p>
+
   <!-- زر التقييم العائم -->
   <button id="ratingFab" class="rating-fab">
     🩸 تقييمك يهمّنا للتطوير
@@ -584,7 +615,8 @@
       doc,
       getDoc,
       setDoc,
-      updateDoc
+      updateDoc,
+      getDocs
     } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -618,6 +650,51 @@
     const popupRatingMsgEl      = document.getElementById("popupRatingMessage");
 
     let currentUser = null;
+    let displayedCount = 0; // آخر رقم ظاهر في العداد
+
+    // ===== دالة تحديث عدّاد التقييمات =====
+    async function updateRatingCounter(animate = true) {
+      const counter    = document.getElementById("ratingCounter");
+      const numberSpan = document.getElementById("ratingCountNumber");
+      if (!counter || !numberSpan) return;
+
+      try {
+        const snap  = await getDocs(collection(db, "siteRatings"));
+        const total = snap.size;
+
+        if (!animate) {
+          displayedCount = total;
+          numberSpan.textContent = total.toLocaleString("en-US");
+          return;
+        }
+
+        const start     = displayedCount;
+        const end       = total;
+        const duration  = 800;
+        const startTime = performance.now();
+
+        function tick(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const current  = Math.floor(start + (end - start) * progress);
+          numberSpan.textContent = current.toLocaleString("en-US");
+
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            displayedCount = end;
+            counter.classList.add("pop");
+            setTimeout(() => counter.classList.remove("pop"), 300);
+          }
+        }
+
+        requestAnimationFrame(tick);
+      } catch (err) {
+        console.error("Error updating rating counter:", err);
+      }
+    }
+
+    // أول تحميل للصفحة → شغّل العداد
+    updateRatingCounter(true);
 
     // ===== حالة المستخدم + تحميل التقييم القديم لو موجود =====
     onAuthStateChanged(auth, async (user) => {
@@ -647,7 +724,7 @@
           };
         }
 
-        // 👇 هنا بنجيب التقييم القديم لو موجود
+        // تحميل التقييم القديم لو موجود
         try {
           const ratingRef = doc(db, "siteRatings", user.uid);
           const snap = await getDoc(ratingRef);
@@ -690,7 +767,6 @@
       ratingFab.addEventListener("click", () => {
         ratingModal.classList.add("show");
         if (popupRatingMsgEl && popupRatingValueEl && !popupRatingValueEl.disabled) {
-          // لو مفيش تقييم قديم، خبي رسالة التكرار
           popupRatingMsgEl.style.display = "none";
         }
       });
@@ -724,13 +800,12 @@
         }
 
         try {
-          // لو المستخدم عامل لوجين → نخزن بالتعرف بتاعه
           if (currentUser) {
             const ratingRef = doc(db, "siteRatings", currentUser.uid);
             const snap = await getDoc(ratingRef);
 
             if (snap.exists()) {
-              // ✅ تقييم قديم موجود → نحدّث التعليق فقط
+              // تحديث التعليق فقط
               await updateDoc(ratingRef, {
                 comment: comment || snap.data().comment || null,
                 lastUpdated: serverTimestamp()
@@ -740,8 +815,9 @@
                 popupRatingMsgEl.textContent = "تم حفظ تعليقك 🩸";
                 popupRatingMsgEl.style.display = "block";
               }
+              // لا نحدّث العدّاد هنا لأن العدد ما تغيّرش
             } else {
-              // ⭐ أول مرة يقيّم
+              // أول تقييم للمستخدم
               await setDoc(ratingRef, {
                 rating: Number(ratingVal),
                 comment: comment || null,
@@ -755,11 +831,12 @@
                 popupRatingMsgEl.style.display = "block";
               }
 
-              // اقفل تغيير الرقم بعد أول تقييم
               popupRatingValueEl.disabled = true;
+              // عدد التقييمات زاد → حدّث العدّاد
+              updateRatingCounter(true);
             }
           } else {
-            // زائر مش عامل لوجين → تقييم عادي بدون ربط بحساب
+            // زائر بدون لوجين
             await addDoc(collection(db, "siteRatings"), {
               rating: Number(ratingVal),
               comment: comment || null,
@@ -772,16 +849,17 @@
               popupRatingMsgEl.textContent = "شكراً لتقييمك! 🩸";
               popupRatingMsgEl.style.display = "block";
             }
+
+            // عدد التقييمات زاد
+            updateRatingCounter(true);
           }
 
-          // reset للفورم بس نرجّع قيمة التقييم لو كان disabled
           const savedRating = ratingVal;
           popupRatingForm.reset();
           if (popupRatingValueEl.disabled) {
             popupRatingValueEl.value = savedRating;
           }
 
-          // اقفل المودال بعد ثانية ونص
           setTimeout(() => {
             if (popupRatingMsgEl) popupRatingMsgEl.style.display = "none";
             ratingModal.classList.remove("show");

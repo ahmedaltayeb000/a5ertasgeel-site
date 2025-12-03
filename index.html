@@ -397,6 +397,9 @@
       color: #fff;
       box-shadow: 0 6px 15px rgba(255,50,50,0.3);
       z-index: 9998;
+      opacity: 0;            /* مخفي في البداية */
+      visibility: hidden;    /* عشان ما يحجزش مساحة */
+      transition: opacity 0.6s ease;
     }
 
     #ratingCounter.pop {
@@ -554,8 +557,7 @@
 
   <!-- عدّاد التقييمات -->
   <p id="ratingCounter">
-    ⭐ الموقع مُقيّم من أكثر من
-    <span id="ratingCountNumber">0</span> زائر
+    ⭐ <span id="ratingCountNumber"></span>
   </p>
 
   <!-- زر التقييم العائم -->
@@ -662,17 +664,26 @@
         const snap  = await getDocs(collection(db, "siteRatings"));
         const total = snap.size;
 
-        // أول تحميل أو تحديث بدون أنيميشن
+        // أول تحميل أو تحديث بدون أنيميشن عددي
         if (!animate) {
           displayedCount = total;
           numberSpan.textContent = total.toLocaleString("en-US");
+
+          // إظهار العداد لأول مرة مع Fade-in
+          counter.style.visibility = "visible";
+          counter.style.opacity = "1";
           return;
         }
 
+        // أنيميشن من الرقم القديم للجديد
         const start     = displayedCount;
         const end       = total;
         const duration  = 800;
         const startTime = performance.now();
+
+        // تأكد إنه ظاهر قبل الأنيميشن
+        counter.style.visibility = "visible";
+        counter.style.opacity = "1";
 
         function tick(now) {
           const progress = Math.min((now - startTime) / duration, 1);
@@ -694,7 +705,7 @@
       }
     }
 
-    // أول تحميل للصفحة → عدّاد ثابت بدون حركة
+    // أول تحميل للصفحة → عدّاد ثابت بدون حركة رقمية، مع Fade-in بس
     updateRatingCounter(false);
 
     // ===== حالة المستخدم + تحميل التقييم القديم لو موجود =====

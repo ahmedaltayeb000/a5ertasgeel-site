@@ -37,14 +37,13 @@
     .rec-indicator .dot { width: 10px; height: 10px; border-radius: 50%; background: #ff3333; box-shadow: 0 0 12px rgba(255,50,50,0.9); animation: recBlink 1s infinite; }
     @keyframes recBlink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.1; } }
 
-    /* ========== كارت قصص رعب +18 (التصميم الجديد - مطابق لصفحة القصص) ========== */
+    /* ========== كارت قصص رعب +18 (على الشمال) ========== */
     .horror18-section {
-      /* الحجم الجديد - مطابق لـ h18-stories.html */
-      max-width: 340px; 
+      max-width: 340px;
       width: 100%;
       
-      /* المحاذاة لليمين */
-      margin: 0 0 30px auto;
+      /* التعديل هنا: خلينا اليمين auto والشمال 0 عشان تروح شمال */
+      margin: 0 auto 30px 0; 
 
       background: transparent;
       box-shadow: none;
@@ -71,7 +70,6 @@
     .h18-img-wrapper {
       position: relative;
       width: 100%;
-      /* تغيير نسبة العرض للارتفاع لتناسب صورة طولية (مثل 4:5) */
       padding-top: 125%; /* 4:5 aspect ratio */
     }
 

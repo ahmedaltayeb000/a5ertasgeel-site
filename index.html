@@ -13,12 +13,17 @@
     .page { max-width: 1400px; width: 100%; margin: 0 auto; padding: 32px 16px 64px; }
 
     /* ========== شريط المستخدم (Dropdown) ========== */
-    .user-bar { display: flex; justify-content: flex-end; align-items: center; background: #0c0c0c; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: #ccc; position: relative; z-index: 100; }
+    .user-bar { display: flex; justify-content: flex-end; align-items: center; background: #0c0c0c; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: #ccc; position: relative; z-index: 100; gap: 15px; } /* زودت gap عشان المسافة بين الايقونات */
+    
     .user-info-group { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
     .welcome-text { font-size: 13px; color: #ddd; }
-    .profile-icon-btn { width: 40px; height: 40px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; transition: 0.3s; }
-    .profile-icon-btn:hover { background: #ff3333; border-color: #ff3333; }
-    .profile-icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    
+    /* الأزرار الدائرية في الشريط (بروفايل + من نحن) */
+    .icon-btn-circle { width: 40px; height: 40px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; transition: 0.3s; cursor: pointer; }
+    .icon-btn-circle:hover { background: #ff3333; border-color: #ff3333; }
+    .icon-btn-circle svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* القائمة المنسدلة */
     .dropdown-menu { position: absolute; top: 60px; left: 20px; background: #111; border: 1px solid #333; border-radius: 12px; width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); display: none; flex-direction: column; overflow: hidden; z-index: 101; }
     .dropdown-menu.show { display: flex; animation: fadeIn 0.2s ease-out; }
     .dropdown-item { padding: 12px 16px; color: #eee; text-decoration: none; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; align-items: center; gap: 10px; cursor: pointer; }
@@ -30,40 +35,17 @@
     .hero-with-bg { position: relative; background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat; border-radius: 20px; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.65); max-width: 1300px; width: 100%; margin: 0 auto 32px; padding: 40px 24px; text-align: center; }
     .hero-with-bg::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at top, rgba(42,0,0,0.85), rgba(5,6,8,0.96)), rgba(0,0,0,0.4); backdrop-filter: blur(2px); }
     .hero-with-bg * { position: relative; z-index: 2; }
-    
-    /* تنسيق النص الدموي الجديد */
     .hero-subtitle { margin-top: 20px; font-size: 18px; color: #e0e0e0; }
-    .bloody-text {
-      font-weight: 600;
-      background: linear-gradient(to left, #ff3333 50%, #e0e0e0 50%);
-      background-size: 200% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      animation: bleed 4s linear infinite alternate;
-    }
-    @keyframes bleed {
-      0% { background-position: 100% 0; }
-      100% { background-position: 0 0; }
-    }
-
+    .bloody-text { font-weight: 600; background: linear-gradient(to left, #ff3333 50%, #e0e0e0 50%); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; animation: bleed 4s linear infinite alternate; }
+    @keyframes bleed { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
     .scary-title { font-size: 48px; text-align: center; color: #ff2222; position: relative; font-family: "Creepster", sans-serif; letter-spacing: 3px; margin-bottom: 20px; animation: glitch 2.5s infinite alternate; text-shadow: 0 0 4px rgba(255, 0, 0, 0.8), 2px 0 6px rgba(0, 255, 255, 0.4); }
     @keyframes glitch { 0% { transform: translate(0); } 20% { transform: translate(-1px, 1px); } 40% { transform: translate(1px, -1px); } 60% { transform: translate(0.5px, 0); } 80% { transform: translate(-0.5px, 0); } 100% { transform: translate(0); } }
     .rec-indicator { display: inline-flex; align-items: center; gap: 6px; margin-top: -6px; margin-bottom: 8px; font-size: 12px; color: #ff7777; opacity: 0.95; }
     .rec-indicator .dot { width: 10px; height: 10px; border-radius: 50%; background: #ff3333; box-shadow: 0 0 12px rgba(255,50,50,0.9); animation: recBlink 1s infinite; }
     @keyframes recBlink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.1; } }
 
-    /* ========== كارت قصص رعب +18 (على الشمال) ========== */
-    .horror18-section { 
-      max-width: 340px; 
-      width: 100%; 
-      /* المحاذاة لليسار: يمين اوتو، شمال 0 */
-      margin: 0 auto 30px 0; 
-      background: transparent; 
-      box-shadow: none; 
-      padding: 0; 
-    }
+    /* ========== كارت قصص رعب +18 ========== */
+    .horror18-section { max-width: 340px; width: 100%; margin: 0 auto 30px 0; background: transparent; box-shadow: none; padding: 0; }
     .h18-card-link { display: block; position: relative; width: 100%; margin: 0; border-radius: 18px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.8); transition: 0.3s; text-decoration: none; }
     .h18-card-link:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 18px 40px rgba(0,0,0,1), 0 0 25px rgba(255,0,0,0.6); }
     .h18-img-wrapper { position: relative; width: 100%; padding-top: 125%; }
@@ -72,17 +54,6 @@
     .h18-hover-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; z-index: 3; padding: 20px; text-align: center; }
     .h18-card-link:hover .h18-hover-overlay { opacity: 1; }
     .h18-warning-text { color: #ff3333; font-size: 16px; font-weight: bold; line-height: 1.5; text-shadow: 0 0 10px rgba(255,0,0,0.5); }
-
-    /* ========== تنسيق أيقونات السوشيال الجديدة ========== */
-    .social { text-align: center; }
-    .social-list { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 10px; padding: 0; }
-    .social-btn { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.1); color: #ccc; transition: 0.3s; }
-    .social-btn svg { width: 20px; height: 20px; fill: currentColor; }
-    .social-btn:hover { transform: translateY(-3px); color: #fff; }
-    .social-btn.fb:hover { background: #1877F2; border-color: #1877F2; } 
-    .social-btn.yt:hover { background: #FF0000; border-color: #FF0000; } 
-    .social-btn.tt:hover { background: #000000; border-color: #ffffff; } 
-    .social-btn.tg:hover { background: #229ED9; border-color: #229ED9; } 
 
     /* ========== باقي الأقسام ========== */
     .section { background: #0e1014; border-radius: 18px; padding: 24px 32px; margin: 0 auto 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); max-width: 1300px; width: 100%; }
@@ -93,27 +64,50 @@
     .contact-form input, .contact-form textarea { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #ff4444; background: #0d0f12; color: #ffffff; font-size: 14px; }
     .contact-form button { margin-top: 4px; background: #ff3333; padding: 10px 20px; border-radius: 999px; border: none; color: #ffffff; font-weight: bold; cursor: pointer; transition: 0.3s; }
     .contact-form button:hover { background: #ff1111; }
+    .social-list { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 10px; padding: 0; }
+    .social-btn { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.1); color: #ccc; transition: 0.3s; }
+    .social-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .social-btn:hover { transform: translateY(-3px); color: #fff; }
+    .social-btn.fb:hover { background: #1877F2; border-color: #1877F2; } 
+    .social-btn.yt:hover { background: #FF0000; border-color: #FF0000; } 
+    .social-btn.tt:hover { background: #000000; border-color: #ffffff; } 
+    .social-btn.tg:hover { background: #229ED9; border-color: #229ED9; } 
 
     /* عداد التقييمات والزر */
     #ratingCounter { position: fixed; bottom: 80px; left: 24px; font-size: 14px; background: #0d0f12; padding: 6px 14px; border-radius: 999px; border: 1px solid #ff3333; color: #fff; box-shadow: 0 6px 15px rgba(255,50,50,0.3); z-index: 9998; opacity: 0; visibility: hidden; transition: opacity 0.6s ease; }
     #ratingCounter.pop { animation: ratingPop 0.3s ease-out; }
     @keyframes ratingPop { 0% { transform: scale(1); } 50% { transform: scale(1.12); } 100% { transform: scale(1); } }
     .rating-fab { position: fixed; bottom: 24px; left: 24px; padding: 10px 18px; border-radius: 999px; border: none; background: #ff3333; color: #fff; font-weight: 600; font-size: 13px; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.7); z-index: 9998; }
-    .rating-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; }
-    .rating-modal.show { display: flex; }
-    .rating-modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); }
-    .rating-modal-inner { position: relative; max-width: 700px; width: 95%; background: #08090d; border-radius: 20px; padding: 24px 20px 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); border: 1px solid rgba(255,80,80,0.3); }
+    
+    /* مودال موحد (للتقييم و من نحن) */
+    .modal-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; }
+    .modal-overlay.show { display: flex; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); }
+    .modal-inner { position: relative; max-width: 600px; width: 95%; background: #08090d; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,1); border: 1px solid rgba(255,80,80,0.3); animation: slideUp 0.3s ease-out; }
+    @keyframes slideUp { from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+    .modal-close { position: absolute; top: 15px; left: 20px; border: none; background: transparent; color: #888; font-size: 24px; cursor: pointer; transition: 0.3s; }
+    .modal-close:hover { color: #ff3333; }
     .contact-form select { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #ff4444; background: #0d0f12; color: #ffffff; font-size: 14px; }
-    .rating-close { position: absolute; top: 10px; left: 14px; border: none; background: transparent; color: #fff; font-size: 20px; cursor: pointer; }
+    
+    /* تنسيق خاص لنص من نحن */
+    .about-text { line-height: 1.9; color: #ddd; font-size: 16px; text-align: center; }
+    .about-highlight { color: #ff3333; font-weight: bold; }
   </style>
 </head>
 
 <body>
 
   <div class="user-bar">
+    
+    <button class="icon-btn-circle" id="aboutBtn" title="من نحن">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
+        <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4m2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A2 2 0 0 0 8 6c-.532 0-1.016.208-1.375.547M14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0"/>
+      </svg>
+    </button>
+
     <div class="user-info-group" id="userMenuTrigger">
       <span class="welcome-text" id="welcomeMsg">جاري التحميل...</span>
-      <div class="profile-icon-btn" id="profileIconContainer">
+      <div class="icon-btn-circle" id="profileIconContainer" style="border-radius:50%;">
         </div>
     </div>
     <div class="dropdown-menu" id="userDropdown">
@@ -127,7 +121,6 @@
     <header class="hero hero-with-bg">
       <h1 class="scary-title">آخر تسجيل</h1>
       <div class="rec-indicator"><span class="dot"></span><span class="rec-text">REC</span></div>
-      
       <p class="hero-subtitle">
         <span class="bloody-text">خلف كل باب مغلق قصة لا يجرؤ أحد على روايتها... إلا نحن.</span>
       </p>
@@ -139,14 +132,12 @@
           <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
           <div class="h18-badge">+18</div>
           <div class="h18-hover-overlay">
-            <p class="h18-warning-text">
-              ⚠️ تحذير: المحتوى صادم<br>
-              اضغط للدخول
-            </p>
+            <p class="h18-warning-text">⚠️ تحذير: المحتوى صادم<br>اضغط للدخول</p>
           </div>
         </div>
       </a>
     </section>
+
     <section class="section section-visitor">
       <h2 class="section-title visitor-title">رسالة إلى الزائر</h2>
       <p class="section-text visitor-text">
@@ -174,10 +165,10 @@
   <p id="ratingCounter">⭐ <span id="ratingCountNumber"></span></p>
   <button id="ratingFab" class="rating-fab">🩸 تقييمك يهمّنا</button>
 
-  <div id="ratingModal" class="rating-modal">
-    <div class="rating-modal-backdrop"></div>
-    <div class="rating-modal-inner">
-      <button id="ratingClose" class="rating-close">✕</button>
+  <div id="ratingModal" class="modal-overlay">
+    <div class="modal-backdrop"></div>
+    <div class="modal-inner">
+      <button class="modal-close" id="ratingClose">✕</button>
       <h2 class="section-title" style="margin-bottom:6px;">قيّم موقع “آخر تسجيل”</h2>
       <form id="popupRatingForm" class="contact-form">
         <label>تقييمك: <select id="popupRatingValue" name="rating" required><option value="">اختر...</option><option value="5">⭐⭐⭐⭐⭐</option><option value="4">⭐⭐⭐⭐</option><option value="3">⭐⭐⭐</option><option value="2">⭐⭐</option><option value="1">⭐</option></select></label>
@@ -185,6 +176,20 @@
         <button type="submit">إرسال التقييم</button>
         <p id="popupRatingMessage" style="margin-top:10px;font-size:14px;color:#9be29b;display:none;">شكراً!</p>
       </form>
+    </div>
+  </div>
+
+  <div id="aboutModal" class="modal-overlay">
+    <div class="modal-backdrop"></div>
+    <div class="modal-inner" style="border-color: #fff;">
+      <button class="modal-close" id="aboutClose">✕</button>
+      <h2 class="section-title" style="margin-bottom:20px; text-align:center; color:#ff3333;">من نحن؟ 👁️</h2>
+      <div class="about-text">
+        <p>نحن لسنا مجرد رواة... نحن أرشيف للجانب المظلم.</p>
+        <p style="margin:15px 0;">فريقنا يجمع اعترافات وأسراراً حقيقية لم تخرج إلا من أصحابها، لنعيد صياغتها لكم (صوتاً، وكتابةً، ومشاهد).</p>
+        <p>نستخدم <span class="about-highlight">الذكاء الاصطناعي</span> فقط لتجسيد الكابوس بصرياً، أما الأصوات...</p>
+        <p class="about-highlight" style="margin-top:10px; font-size:18px;">... فهي مجهولة، وستبقى كذلك للأبد.</p>
+      </div>
     </div>
   </div>
 
@@ -274,10 +279,24 @@
       } catch(e){}
     }
 
-    const fab = document.getElementById("ratingFab"); const modal = document.getElementById("ratingModal"); const close = document.getElementById("ratingClose");
-    if(fab) fab.onclick = () => modal.classList.add("show");
-    if(close) close.onclick = () => modal.classList.remove("show");
-    if(modal) modal.onclick = (e) => { if(e.target===modal) modal.classList.remove("show"); };
+    // منطق المودال (تقييم + من نحن)
+    const ratingFab = document.getElementById("ratingFab");
+    const ratingModal = document.getElementById("ratingModal");
+    const ratingClose = document.getElementById("ratingClose");
+    const aboutBtn = document.getElementById("aboutBtn");
+    const aboutModal = document.getElementById("aboutModal");
+    const aboutClose = document.getElementById("aboutClose");
+
+    // فتح/غلق التقييم
+    if(ratingFab) ratingFab.onclick = () => ratingModal.classList.add("show");
+    if(ratingClose) ratingClose.onclick = () => ratingModal.classList.remove("show");
+    if(ratingModal) ratingModal.onclick = (e) => { if(e.target===ratingModal) ratingModal.classList.remove("show"); };
+
+    // فتح/غلق من نحن
+    if(aboutBtn) aboutBtn.onclick = () => aboutModal.classList.add("show");
+    if(aboutClose) aboutClose.onclick = () => aboutModal.classList.remove("show");
+    if(aboutModal) aboutModal.onclick = (e) => { if(e.target===aboutModal) aboutModal.classList.remove("show"); };
+
     const rateForm = document.getElementById("popupRatingForm");
     if(rateForm) {
       rateForm.onsubmit = async (e) => {
@@ -292,7 +311,7 @@
              const snap = await getDoc(ref);
              if(snap.exists()) { await updateDoc(ref, { comment: comm, lastUpdated: serverTimestamp() }); } else { await setDoc(ref, { rating: val, comment: comm, userId: user.uid, createdAt: serverTimestamp() }); updateRatingCounter(true); }
           } else { await addDoc(collection(db, "siteRatings"), { rating: val, comment: comm, createdAt: serverTimestamp() }); updateRatingCounter(true); }
-          alert("تم حفظ تقييمك!"); modal.classList.remove("show");
+          alert("تم حفظ تقييمك!"); ratingModal.classList.remove("show");
         } catch(err) { console.error(err); }
       };
     }

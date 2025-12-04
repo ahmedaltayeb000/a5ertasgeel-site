@@ -15,670 +15,106 @@
 
   <style>
     /* ============ تنسيقات عامة ============ */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      scroll-behavior: smooth; /* تفعيل النزول الناعم عند الضغط على الزر */
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; scroll-behavior: smooth; }
+    html, body { height: 100%; }
+    body { background: radial-gradient(circle at top, #270000, #050608 55%, #010102 100%); color: #f5f5f5; line-height: 1.9; }
+    a { color: #ff4b4b; text-decoration: none; } a:hover { text-decoration: underline; }
 
-    body {
-      background: radial-gradient(circle at top, #270000, #050608 55%, #010102 100%);
-      color: #f5f5f5;
-      line-height: 1.9;
-    }
+    /* تم تعديل العرض ليصبح 1400px ليملأ الشاشة مثل صفحة القصص */
+    .page { max-width: 1400px; margin: 0 auto; padding: 24px 16px 64px; position: relative; z-index: 1; }
 
-    .page {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 16px 64px;
-    }
-
-    /* شريط حالة المستخدم */
-    .user-bar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 18px;
-      font-size: 13px;
-      color: #ccc;
-      background: #0c0c0c;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .user-bar span {
-      max-width: 250px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .user-bar a {
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: #15171f;
-      border: 1px solid rgba(255,255,255,0.1);
-      font-weight: 600;
-      text-decoration: none;
-      color: #fff;
-      font-size: 13px;
-    }
-
-    .user-bar a:hover {
-      background: #ff3333;
-      border-color: #ff3333;
-      color: #fff;
-    }
-
-    .user-bar button {
-      padding: 5px 12px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      background: #ff3333;
-      color: #fff;
-      font-size: 13px;
-      font-weight: 600;
-    }
+    /* ========== شريط المستخدم (Dropdown) - الجديد ========== */
+    .user-bar { display: flex; justify-content: flex-end; align-items: center; background: #0c0c0c; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: #ccc; position: relative; z-index: 100; }
+    .user-info-group { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
+    .welcome-text { font-size: 13px; color: #ddd; }
+    .profile-icon-btn { width: 40px; height: 40px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; transition: 0.3s; }
+    .profile-icon-btn:hover { background: #ff3333; border-color: #ff3333; }
+    .profile-icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .dropdown-menu { position: absolute; top: 60px; left: 20px; background: #111; border: 1px solid #333; border-radius: 12px; width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); display: none; flex-direction: column; overflow: hidden; z-index: 101; }
+    .dropdown-menu.show { display: flex; animation: fadeIn 0.2s ease-out; }
+    .dropdown-item { padding: 12px 16px; color: #eee; text-decoration: none; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .dropdown-item:last-child { border-bottom: none; }
+    .dropdown-item:hover { background: #1f1f1f; color: #ff3333; text-decoration: none; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
     /* الهيدر */
-    .hero-with-bg {
-      position: relative;
-      background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.85);
-      margin: 0 auto 32px;
-      padding: 36px 20px 40px;
-      text-align: center;
-    }
-
-    .hero-with-bg::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top, rgba(60,0,0,0.95), rgba(5,6,8,0.97)),
-        rgba(0,0,0,0.55);
-      backdrop-filter: blur(2px);
-    }
-
-    .hero-with-bg * {
-      position: relative;
-      z-index: 2;
-    }
-
-    .scary-title {
-      font-size: 40px;
-      color: #ff2222;
-      letter-spacing: 3px;
-      margin-bottom: 10px;
-      text-shadow:
-        0 0 6px rgba(255,0,0,0.7),
-        0 0 18px rgba(255,0,0,0.85);
-      animation: titleFlicker 2.6s infinite ease-in-out;
-    }
-
-    @keyframes titleFlicker {
-      0%,18%{opacity:.9;}
-      19%,22%{opacity:.3;}
-      23%,60%{opacity:1;}
-      61%,70%{opacity:.5;}
-      71%,100%{opacity:.85;}
-    }
-
-    .hero-subtitle {
-      color:#ddd;
-      font-size:15px;
-    }
+    .hero-with-bg { position: relative; background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat; border-radius: 20px; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.85); margin: 0 auto 32px; padding: 36px 20px 40px; text-align: center; }
+    .hero-with-bg::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at top, rgba(60,0,0,0.95), rgba(5,6,8,0.97)), rgba(0,0,0,0.55); backdrop-filter: blur(2px); }
+    .hero-with-bg * { position: relative; z-index: 2; }
+    .scary-title { font-size: 40px; color: #ff2222; letter-spacing: 3px; margin-bottom: 10px; text-shadow: 0 0 6px rgba(255,0,0,0.7), 0 0 18px rgba(255,0,0,0.85); animation: titleFlicker 2.6s infinite ease-in-out; }
+    @keyframes titleFlicker { 0%,18%{opacity:.9;} 19%,22%{opacity:.3;} 23%,60%{opacity:1;} 61%,70%{opacity:.5;} 71%,100%{opacity:.85;} }
+    .hero-subtitle { color:#ddd; font-size:15px; }
 
     /* روابط الرجوع */
-    .back-links {
-      margin: 10px 0 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-
-    .back-links a {
-      padding: 6px 14px;
-      border-radius:999px;
-      background:#15171f;
-      border:1px solid rgba(255,255,255,0.1);
-      font-size:13px;
-      color:#fff;
-      font-weight:600;
-      text-decoration: none;
-    }
-
-    .back-links a:hover {
-      background:#ff3333;
-      border-color:#ff3333;
-    }
+    .back-links { margin: 10px 0 20px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .back-links a { padding: 6px 14px; border-radius:999px; background:#15171f; border:1px solid rgba(255,255,255,0.1); font-size:13px; color:#fff; font-weight:600; text-decoration: none; }
+    .back-links a:hover { background:#ff3333; border-color:#ff3333; }
 
     /* القصة */
-    .story-box {
-      background: radial-gradient(circle at top, #1b0000, #050608);
-      border-radius:20px;
-      padding:24px 20px 30px;
-      box-shadow:0 18px 45px rgba(0,0,0,0.9);
-      border:1px solid rgba(255,80,80,0.2);
-      margin-bottom:26px;
-    }
-
-    .story-title {
-      font-size:24px;
-      margin-bottom:8px;
-    }
-
-    .story-meta {
-      font-size:13px;
-      color:#999;
-      margin-bottom:18px;
-    }
-
-    .story-text {
-      font-size:16px;
-      color:#e5e5e5;
-      white-space:pre-line;
-    }
-
-    .no-copy {
-      user-select:none;
-      cursor:default;
-    }
+    .story-box { background: radial-gradient(circle at top, #1b0000, #050608); border-radius:20px; padding:30px 40px; /* تكبير الحشو الداخلي */ box-shadow:0 18px 45px rgba(0,0,0,0.9); border:1px solid rgba(255,80,80,0.2); margin-bottom:26px; }
+    .story-title { font-size:28px; margin-bottom:8px; }
+    .story-meta { font-size:14px; color:#999; margin-bottom:24px; }
+    .story-text { font-size:18px; color:#e5e5e5; white-space:pre-line; line-height: 2; } /* تكبير الخط */
+    .no-copy { user-select:none; cursor:default; }
 
     /* مشغّل الصوت */
-    .audio-player {
-      margin:20px auto 0;
-      max-width:620px;
-      padding:16px 22px;
-      border-radius:999px;
-      display:flex;
-      align-items:center;
-      gap:18px;
-      background: radial-gradient(circle at top, #220000, #050608);
-      border:1px solid rgba(255,60,60,0.35);
-      box-shadow:
-        0 18px 40px rgba(0,0,0,0.9),
-        0 0 20px rgba(255,0,0,0.25);
-    }
-
-    .ap-left {
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-
-    .ap-play {
-      width:54px;
-      height:54px;
-      border:none;
-      border-radius:50%;
-      background:#ff2222;
-      cursor:pointer;
-      color:#fff;
-      font-size:20px;
-    }
-
+    .audio-player { margin:20px auto 0; max-width:620px; padding:16px 22px; border-radius:999px; display:flex; align-items:center; gap:18px; background: radial-gradient(circle at top, #220000, #050608); border:1px solid rgba(255,60,60,0.35); box-shadow: 0 18px 40px rgba(0,0,0,0.9), 0 0 20px rgba(255,0,0,0.25); }
+    .ap-left { display:flex; align-items:center; gap:12px; }
+    .ap-play { width:54px; height:54px; border:none; border-radius:50%; background:#ff2222; cursor:pointer; color:#fff; font-size:20px; }
     .ap-play .icon-pause{display:none;}
     .audio-player.is-playing .icon-play{display:none;}
     .audio-player.is-playing .icon-pause{display:inline;}
+    .ap-wave{ flex:1; display:flex; gap:3px; padding:0 6px; }
+    .ap-wave span{ width:3px; height:4px; border-radius:999px; background:red; opacity:.35; }
+    .audio-player.is-playing .ap-wave span{ animation:wave 1s infinite; opacity:1; }
+    @keyframes wave { 0%,100%{height:4px;} 30%{height:18px;} 60%{height:10px;} }
 
-    .ap-wave{
-      flex:1;
-      display:flex;
-      gap:3px;
-      padding:0 6px;
-    }
-
-    .ap-wave span{
-      width:3px;
-      height:4px;
-      border-radius:999px;
-      background:red;
-      opacity:.35;
-    }
-
-    .audio-player.is-playing .ap-wave span{
-      animation:wave 1s infinite;
-      opacity:1;
-    }
-
-    @keyframes wave {
-      0%,100%{height:4px;}
-      30%{height:18px;}
-      60%{height:10px;}
-    }
-
-    /* ===== تنسيق قسم التعليقات المطور ===== */
-    .comments-box {
-      background: #0e1014;
-      border-radius: 20px;
-      padding: 24px 20px;
-      margin-bottom: 26px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      scroll-margin-top: 20px; /* مسافة عشان لما ينزل ميبقاش لازق في الشاشة */
-    }
-    .comments-title {
-      color: #ff3333;
-      margin-bottom: 16px;
-      border-bottom: 1px solid #333;
-      padding-bottom: 10px;
-      font-size: 18px;
-    }
-    
-    /* الفورم */
-    .comment-input, .reply-input-field {
-      width: 100%;
-      background: #050608;
-      border: 1px solid #444;
-      color: #fff;
-      padding: 12px;
-      border-radius: 12px;
-      margin-bottom: 10px;
-      resize: vertical;
-      font-size: 14px;
-    }
-    .comment-input:focus, .reply-input-field:focus {
-      outline: none;
-      border-color: #ff3333;
-    }
-    .comment-btn, .reply-submit-btn {
-      background: #ff3333;
-      color: #fff;
-      border: none;
-      padding: 6px 16px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 13px;
-      transition: 0.3s;
-    }
+    /* التعليقات */
+    .comments-box { background: #0e1014; border-radius: 20px; padding: 24px 20px; margin-bottom: 26px; border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.5); scroll-margin-top: 20px; }
+    .comments-title { color: #ff3333; margin-bottom: 16px; border-bottom: 1px solid #333; padding-bottom: 10px; font-size: 18px; }
+    .comment-input, .reply-input-field { width: 100%; background: #050608; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 12px; margin-bottom: 10px; resize: vertical; font-size: 14px; }
+    .comment-input:focus, .reply-input-field:focus { outline: none; border-color: #ff3333; }
+    .comment-btn, .reply-submit-btn { background: #ff3333; color: #fff; border: none; padding: 6px 16px; border-radius: 999px; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; }
     .comment-btn:hover { background: #d00000; }
-
-    /* التعليق الواحد */
-    .single-comment {
-      background: rgba(255,255,255,0.03);
-      padding: 14px;
-      border-radius: 12px;
-      margin-bottom: 14px;
-      border-right: 3px solid #444;
-      transition: 0.3s;
-    }
+    .single-comment { background: rgba(255,255,255,0.03); padding: 14px; border-radius: 12px; margin-bottom: 14px; border-right: 3px solid #444; transition: 0.3s; }
     .single-comment:hover { border-right-color: #ff3333; }
-
-    .comment-header {
-      font-size: 12px;
-      color: #888;
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: space-between;
-    }
+    .comment-header { font-size: 12px; color: #888; margin-bottom: 6px; display: flex; justify-content: space-between; }
     .comment-user { color: #ccc; font-weight: bold; }
     .comment-body { color: #e0e0e0; font-size: 15px; white-space: pre-wrap; line-height: 1.6; }
-
-    /* أزرار التفاعل (لايك ورد) */
-    .comment-actions {
-      margin-top: 10px;
-      display: flex;
-      gap: 15px;
-      font-size: 13px;
-      color: #888;
-      align-items: center;
-    }
-    .action-btn {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      transition: 0.2s;
-    }
+    .comment-actions { margin-top: 10px; display: flex; gap: 15px; font-size: 13px; color: #888; align-items: center; }
+    .action-btn { cursor: pointer; display: flex; align-items: center; gap: 4px; transition: 0.2s; }
     .action-btn:hover { color: #fff; }
-    
     .liked { color: #ff3333 !important; }
-    .heart-icon { font-size: 16px; }
-
-    /* منطقة الردود */
-    .replies-container {
-      margin-top: 12px;
-      margin-right: 15px; 
-      padding-right: 10px;
-      border-right: 2px solid rgba(255,255,255,0.1);
-    }
-    .single-reply {
-      background: rgba(0,0,0,0.3);
-      padding: 8px 10px;
-      border-radius: 8px;
-      margin-bottom: 8px;
-      font-size: 13px;
-    }
-
-    .reply-form-box {
-      margin-top: 10px;
-      display: none;
-      animation: fadeIn 0.3s;
-    }
+    .replies-container { margin-top: 12px; margin-right: 15px; padding-right: 10px; border-right: 2px solid rgba(255,255,255,0.1); }
+    .single-reply { background: rgba(0,0,0,0.3); padding: 8px 10px; border-radius: 8px; margin-bottom: 8px; font-size: 13px; }
+    .reply-form-box { margin-top: 10px; display: none; animation: fadeIn 0.3s; }
     .reply-form-box.open { display: block; }
-    
-    @keyframes fadeIn { from{opacity:0; transform:translateY(-5px);} to{opacity:1; transform:translateY(0);} }
-
-    /* زر تحميل المزيد */
     .load-more-container { text-align: center; margin-top: 20px; }
-    .load-more-btn {
-      background: transparent;
-      border: 1px solid #ff3333;
-      color: #ff3333;
-      padding: 8px 24px;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+    .load-more-btn { background: transparent; border: 1px solid #ff3333; color: #ff3333; padding: 8px 24px; border-radius: 999px; cursor: pointer; font-weight: bold; }
     .load-more-btn:hover { background: #ff3333; color: #fff; }
 
     /* Popup */
-    .login-modal-backdrop{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.8);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:9999;
-    }
+    .login-modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; z-index:9999; }
     .login-modal-backdrop.show{display:flex;}
-    .login-modal{
-      background:#200;
-      border-radius:16px;
-      padding:22px;
-      max-width:380px;
-      width:90%;
-      text-align:center;
-      border:1px solid #ff4444;
-    }
-    .btn-primary{
-      background:#ff3333;
-      color:#fff;
-      padding:8px 18px;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-    }
-    .btn-ghost{
-      background:none;
-      color:#fff;
-      border:1px solid #666;
-      padding:8px 18px;
-      border-radius:999px;
-      cursor:pointer;
-    }
+    .login-modal{ background:#200; border-radius:16px; padding:22px; max-width:380px; width:90%; text-align:center; border:1px solid #ff4444; }
+    .btn-primary{ background:#ff3333; color:#fff; padding:8px 18px; border-radius:999px; border:none; cursor:pointer; }
+    .btn-ghost{ background:none; color:#fff; border:1px solid #666; padding:8px 18px; border-radius:999px; cursor:pointer; }
   </style>
 </head>
 
 <body>
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-  import { 
-    getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, 
-    limit, doc, updateDoc, arrayUnion, arrayRemove 
-  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
-    authDomain: "a5er-tasgeel.firebaseapp.com",
-    projectId: "a5er-tasgeel",
-    storageBucket: "a5er-tasgeel.firebasestorage.app",
-    messagingSenderId: "239464150088",
-    appId: "1:239464150088:web:71a7288812dcfefc9c147d",
-    measurementId: "G-ZJRXVJG9JQ"
-  };
-
-  const ADMIN_EMAIL = "ahmed.altayeb01000@gmail.com";
-  const STORY_ID = "noemia_entity"; 
-
-  const app  = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db   = getFirestore(app);
-
-  const userLabel = document.getElementById('userLabel');
-  const loginBtn = document.getElementById('loginLink');
-  const logoutBtn = document.getElementById('logoutBtn');
-  const profileLink = document.getElementById('profileLink');
-  const dashboardLink = document.getElementById('dashboardLink');
-
-  const commentFormArea = document.getElementById("commentFormArea");
-  const loginToCommentMsg = document.getElementById("loginToCommentMsg");
-  const commentInput = document.getElementById("commentInput");
-  const submitCommentBtn = document.getElementById("submitCommentBtn");
-  const commentsListEl = document.getElementById("commentsList");
-  const loadMoreBtn = document.getElementById("loadMoreBtn");
-
-  let currentUser = null;
-  let commentsUnsubscribe = null; 
-  let currentLimit = 3; 
-
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      currentUser = user;
-      localStorage.setItem("loggedIn", "true");
-      
-      // === التعديل الجديد: الترحيب بالاسم الأول فقط ===
-      const fullName = user.displayName || user.email.split('@')[0];
-      const firstName = fullName.split(' ')[0]; // بناخد أول اسم بس
-
-      if (userLabel) {
-        userLabel.innerHTML = `مرحباً بك يا <span style="color:#ff3333;font-weight:bold;">${firstName}</span> في آخر تسجيل`;
-      }
-      // ============================================
-      
-      loginBtn.style.display    = "none";
-      logoutBtn.style.display   = "inline-block";
-      profileLink.style.display = "inline-block";
-      if (user.email === ADMIN_EMAIL) dashboardLink.style.display = "inline-block";
-
-      logoutBtn.onclick = () => {
-        signOut(auth).then(() => {
-          localStorage.removeItem("loggedIn");
-          window.location.href = "index.html";
-        });
-      };
-
-      if(commentFormArea) commentFormArea.style.display = "block";
-      if(loginToCommentMsg) loginToCommentMsg.style.display = "none";
-    } else {
-      currentUser = null;
-      localStorage.removeItem("loggedIn");
-      userLabel.textContent = "غير مسجّل الدخول";
-      loginBtn.style.display = "inline-block";
-      logoutBtn.style.display = "none";
-      profileLink.style.display = "none";
-      dashboardLink.style.display = "none";
-
-      if(commentFormArea) commentFormArea.style.display = "none";
-      if(loginToCommentMsg) loginToCommentMsg.style.display = "block";
-    }
-  });
-
-  function loadComments(limitVal) {
-    if (commentsUnsubscribe) commentsUnsubscribe();
-
-    const q = query(
-      collection(db, "comments"), 
-      where("storyId", "==", STORY_ID),
-      orderBy("createdAt", "desc"),
-      limit(limitVal)
-    );
-
-    commentsUnsubscribe = onSnapshot(q, (snapshot) => {
-      commentsListEl.innerHTML = ""; 
-
-      if (snapshot.empty) {
-        commentsListEl.innerHTML = "<p style='color:#777;text-align:center;'>لسه مفيش تعليقات.. كن أول واحد! 👻</p>";
-        loadMoreBtn.style.display = "none";
-        return;
-      }
-
-      snapshot.forEach(docSnap => {
-        renderComment(docSnap.id, docSnap.data());
-      });
-
-      if (snapshot.docs.length < limitVal) {
-        loadMoreBtn.style.display = "none";
-      } else {
-        loadMoreBtn.style.display = "inline-block";
-      }
-    });
-  }
-
-  function renderComment(docId, data) {
-    let timeStr = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString('ar-EG') : "...";
-    
-    const likesArr = data.likes || [];
-    const likeCount = likesArr.length;
-    const isLiked = currentUser && likesArr.includes(currentUser.uid);
-    const heartClass = isLiked ? "liked" : "";
-
-    const div = document.createElement("div");
-    div.className = "single-comment";
-    div.innerHTML = `
-      <div class="comment-header">
-        <span class="comment-user">${data.displayName ? data.displayName : (data.userEmail ? data.userEmail.split('@')[0] : 'مجهول')}</span>
-        <span>${timeStr}</span>
-      </div>
-      <div class="comment-body">${data.text}</div>
-      
-      <div class="comment-actions">
-        <div class="action-btn ${heartClass}" id="likeBtn-${docId}">
-          <span class="heart-icon">♥</span> <span>${likeCount}</span>
-        </div>
-        <div class="action-btn" id="replyToggle-${docId}">
-          <span>↩️ رد</span>
-        </div>
-      </div>
-
-      <div class="reply-form-box" id="replyBox-${docId}">
-        <input type="text" class="reply-input-field" id="replyInput-${docId}" placeholder="اكتب ردك هنا...">
-        <button class="reply-submit-btn" id="sendReply-${docId}">إرسال الرد</button>
-      </div>
-
-      <div class="replies-container" id="repliesList-${docId}"></div>
-    `;
-
-    commentsListEl.appendChild(div);
-
-    document.getElementById(`likeBtn-${docId}`).onclick = () => toggleLike(docId, likesArr);
-
-    document.getElementById(`replyToggle-${docId}`).onclick = () => {
-      const box = document.getElementById(`replyBox-${docId}`);
-      if (!currentUser) return alert("لازم تسجل دخول عشان ترد!");
-      box.classList.toggle("open");
-    };
-
-    document.getElementById(`sendReply-${docId}`).onclick = () => sendReply(docId);
-
-    loadReplies(docId);
-  }
-
-  async function toggleLike(commentId, currentLikes) {
-    if (!currentUser) return alert("سجّل دخول عشان تعمل لايك ❤️");
-    
-    const commentRef = doc(db, "comments", commentId);
-    if (currentLikes.includes(currentUser.uid)) {
-      await updateDoc(commentRef, { likes: arrayRemove(currentUser.uid) });
-    } else {
-      await updateDoc(commentRef, { likes: arrayUnion(currentUser.uid) });
-    }
-  }
-
-  if (submitCommentBtn) {
-    submitCommentBtn.onclick = async () => {
-      const text = commentInput.value.trim();
-      if (!text) return alert("اكتب حاجة الأول!");
-      if (!currentUser) return;
-
-      try {
-        await addDoc(collection(db, "comments"), {
-          storyId: STORY_ID,
-          text: text,
-          userEmail: currentUser.email,
-          displayName: currentUser.displayName || currentUser.email.split('@')[0], // حفظ الاسم
-          createdAt: serverTimestamp(),
-          likes: [] 
-        });
-        commentInput.value = ""; 
-      } catch (err) {
-        console.error(err);
-      }
-    };
-  }
-
-  async function sendReply(parentId) {
-    const input = document.getElementById(`replyInput-${parentId}`);
-    const text = input.value.trim();
-    if (!text) return;
-
-    try {
-      await addDoc(collection(db, "comments", parentId, "replies"), {
-        text: text,
-        userEmail: currentUser.email,
-        displayName: currentUser.displayName || currentUser.email.split('@')[0],
-        createdAt: serverTimestamp()
-      });
-      input.value = "";
-      document.getElementById(`replyBox-${parentId}`).classList.remove("open");
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  function loadReplies(parentId) {
-    const repliesContainer = document.getElementById(`repliesList-${parentId}`);
-    const q = query(
-      collection(db, "comments", parentId, "replies"),
-      orderBy("createdAt", "asc") 
-    );
-
-    onSnapshot(q, (snapshot) => {
-      repliesContainer.innerHTML = ""; 
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const rDiv = document.createElement("div");
-        rDiv.className = "single-reply";
-        rDiv.innerHTML = `
-          <strong style="color:#bbb">${data.displayName || 'مجهول'}:</strong>
-          <span style="color:#ddd"> ${data.text}</span>
-        `;
-        repliesContainer.appendChild(rDiv);
-      });
-    });
-  }
-
-  if (loadMoreBtn) {
-    loadMoreBtn.onclick = () => {
-      currentLimit = 100; 
-      loadComments(currentLimit);
-      loadMoreBtn.style.display = "none";
-    };
-  }
-
-  loadComments(currentLimit);
-
-</script>
-
-<div class="page">
-
   <div class="user-bar">
-    <span id="userLabel">غير مسجّل الدخول</span>
-    <a href="profile.html" id="profileLink" style="display:none;">الملف الشخصي</a>
-    <a href="dashboard.html" id="dashboardLink" style="display:none;">لوحة التحكم</a>
-    <a href="login.html" id="loginLink">تسجيل الدخول</a>
-    <button id="logoutBtn" style="display:none;">تسجيل خروج</button>
+    <div class="user-info-group" id="userMenuTrigger">
+      <span class="welcome-text" id="welcomeMsg">جاري التحميل...</span>
+      <div class="profile-icon-btn" id="profileIconContainer">
+        </div>
+    </div>
+    <div class="dropdown-menu" id="userDropdown">
+      <a href="profile.html" class="dropdown-item">👤 الملف الشخصي</a>
+      <a href="dashboard.html" class="dropdown-item" id="dashItem" style="display:none;">⚙️ لوحة التحكم</a>
+      <div class="dropdown-item" id="logoutItem">🚪 تسجيل الخروج</div>
+    </div>
   </div>
 
   <header class="hero-with-bg">
@@ -686,61 +122,56 @@
     <p class="hero-subtitle">ملف رعب صوتي… قصة حقيقية بنسخة مسموعة ومكتوبة.</p>
   </header>
 
-  <div class="back-links">
-    <a href="index.html">⬅️ الصفحة الرئيسية</a>
-    <a href="h18-stories.html">⬅️ قسم قصص رعب +18</a>
-  </div>
+  <div class="page">
+    <div class="back-links">
+      <a href="index.html">⬅️ الصفحة الرئيسية</a>
+      <a href="h18-stories.html">⬅️ قسم قصص رعب +18</a>
+    </div>
 
-  <section class="story-box">
-    <h1 class="story-title">نويميا والكيان</h1>
-    <div class="story-meta">تصنيف: رعب / سحر / لعنة عائلية – +18</div>
+    <section class="story-box">
+      <h1 class="story-title">نويميا والكيان</h1>
+      <div class="story-meta">تصنيف: رعب / سحر / لعنة عائلية – +18</div>
 
-    <div class="player-box">
-      <div class="audio-player" id="audioPlayer">
-        <audio id="storyAudio" src="audio/download%20(4).wav"></audio>
+      <div class="player-box">
+        <div class="audio-player" id="audioPlayer">
+          <audio id="storyAudio" src="audio/download%20(4).wav"></audio>
 
-        <div class="ap-left">
-          <button class="ap-play" id="playToggle">
-            <span class="icon-play">▶</span>
-            <span class="icon-pause">⏸</span>
-          </button>
-          <div class="ap-info">
-            <div class="ap-title">تشغيل التسجيل</div>
-            <div class="ap-sub">نويميا والكيان</div>
+          <div class="ap-left">
+            <button class="ap-play" id="playToggle">
+              <span class="icon-play">▶</span>
+              <span class="icon-pause">⏸</span>
+            </button>
+            <div class="ap-info">
+              <div class="ap-title">تشغيل التسجيل</div>
+              <div class="ap-sub">نويميا والكيان</div>
+            </div>
+          </div>
+
+          <div class="ap-wave">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+
+          <div class="ap-rec">
+            <span class="dot"></span>
+            <span class="txt">REC</span>
           </div>
         </div>
-
-        <div class="ap-wave">
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
-
-        <div class="ap-rec">
-          <span class="dot"></span>
-          <span class="txt">REC</span>
-        </div>
       </div>
-    </div>
 
-    <div style="text-align:center; margin:24px 0; display:flex; flex-direction:column; align-items:center; gap:14px;">
-      
-      <button id="downloadBtn"
-              data-file="audio/download%20(4).wav"
-              style="padding:10px 24px; border-radius:999px; background:#ff3333; color:#fff; border:none; cursor:pointer; font-weight:bold; font-size:14px; box-shadow: 0 4px 15px rgba(255,51,51,0.4);">
-        ⬇️ تحميل ملف الصوت
-      </button>
+      <div style="text-align:center; margin:24px 0; display:flex; flex-direction:column; align-items:center; gap:14px;">
+        <button id="downloadBtn" data-file="audio/download%20(4).wav" style="padding:10px 24px; border-radius:999px; background:#ff3333; color:#fff; border:none; cursor:pointer; font-weight:bold; font-size:14px; box-shadow: 0 4px 15px rgba(255,51,51,0.4);">
+          ⬇️ تحميل ملف الصوت
+        </button>
+        <a href="#commentsArea" style="padding:8px 20px; border-radius:999px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#ccc; text-decoration:none; font-size:13px; transition:0.3s;">
+          💬 أترك تعليق
+        </a>
+      </div>
 
-      <a href="#commentsArea" 
-         style="padding:8px 20px; border-radius:999px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#ccc; text-decoration:none; font-size:13px; transition:0.3s;">
-        💬 أترك تعليق
-      </a>
+      <hr style="margin:22px 0;border-color:rgba(255,255,255,.05);" />
 
-    </div>
-
-    <hr style="margin:22px 0;border-color:rgba(255,255,255,.05);" />
-
-    <div class="story-text no-copy">
-     السحر… موجود…
+      <div class="story-text no-copy">
+       السحر… موجود…
 ومش لعب عيال…
 ولا كلمة… بتتقال في الضلمة…
 وفيه ناس… ما يعرفوش الخير أصلًا…
@@ -845,91 +276,251 @@
 أنا… نويميا…
 وده… آخر تسجيل…
 استنى… التسجيل التاني…
-    </div>
-  </section>
+      </div>
+    </section>
 
-  <section class="comments-box" id="commentsArea">
-    <h3 class="comments-title">نقاشات المستمعين (مرعب) 💬</h3>
-    
-    <div id="commentFormArea" style="display:none;">
-      <textarea id="commentInput" class="comment-input" placeholder="اكتب رأيك أو تحليلك للقصة..."></textarea>
-      <button id="submitCommentBtn" class="comment-btn">نشر التعليق 🩸</button>
-    </div>
+    <section class="comments-box" id="commentsArea">
+      <h3 class="comments-title">نقاشات المستمعين (مرعب) 💬</h3>
+      <div id="commentFormArea" style="display:none;">
+        <textarea id="commentInput" class="comment-input" placeholder="اكتب رأيك أو تحليلك للقصة..."></textarea>
+        <button id="submitCommentBtn" class="comment-btn">نشر التعليق 🩸</button>
+      </div>
+      <div id="loginToCommentMsg" style="text-align:center; display:none; margin-bottom:20px;">
+        <p style="color:#bbb;">عايز تشارك؟ لازم <a href="login.html" style="color:#ff3333;">تسجل دخول</a> الأول.</p>
+      </div>
+      <div id="commentsList" class="comments-list">
+        <p style="text-align:center;color:#666;">جاري تحميل التعليقات...</p>
+      </div>
+      <div class="load-more-container">
+        <button id="loadMoreBtn" class="load-more-btn" style="display:none;">⬇️ قراءة كل التعليقات</button>
+      </div>
+    </section>
 
-    <div id="loginToCommentMsg" style="text-align:center; display:none; margin-bottom:20px;">
-      <p style="color:#bbb;">عايز تشارك؟ لازم <a href="login.html" style="color:#ff3333;">تسجل دخول</a> الأول.</p>
-    </div>
-
-    <div id="commentsList" class="comments-list">
-      <p style="text-align:center;color:#666;">جاري تحميل التعليقات...</p>
-    </div>
-
-    <div class="load-more-container">
-      <button id="loadMoreBtn" class="load-more-btn" style="display:none;">⬇️ قراءة كل التعليقات</button>
-    </div>
-  </section>
-
-  <div class="back-links">
-    <a href="index.html">⬅️ الصفحة الرئيسية</a>
-    <a href="h18-stories.html">⬅️ قسم قصص رعب +18</a>
-  </div>
-
-</div>
-
-<div id="loginModal" class="login-modal-backdrop">
-  <div class="login-modal">
-    <h2 class="login-modal-title">تسجيل الدخول مطلوب</h2>
-    <p class="login-modal-text">
-      لتحميل ملف الصوت يجب أن تكون مسجّل دخول.
-    </p>
-    <div style="display:flex;gap:10px;justify-content:center;">
-      <button id="goLogin" class="btn-primary">تسجيل الدخول</button>
-      <button id="closeLogin" class="btn-ghost">إلغاء</button>
+    <div class="back-links">
+      <a href="index.html">⬅️ الصفحة الرئيسية</a>
+      <a href="h18-stories.html">⬅️ قسم قصص رعب +18</a>
     </div>
   </div>
-</div>
 
-<script>
-  // منطق المشغل الصوتي (منفصل عادي)
-  const audioEl   = document.getElementById('storyAudio');
-  const playBtn   = document.getElementById('playToggle');
-  const playerBox = document.getElementById('audioPlayer');
+  <div id="loginModal" class="login-modal-backdrop">
+    <div class="login-modal">
+      <h2 class="login-modal-title">تسجيل الدخول مطلوب</h2>
+      <p class="login-modal-text">لتحميل ملف الصوت يجب أن تكون مسجّل دخول.</p>
+      <div style="display:flex;gap:10px;justify-content:center;">
+        <button id="goLogin" class="btn-primary">تسجيل الدخول</button>
+        <button id="closeLogin" class="btn-ghost">إلغاء</button>
+      </div>
+    </div>
+  </div>
 
-  if (playBtn && audioEl && playerBox) {
-    playBtn.onclick = () => {
-      if (audioEl.paused) {
-        audioEl.play();
-        playerBox.classList.add("is-playing");
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, limit, doc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
+      authDomain: "a5er-tasgeel.firebaseapp.com",
+      projectId: "a5er-tasgeel",
+      storageBucket: "a5er-tasgeel.firebasestorage.app",
+      messagingSenderId: "239464150088",
+      appId: "1:239464150088:web:71a7288812dcfefc9c147d",
+      measurementId: "G-ZJRXVJG9JQ"
+    };
+
+    const ADMIN_EMAIL = "ahmed.altayeb01000@gmail.com";
+    const STORY_ID = "noemia_entity"; 
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    // عناصر القائمة العلوية والترحيب
+    const userMenuTrigger = document.getElementById("userMenuTrigger");
+    const welcomeMsg = document.getElementById("welcomeMsg");
+    const profileIconContainer = document.getElementById("profileIconContainer");
+    const userDropdown = document.getElementById("userDropdown");
+    const dashItem = document.getElementById("dashItem");
+    const logoutItem = document.getElementById("logoutItem");
+
+    // عناصر التعليقات
+    const commentFormArea = document.getElementById("commentFormArea");
+    const loginToCommentMsg = document.getElementById("loginToCommentMsg");
+    const commentInput = document.getElementById("commentInput");
+    const submitCommentBtn = document.getElementById("submitCommentBtn");
+    const commentsListEl = document.getElementById("commentsList");
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+    const iconLoggedIn = `<svg viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>`;
+    const iconGuest = `<svg viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1zM4.97 3.03a.75.75 0 0 0-1.06 1.06L6.94 7.12l-1.97 1.97a.75.75 0 1 0 1.06 1.06L8 8.18l1.97 1.97a.75.75 0 1 0 1.06-1.06L9.06 7.12l1.97-1.97a.75.75 0 1 0-1.06-1.06L8 6.06 6.03 4.09 4.97 3.03z"/></svg>`;
+
+    let currentUser = null;
+    let commentsUnsubscribe = null; 
+    let currentLimit = 3; 
+    let isUserLoggedIn = false;
+
+    // التحكم في القائمة
+    if (userMenuTrigger) {
+      userMenuTrigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (isUserLoggedIn) { userDropdown.classList.toggle("show"); } else { window.location.href = "login.html"; }
+      });
+    }
+    document.addEventListener("click", () => { if(userDropdown) userDropdown.classList.remove("show"); });
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        currentUser = user;
+        isUserLoggedIn = true;
+        localStorage.setItem("loggedIn", "true");
+        
+        const fullName = user.displayName || user.email.split('@')[0];
+        const firstName = fullName.split(' ')[0];
+
+        // تحديث الشريط العلوي
+        if(welcomeMsg) welcomeMsg.innerHTML = `مرحباً بك يا <span style="color:#ff3333;font-weight:bold;">${firstName}</span> في آخر تسجيل`;
+        if(profileIconContainer) {
+           profileIconContainer.innerHTML = iconLoggedIn;
+           profileIconContainer.style.background = "#15171f";
+        }
+        
+        if (user.email === ADMIN_EMAIL && dashItem) dashItem.style.display = "flex";
+        
+        if(logoutItem) {
+          logoutItem.onclick = () => {
+            signOut(auth).then(() => {
+              localStorage.removeItem("loggedIn");
+              window.location.href = "index.html";
+            });
+          };
+        }
+
+        if(commentFormArea) commentFormArea.style.display = "block";
+        if(loginToCommentMsg) loginToCommentMsg.style.display = "none";
       } else {
-        audioEl.pause();
-        playerBox.classList.remove("is-playing");
+        currentUser = null;
+        isUserLoggedIn = false;
+        localStorage.removeItem("loggedIn");
+
+        if(welcomeMsg) welcomeMsg.innerHTML = "غير مسجّل الدخول";
+        if(profileIconContainer) {
+           profileIconContainer.innerHTML = iconGuest;
+           profileIconContainer.style.background = "#330000";
+        }
+
+        if(commentFormArea) commentFormArea.style.display = "none";
+        if(loginToCommentMsg) loginToCommentMsg.style.display = "block";
       }
-    };
-  }
+    });
 
-  const downloadBtn = document.getElementById("downloadBtn");
-  const loginModal  = document.getElementById("loginModal");
-  if (downloadBtn) {
-    downloadBtn.onclick = () => {
-      if (!localStorage.getItem("loggedIn")) {
-        if (loginModal) loginModal.classList.add("show");
-        return;
-      }
-      window.location.href = downloadBtn.dataset.file;
-    };
-  }
+    // باقي دوال التعليقات والتحميل
+    function loadComments(limitVal) {
+      if (commentsUnsubscribe) commentsUnsubscribe();
+      const q = query(collection(db, "comments"), where("storyId", "==", STORY_ID), orderBy("createdAt", "desc"), limit(limitVal));
+      commentsUnsubscribe = onSnapshot(q, (snapshot) => {
+        commentsListEl.innerHTML = ""; 
+        if (snapshot.empty) {
+          commentsListEl.innerHTML = "<p style='color:#777;text-align:center;'>لسه مفيش تعليقات.. كن أول واحد! 👻</p>";
+          loadMoreBtn.style.display = "none";
+          return;
+        }
+        snapshot.forEach(docSnap => { renderComment(docSnap.id, docSnap.data()); });
+        if (snapshot.docs.length < limitVal) { loadMoreBtn.style.display = "none"; } else { loadMoreBtn.style.display = "inline-block"; }
+      });
+    }
 
-  const goLogin    = document.getElementById("goLogin");
-  const closeLogin = document.getElementById("closeLogin");
+    function renderComment(docId, data) {
+      let timeStr = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString('ar-EG') : "...";
+      const likesArr = data.likes || [];
+      const isLiked = currentUser && likesArr.includes(currentUser.uid);
+      const heartClass = isLiked ? "liked" : "";
+      const div = document.createElement("div");
+      div.className = "single-comment";
+      div.innerHTML = `
+        <div class="comment-header"><span class="comment-user">${data.displayName ? data.displayName : (data.userEmail ? data.userEmail.split('@')[0] : 'مجهول')}</span><span>${timeStr}</span></div>
+        <div class="comment-body">${data.text}</div>
+        <div class="comment-actions"><div class="action-btn ${heartClass}" id="likeBtn-${docId}"><span class="heart-icon">♥</span> <span>${likesArr.length}</span></div><div class="action-btn" id="replyToggle-${docId}"><span>↩️ رد</span></div></div>
+        <div class="reply-form-box" id="replyBox-${docId}"><input type="text" class="reply-input-field" id="replyInput-${docId}" placeholder="اكتب ردك هنا..."><button class="reply-submit-btn" id="sendReply-${docId}">إرسال الرد</button></div>
+        <div class="replies-container" id="repliesList-${docId}"></div>`;
+      commentsListEl.appendChild(div);
+      document.getElementById(`likeBtn-${docId}`).onclick = () => toggleLike(docId, likesArr);
+      document.getElementById(`replyToggle-${docId}`).onclick = () => { if (!currentUser) return alert("سجل دخول عشان ترد!"); document.getElementById(`replyBox-${docId}`).classList.toggle("open"); };
+      document.getElementById(`sendReply-${docId}`).onclick = () => sendReply(docId);
+      loadReplies(docId);
+    }
 
-  if (goLogin) {
-    goLogin.onclick = () => window.location.href = "login.html";
-  }
+    async function toggleLike(commentId, currentLikes) {
+      if (!currentUser) return alert("سجّل دخول عشان تعمل لايك ❤️");
+      const commentRef = doc(db, "comments", commentId);
+      if (currentLikes.includes(currentUser.uid)) { await updateDoc(commentRef, { likes: arrayRemove(currentUser.uid) }); } else { await updateDoc(commentRef, { likes: arrayUnion(currentUser.uid) }); }
+    }
 
-  if (closeLogin && loginModal) {
-    closeLogin.onclick = () => loginModal.classList.remove("show");
-  }
-</script>
+    if (submitCommentBtn) {
+      submitCommentBtn.onclick = async () => {
+        const text = commentInput.value.trim();
+        if (!text) return alert("اكتب حاجة الأول!");
+        if (!currentUser) return;
+        try {
+          await addDoc(collection(db, "comments"), { storyId: STORY_ID, text: text, userEmail: currentUser.email, displayName: currentUser.displayName || currentUser.email.split('@')[0], createdAt: serverTimestamp(), likes: [] });
+          commentInput.value = ""; 
+        } catch (err) { console.error(err); }
+      };
+    }
+
+    async function sendReply(parentId) {
+      const input = document.getElementById(`replyInput-${parentId}`);
+      const text = input.value.trim();
+      if (!text) return;
+      try {
+        await addDoc(collection(db, "comments", parentId, "replies"), { text: text, userEmail: currentUser.email, displayName: currentUser.displayName || currentUser.email.split('@')[0], createdAt: serverTimestamp() });
+        input.value = "";
+        document.getElementById(`replyBox-${parentId}`).classList.remove("open");
+      } catch (err) { console.error(err); }
+    }
+
+    function loadReplies(parentId) {
+      const repliesContainer = document.getElementById(`repliesList-${parentId}`);
+      const q = query(collection(db, "comments", parentId, "replies"), orderBy("createdAt", "asc"));
+      onSnapshot(q, (snapshot) => {
+        repliesContainer.innerHTML = ""; 
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const rDiv = document.createElement("div");
+          rDiv.className = "single-reply";
+          rDiv.innerHTML = `<strong style="color:#bbb">${data.displayName || 'مجهول'}:</strong><span style="color:#ddd"> ${data.text}</span>`;
+          repliesContainer.appendChild(rDiv);
+        });
+      });
+    }
+
+    if (loadMoreBtn) {
+      loadMoreBtn.onclick = () => { currentLimit = 100; loadComments(currentLimit); loadMoreBtn.style.display = "none"; };
+    }
+
+    // منطق المشغل الصوتي (زر التشغيل والتحميل)
+    const audioEl = document.getElementById('storyAudio');
+    const playBtn = document.getElementById('playToggle');
+    const playerBox = document.getElementById('audioPlayer');
+    if (playBtn && audioEl && playerBox) {
+      playBtn.onclick = () => {
+        if (audioEl.paused) { audioEl.play(); playerBox.classList.add("is-playing"); } else { audioEl.pause(); playerBox.classList.remove("is-playing"); }
+      };
+    }
+    const downloadBtn = document.getElementById("downloadBtn");
+    const loginModal = document.getElementById("loginModal");
+    if (downloadBtn) {
+      downloadBtn.onclick = () => {
+        if (!localStorage.getItem("loggedIn")) { if (loginModal) loginModal.classList.add("show"); return; }
+        window.location.href = downloadBtn.dataset.file;
+      };
+    }
+    const goLogin = document.getElementById("goLogin");
+    const closeLogin = document.getElementById("closeLogin");
+    if (goLogin) goLogin.onclick = () => window.location.href = "login.html";
+    if (closeLogin && loginModal) closeLogin.onclick = () => loginModal.classList.remove("show");
+
+    loadComments(currentLimit);
+  </script>
 
 </body>
 </html>

@@ -3,312 +3,245 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>نويميا والكيان - آخر تسجيل</title>
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZJRXVJG9JQ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-ZJRXVJG9JQ');
-  </script>
+  <title>قصص رعب +18 - آخر تسجيل</title>
 
   <style>
-    /* ============ تنسيقات عامة ============ */
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; scroll-behavior: smooth; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     html, body { height: 100%; }
-    body { background: radial-gradient(circle at top, #270000, #050608 55%, #010102 100%); color: #f5f5f5; line-height: 1.9; }
+    body { background: #050608; color: #f5f5f5; line-height: 1.7; }
     a { color: #ff4b4b; text-decoration: none; } a:hover { text-decoration: underline; }
 
-    /* تم تعديل العرض ليصبح 1400px ليملأ الشاشة مثل صفحة القصص */
-    .page { max-width: 1400px; margin: 0 auto; padding: 24px 16px 64px; position: relative; z-index: 1; }
+    /* ========== شريط المستخدم (Dropdown) - موحد ========== */
+    .user-bar { display: flex; justify-content: space-between; align-items: center; background: #0c0c0c; padding: 10px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: #ccc; position: relative; z-index: 100; }
+    
+    .about-btn-container { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 6px 12px; border-radius: 999px; transition: 0.3s; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.1); }
+    .about-btn-container:hover { background: #ff3333; border-color: #ff3333; color: #fff; }
+    .about-icon svg { width: 20px; height: 20px; fill: currentColor; }
+    .about-label { font-weight: bold; font-size: 13px; }
 
-    /* ========== شريط المستخدم (Dropdown) - الجديد ========== */
-    .user-bar { display: flex; justify-content: flex-end; align-items: center; background: #0c0c0c; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: #ccc; position: relative; z-index: 100; }
     .user-info-group { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
     .welcome-text { font-size: 13px; color: #ddd; }
     .profile-icon-btn { width: 40px; height: 40px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; transition: 0.3s; }
     .profile-icon-btn:hover { background: #ff3333; border-color: #ff3333; }
     .profile-icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
-    .dropdown-menu { position: absolute; top: 60px; left: 20px; background: #111; border: 1px solid #333; border-radius: 12px; width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); display: none; flex-direction: column; overflow: hidden; z-index: 101; }
+
+    .dropdown-menu { position: absolute; top: 65px; left: 20px; background: #111; border: 1px solid #333; border-radius: 12px; width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); display: none; flex-direction: column; overflow: hidden; z-index: 101; }
     .dropdown-menu.show { display: flex; animation: fadeIn 0.2s ease-out; }
     .dropdown-item { padding: 12px 16px; color: #eee; text-decoration: none; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; align-items: center; gap: 10px; cursor: pointer; }
     .dropdown-item:last-child { border-bottom: none; }
     .dropdown-item:hover { background: #1f1f1f; color: #ff3333; text-decoration: none; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* الهيدر */
-    .hero-with-bg { position: relative; background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat; border-radius: 20px; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.85); margin: 0 auto 32px; padding: 36px 20px 40px; text-align: center; }
-    .hero-with-bg::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at top, rgba(60,0,0,0.95), rgba(5,6,8,0.97)), rgba(0,0,0,0.55); backdrop-filter: blur(2px); }
-    .hero-with-bg * { position: relative; z-index: 2; }
-    .scary-title { font-size: 40px; color: #ff2222; letter-spacing: 3px; margin-bottom: 10px; text-shadow: 0 0 6px rgba(255,0,0,0.7), 0 0 18px rgba(255,0,0,0.85); animation: titleFlicker 2.6s infinite ease-in-out; }
-    @keyframes titleFlicker { 0%,18%{opacity:.9;} 19%,22%{opacity:.3;} 23%,60%{opacity:1;} 61%,70%{opacity:.5;} 71%,100%{opacity:.85;} }
-    .hero-subtitle { color:#ddd; font-size:15px; }
+    /* خلفية الصفحة */
+    .page-bg { position: fixed; inset: 0; background: url('images/Gemini_Generated_Image_u96timu96timu96t.jpg') center/cover no-repeat; filter: brightness(0.23) blur(3px); z-index: 0; animation: bgPulse 22s ease-in-out infinite alternate; transform-origin: center; }
+    @keyframes bgPulse { 0% { transform: scale(1) translateY(0); } 100% { transform: scale(1.03) translateY(-8px); } }
+    .page { max-width: 1400px; margin: 0 auto; padding: 24px 16px 64px; position: relative; z-index: 1; }
 
-    /* روابط الرجوع */
-    .back-links { margin: 10px 0 20px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
-    .back-links a { padding: 6px 14px; border-radius:999px; background:#15171f; border:1px solid rgba(255,255,255,0.1); font-size:13px; color:#fff; font-weight:600; text-decoration: none; }
-    .back-links a:hover { background:#ff3333; border-color:#ff3333; }
+    /* زر الرجوع */
+    .back-btn-styled { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 8px; color: #eee; text-decoration: none; font-size: 14px; font-weight: bold; transition: 0.3s; margin-bottom: 20px; float: right; }
+    .back-btn-styled:hover { background: #ff3333; border-color: #ff3333; color: #fff; text-decoration: none; transform: translateX(-5px); }
+    .back-btn-styled svg { width: 18px; height: 18px; fill: currentColor; transform: rotate(180deg); } 
 
-    /* القصة */
-    .story-box { background: radial-gradient(circle at top, #1b0000, #050608); border-radius:20px; padding:30px 40px; /* تكبير الحشو الداخلي */ box-shadow:0 18px 45px rgba(0,0,0,0.9); border:1px solid rgba(255,80,80,0.2); margin-bottom:26px; }
-    .story-title { font-size:28px; margin-bottom:8px; }
-    .story-meta { font-size:14px; color:#999; margin-bottom:24px; }
-    .story-text { font-size:18px; color:#e5e5e5; white-space:pre-line; line-height: 2; } /* تكبير الخط */
-    .no-copy { user-select:none; cursor:default; }
+    /* عنوان الصفحة */
+    .page-title-wrapper { text-align: center; clear: both; }
+    .page-title { position: relative; text-align: center; font-size: 28px; color: #ff3333; margin-bottom: 40px; display: inline-block; padding: 0; background: none; border-radius: 0; animation: neonBlink 2.4s ease-in-out infinite; text-shadow: 0 0 6px rgba(255,0,0,0.4), 0 0 14px rgba(255,0,0,0.7); }
+    @keyframes neonBlink { 0%, 20% { opacity: 0.6; text-shadow: 0 0 4px rgba(255,0,0,0.3), 0 0 10px rgba(255,0,0,0.4); } 40% { opacity: 1; text-shadow: 0 0 10px rgba(255,0,0,1), 0 0 22px rgba(255,0,0,0.9), 0 0 32px rgba(255,0,0,0.8); } 60% { opacity: 0.8; text-shadow: 0 0 6px rgba(255,0,0,0.6), 0 0 16px rgba(255,0,0,0.7); } 80%, 100% { opacity: 0.5; text-shadow: 0 0 3px rgba(255,0,0,0.3), 0 0 8px rgba(255,0,0,0.4); } }
+    .page-title::before, .page-title::after { content: ""; position: absolute; top: 100%; background: linear-gradient(to bottom, #ff3333, rgba(120,0,0,0)); border-radius: 0 0 999px 999px; opacity: 0.9; transform-origin: top; animation: drip 3.2s infinite ease-in-out; }
+    .page-title::before { left: 45%; width: 10px; height: 26px; animation-delay: 0.3s; } .page-title::after { left: 25%; width: 6px; height: 18px; animation-delay: 1.1s; }
+    @keyframes drip { 0% { transform: scaleY(0); opacity: 0; } 30% { transform: scaleY(1); opacity: 0.95; } 70% { transform: scaleY(0.3); opacity: 0.6; } 100% { transform: scaleY(0); opacity: 0; } }
 
-    /* مشغّل الصوت */
-    .audio-player { margin:20px auto 0; max-width:620px; padding:16px 22px; border-radius:999px; display:flex; align-items:center; gap:18px; background: radial-gradient(circle at top, #220000, #050608); border:1px solid rgba(255,60,60,0.35); box-shadow: 0 18px 40px rgba(0,0,0,0.9), 0 0 20px rgba(255,0,0,0.25); }
-    .ap-left { display:flex; align-items:center; gap:12px; }
-    .ap-play { width:54px; height:54px; border:none; border-radius:50%; background:#ff2222; cursor:pointer; color:#fff; font-size:20px; }
-    .ap-play .icon-pause{display:none;}
-    .audio-player.is-playing .icon-play{display:none;}
-    .audio-player.is-playing .icon-pause{display:inline;}
-    .ap-wave{ flex:1; display:flex; gap:3px; padding:0 6px; }
-    .ap-wave span{ width:3px; height:4px; border-radius:999px; background:red; opacity:.35; }
-    .audio-player.is-playing .ap-wave span{ animation:wave 1s infinite; opacity:1; }
-    @keyframes wave { 0%,100%{height:4px;} 30%{height:18px;} 60%{height:10px;} }
+    /* ============ كروت القصص (الستايل الجديد) ============ */
+    .stories-wrap { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 20px; }
+    
+    /* نستخدم نفس كلاسات الصفحة الرئيسية لضمان تطابق الشكل */
+    .h18-card-link {
+      display: block;
+      position: relative;
+      width: 340px; /* عرض ثابت للكارت */
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8);
+      transition: 0.3s;
+      text-decoration: none;
+      background: transparent;
+    }
 
-    /* التعليقات */
-    .comments-box { background: #0e1014; border-radius: 20px; padding: 24px 20px; margin-bottom: 26px; border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.5); scroll-margin-top: 20px; }
-    .comments-title { color: #ff3333; margin-bottom: 16px; border-bottom: 1px solid #333; padding-bottom: 10px; font-size: 18px; }
-    .comment-input, .reply-input-field { width: 100%; background: #050608; border: 1px solid #444; color: #fff; padding: 12px; border-radius: 12px; margin-bottom: 10px; resize: vertical; font-size: 14px; }
-    .comment-input:focus, .reply-input-field:focus { outline: none; border-color: #ff3333; }
-    .comment-btn, .reply-submit-btn { background: #ff3333; color: #fff; border: none; padding: 6px 16px; border-radius: 999px; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.3s; }
-    .comment-btn:hover { background: #d00000; }
-    .single-comment { background: rgba(255,255,255,0.03); padding: 14px; border-radius: 12px; margin-bottom: 14px; border-right: 3px solid #444; transition: 0.3s; }
-    .single-comment:hover { border-right-color: #ff3333; }
-    .comment-header { font-size: 12px; color: #888; margin-bottom: 6px; display: flex; justify-content: space-between; }
-    .comment-user { color: #ccc; font-weight: bold; }
-    .comment-body { color: #e0e0e0; font-size: 15px; white-space: pre-wrap; line-height: 1.6; }
-    .comment-actions { margin-top: 10px; display: flex; gap: 15px; font-size: 13px; color: #888; align-items: center; }
-    .action-btn { cursor: pointer; display: flex; align-items: center; gap: 4px; transition: 0.2s; }
-    .action-btn:hover { color: #fff; }
-    .liked { color: #ff3333 !important; }
-    .replies-container { margin-top: 12px; margin-right: 15px; padding-right: 10px; border-right: 2px solid rgba(255,255,255,0.1); }
-    .single-reply { background: rgba(0,0,0,0.3); padding: 8px 10px; border-radius: 8px; margin-bottom: 8px; font-size: 13px; }
-    .reply-form-box { margin-top: 10px; display: none; animation: fadeIn 0.3s; }
-    .reply-form-box.open { display: block; }
-    .load-more-container { text-align: center; margin-top: 20px; }
-    .load-more-btn { background: transparent; border: 1px solid #ff3333; color: #ff3333; padding: 8px 24px; border-radius: 999px; cursor: pointer; font-weight: bold; }
-    .load-more-btn:hover { background: #ff3333; color: #fff; }
+    .h18-card-link:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 18px 40px rgba(0,0,0,1), 0 0 25px rgba(255,0,0,0.6);
+    }
 
-    /* Popup */
-    .login-modal-backdrop{ position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; z-index:9999; }
-    .login-modal-backdrop.show{display:flex;}
-    .login-modal{ background:#200; border-radius:16px; padding:22px; max-width:380px; width:90%; text-align:center; border:1px solid #ff4444; }
-    .btn-primary{ background:#ff3333; color:#fff; padding:8px 18px; border-radius:999px; border:none; cursor:pointer; }
-    .btn-ghost{ background:none; color:#fff; border:1px solid #666; padding:8px 18px; border-radius:999px; cursor:pointer; }
+    .h18-img-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 60%; /* نسبة العرض للارتفاع (يمكنك تعديلها لـ 125% لو الصورة طولية) */
+    }
+
+    .h18-img-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+
+    .h18-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ff0000;
+      color: #fff;
+      font-weight: 900;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      z-index: 2;
+    }
+
+    .h18-hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 3;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .h18-card-link:hover .h18-hover-overlay {
+      opacity: 1;
+    }
+    
+    .h18-warning-text {
+      color: #ff3333;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.5;
+      text-shadow: 0 0 10px rgba(255,0,0,0.5);
+    }
+    .h18-sub-text {
+      color: #fff;
+      font-size: 14px;
+      margin-top: 5px;
+      font-weight: normal;
+    }
+
+
+    /* أيقونات السوشيال */
+    .social { text-align: center; margin-top: 40px; }
+    .social-title { font-size: 20px; margin-bottom: 15px; color: #fff; }
+    .social-list { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 0; }
+    .social-btn { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.1); color: #ccc; transition: 0.3s; }
+    .social-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .social-btn:hover { transform: translateY(-3px); color: #fff; }
+    .social-btn.fb:hover { background: #1877F2; border-color: #1877F2; } 
+    .social-btn.yt:hover { background: #FF0000; border-color: #FF0000; } 
+    .social-btn.tt:hover { background: #000000; border-color: #ffffff; } 
+    .social-btn.tg:hover { background: #229ED9; border-color: #229ED9; } 
+
+    /* مودال من نحن */
+    .modal-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; }
+    .modal-overlay.show { display: flex; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); }
+    .modal-inner { position: relative; max-width: 600px; width: 95%; background: #08090d; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,1); border: 1px solid rgba(255,80,80,0.3); animation: slideUp 0.3s ease-out; }
+    @keyframes slideUp { from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+    .modal-close { position: absolute; top: 15px; left: 20px; border: none; background: transparent; color: #888; font-size: 24px; cursor: pointer; transition: 0.3s; }
+    .modal-close:hover { color: #ff3333; }
+    .about-text { line-height: 1.9; color: #ddd; font-size: 16px; text-align: center; }
+    .about-highlight { color: #ff3333; font-weight: bold; }
+
+    @media (max-width: 768px) { .stories-wrap { justify-content: center; } }
   </style>
 </head>
 
 <body>
 
   <div class="user-bar">
-    <div class="user-info-group" id="userMenuTrigger">
-      <span class="welcome-text" id="welcomeMsg">جاري التحميل...</span>
-      <div class="profile-icon-btn" id="profileIconContainer">
-        </div>
+    <div class="about-btn-container" id="aboutBtn" title="من نحن">
+      <div class="about-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
+          <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4m2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A2 2 0 0 0 8 6c-.532 0-1.016.208-1.375.547M14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0"/>
+        </svg>
+      </div>
+      <span class="about-label">من نحن</span>
     </div>
-    <div class="dropdown-menu" id="userDropdown">
-      <a href="profile.html" class="dropdown-item">👤 الملف الشخصي</a>
-      <a href="dashboard.html" class="dropdown-item" id="dashItem" style="display:none;">⚙️ لوحة التحكم</a>
-      <div class="dropdown-item" id="logoutItem">🚪 تسجيل الخروج</div>
+
+    <div class="user-section-left">
+      <div class="user-info-group" id="userMenuTrigger">
+        <span class="welcome-text" id="welcomeMsg">جاري التحميل...</span>
+        <div class="profile-icon-btn" id="profileIconContainer">
+          </div>
+      </div>
+      <div class="dropdown-menu" id="userDropdown">
+        <a href="profile.html" class="dropdown-item">👤 الملف الشخصي</a>
+        <a href="dashboard.html" class="dropdown-item" id="dashItem" style="display:none;">⚙️ لوحة التحكم</a>
+        <div class="dropdown-item" id="logoutItem">🚪 تسجيل الخروج</div>
+      </div>
     </div>
   </div>
 
-  <header class="hero-with-bg">
-    <h1 class="scary-title">آخر تسجيل</h1>
-    <p class="hero-subtitle">ملف رعب صوتي… قصة حقيقية بنسخة مسموعة ومكتوبة.</p>
-  </header>
+  <div class="page-bg"></div>
 
   <div class="page">
-    <div class="back-links">
-      <a href="index.html">⬅️ الصفحة الرئيسية</a>
-      <a href="h18-stories.html">⬅️ قسم قصص رعب +18</a>
+
+    <div>
+      <a href="index.html" class="back-btn-styled">
+        الرجوع للصفحة الرئيسية
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg>
+      </a>
     </div>
 
-    <section class="story-box">
-      <h1 class="story-title">نويميا والكيان</h1>
-      <div class="story-meta">تصنيف: رعب / سحر / لعنة عائلية – +18</div>
+    <div class="page-title-wrapper">
+      <h1 class="page-title">قصص رعب +18</h1>
+    </div>
 
-      <div class="player-box">
-        <div class="audio-player" id="audioPlayer">
-          <audio id="storyAudio" src="audio/download%20(4).wav"></audio>
+    <div class="stories-wrap">
 
-          <div class="ap-left">
-            <button class="ap-play" id="playToggle">
-              <span class="icon-play">▶</span>
-              <span class="icon-pause">⏸</span>
-            </button>
-            <div class="ap-info">
-              <div class="ap-title">تشغيل التسجيل</div>
-              <div class="ap-sub">نويميا والكيان</div>
-            </div>
-          </div>
-
-          <div class="ap-wave">
-            <span></span><span></span><span></span><span></span><span></span>
-            <span></span><span></span><span></span><span></span><span></span>
-          </div>
-
-          <div class="ap-rec">
-            <span class="dot"></span>
-            <span class="txt">REC</span>
+      <a href="noemia.html" class="h18-card-link">
+        <div class="h18-img-wrapper">
+          <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg"
+               alt="نويميا والكيان">
+          <div class="h18-badge">+18</div>
+          <div class="h18-hover-overlay">
+            <p class="h18-warning-text">
+              نويميا والكيان<br>
+              <span class="h18-sub-text">اضغط للدخول</span>
+            </p>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div style="text-align:center; margin:24px 0; display:flex; flex-direction:column; align-items:center; gap:14px;">
-        <button id="downloadBtn" data-file="audio/download%20(4).wav" style="padding:10px 24px; border-radius:999px; background:#ff3333; color:#fff; border:none; cursor:pointer; font-weight:bold; font-size:14px; box-shadow: 0 4px 15px rgba(255,51,51,0.4);">
-          ⬇️ تحميل ملف الصوت
-        </button>
-        <a href="#commentsArea" style="padding:8px 20px; border-radius:999px; background:transparent; border:1px solid rgba(255,255,255,0.2); color:#ccc; text-decoration:none; font-size:13px; transition:0.3s;">
-          💬 أترك تعليق
-        </a>
-      </div>
-
-      <hr style="margin:22px 0;border-color:rgba(255,255,255,.05);" />
-
-      <div class="story-text no-copy">
-       السحر… موجود…
-ومش لعب عيال…
-ولا كلمة… بتتقال في الضلمة…
-وفيه ناس… ما يعرفوش الخير أصلًا…
-وبيستعملوه… للانتقام…
-أرواح… بتتحرك…
-وأبواب… بتتفتح لوحدها…
-وفيه لعنات… بتفضل ماشية ورا الناس… سنين…
-أنا… نويميا…
-وده… آخر تسجيل…
-وحكايتي… حكاية رعب… محدش صدّقها…
-وحقيقية… لدرجة إن قلبي… لحد دلوقتي… بيخبط… وأنا بقولها…
-كل حاجة… بدأت… في بيت بسيط…
-في ساو باولو… بالبرازيل…
-بيت كان كله ضحك… صوت عيال… ريحة أكل…
-حياة… هادية…
-وبيوم… وليلة…
-بقى كله صريخ… وخضّة… وصوت خطوات… في الضلمة…
-كل ما نحاول نهرب… الرعب… ييجري ورانا…
-كل ما نوّر شمعة… النور… يطفي فجأة…
-والليل… كان ليه صوت… بيتتنفس… تقيل… بارد… قريب أوي…
-وكإنه… شايف… ومستني…
-كنت وقتها عندي واحد وعشرين سنة…
-ماركوس… جوزي… كان بيشتغل طول اليوم…
-وأنا… قاعدة مع بنتي الصغيرة…
-حياتنا كانت عادية… لحد اليوم اللي قلب كل حاجة…
-كنّا بنلعب… الصوت عالي… ضحك… وخبط…
-قعدت أريح على الكنبة شوية… وبصّيت بالصدفة…
-وشُفت… اللي ما يتشافش…
-الكنبة… كانت مقطّعة…
-مش مقطوعة… لا… مخروشة…
-مخالب… شرطات طويلة… وغويطة… زي حد كان بيجرّح القماش… وهو بيصرخ…
-بصّيت لأنطونيو… ابن أختي… وقلتله بخوف:
-إنت اللي عملت كده يا شقي؟
-الواد عيّط… بس مش عياط طفل عمل غلطة… ده كان عياط خوف…
-وقال:
-مش أنا يا خالتي… بس… كانت واقفة وراكي.
-لما سمعت الجملة دي… دمي برد… قلبي وقع…
-بصّيت ورايا…
-مفيش حاجة… بس حسّيت حد… واقف فعلًا…
-بالليل… حمايا… بيدرو… شاف الكنبة…
-مسكها… شمّها… وبصّ في الشرطات…
-وقال بصوت… مرعوب:
-ده… مش شغل بني آدم.
-وبعدها بكذا يوم… قال إنه شاف الكيان…
-إيد كبيرة… شعر أحمر… مخالب سودا طويلة… بتلمع… زي السيوف…
-وبمجرد ما رمش… اختفى…
-بس… الخوف… فضل في عينه… لحد يومه…
-من اليوم ده… البيت… بقى مش بيت…
-ظلال بتجري على الحيطة… المرايات بتتكسر… والأبواب… بتتفتح وتترزع لوحدها…
-وفي يوم… وأنا قاعدة… الكرسي اتقطع من تحتي فجأة…
-ولما صليّت… النور طفى… والهوا… اتقل…
-كإن البيت نفسه… بيخرج نفس.
-الحجارة كانت بتنزل من السطح…
-النار تولّع في الجرايد… وتطفي…
-الهدوم تتقطع… وهي متطبقة…
-الفلوس تختفي… وبيظهر مكانها… ورق… عليه صليب أحمر…
-وكإن حد… بيسيب رسالة…
-ماركوس… لقى غصن روزماري… في جيبه… مش بتاعه…
-وغصن تاني… على الشباك…
-والخبراء قالوا:
-ده سحر… حد بيفتح باب… لروح.
-ولقينا ضفادع… محروقة… أشكال… مش آدمية.
-ساعتها فهمنا… دي مش صدفة.
-ماركوس افتكر زورايد… حبيبته القديمة… اللي اتجننت لما سابها…
-وأمها… كانت بتشتغل في السحر…
-والحقيقة… إن اللعنة… بدأت… من يوم جوازنا.
-وفي يوم… خبطوا الستّين على الباب…
-واحدة سمراء… والتانية بيضا…
-وعنيهم… مش طبيعية.
-قالوا:
-جايين نبارك البيت.
-قلت لهم:
-مش هتخشّوا بيتي.
-رجعوا تاني… يوم عيد بنتي روث…
-جابوا كيكة… لكن… أنا شفت الريحان… جوه الشنطة.
-قفلت الباب… في وشّهم.
-تاني يوم… ريحة بخور… مالية المكان…
-والسكاكين… متجمعة… على شكل صليب…
-ساعتها… اللعنة دخلت رسمي.
-ركعت… أصلي مزمور واحد وتسعين… في الضلمة…
-الهوا كان تقيل… والخطوات… بتقرب… ورايا… ببطء…
-وفجأة… النار ولّعت من الهوا…
-وظهر… الكيان…
-راجل… وشه نار… صوته خشن… بيقول كلام… مش مفهوم…
-بس… الصوت… كان… يهدّ الجبال…
-وأنا… ما خفتش… رغم إني كنت بعيط…
-بصّيت له… وقلت:
-لأنك قلت الرب ملجأي… لا يمسك شرّ.
-الكيان… صرخ… صرخة… تقطع الودان…
-النار طفت… والبرودة… غطت جسمي…
-بس… حسّيت… بسلام… لأول مرة.
-بعدها… كل حاجة وقفت…
-الرعب… انتهى…
-الصوت… سكت…
-والبيت… ارتاح…
-العيلة… سابت البيت… ومحدش… يعرف راحوا فين…
-بعد 30 سنة…
-الملفات اتفتحت…
-واكتشفوا… إن اللي حصل… كان حقيقي…
-والسحر… كان سلاح…
-والقضية… فضلوا يحققوا فيها سنين…
-أنا… نويميا…
-وده… آخر تسجيل…
-استنى… التسجيل التاني…
-      </div>
-    </section>
-
-    <section class="comments-box" id="commentsArea">
-      <h3 class="comments-title">نقاشات المستمعين (مرعب) 💬</h3>
-      <div id="commentFormArea" style="display:none;">
-        <textarea id="commentInput" class="comment-input" placeholder="اكتب رأيك أو تحليلك للقصة..."></textarea>
-        <button id="submitCommentBtn" class="comment-btn">نشر التعليق 🩸</button>
-      </div>
-      <div id="loginToCommentMsg" style="text-align:center; display:none; margin-bottom:20px;">
-        <p style="color:#bbb;">عايز تشارك؟ لازم <a href="login.html" style="color:#ff3333;">تسجل دخول</a> الأول.</p>
-      </div>
-      <div id="commentsList" class="comments-list">
-        <p style="text-align:center;color:#666;">جاري تحميل التعليقات...</p>
-      </div>
-      <div class="load-more-container">
-        <button id="loadMoreBtn" class="load-more-btn" style="display:none;">⬇️ قراءة كل التعليقات</button>
-      </div>
-    </section>
-
-    <div class="back-links">
-      <a href="index.html">⬅️ الصفحة الرئيسية</a>
-      <a href="h18-stories.html">⬅️ قسم قصص رعب +18</a>
     </div>
+
+    <section class="social">
+      <h2 class="social-title">تابع “آخر تسجيل”</h2>
+      <ul class="social-list">
+        <li><a href="#" class="social-btn fb"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg></a></li>
+        <li><a href="#" class="social-btn yt"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/></svg></a></li>
+        <li><a href="#" class="social-btn tt"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tiktok" viewBox="0 0 16 16"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/></svg></a></li>
+        <li><a href="#" class="social-btn tg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/></svg></a></li>
+      </ul>
+    </section>
+
   </div>
 
-  <div id="loginModal" class="login-modal-backdrop">
-    <div class="login-modal">
-      <h2 class="login-modal-title">تسجيل الدخول مطلوب</h2>
-      <p class="login-modal-text">لتحميل ملف الصوت يجب أن تكون مسجّل دخول.</p>
-      <div style="display:flex;gap:10px;justify-content:center;">
-        <button id="goLogin" class="btn-primary">تسجيل الدخول</button>
-        <button id="closeLogin" class="btn-ghost">إلغاء</button>
+  <div id="aboutModal" class="modal-overlay">
+    <div class="modal-backdrop"></div>
+    <div class="modal-inner" style="border-color: #fff;">
+      <button class="modal-close" id="aboutClose">✕</button>
+      <h2 class="section-title" style="margin-bottom:20px; text-align:center; color:#ff3333;">من نحن؟ 👁️</h2>
+      <div class="about-text">
+        <p>نحن لسنا مجرد رواة... نحن أرشيف للجانب المظلم.</p>
+        <p style="margin:15px 0;">فريقنا يجمع اعترافات وأسراراً حقيقية لم تخرج إلا من أصحابها، لنعيد صياغتها لكم (صوتاً، وكتابةً، ومشاهد).</p>
+        <p>نستخدم <span class="about-highlight">الذكاء الاصطناعي</span> فقط لتجسيد الكابوس بصرياً، أما الأصوات...</p>
+        <p class="about-highlight" style="margin-top:10px; font-size:18px;">... فهي مجهولة، وستبقى كذلك للأبد.</p>
       </div>
     </div>
   </div>
@@ -316,7 +249,6 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, limit, doc, updateDoc, arrayUnion, arrayRemove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBfs6I2_EDIVi5miIVVD11eowjesjoQs2o",
@@ -329,13 +261,11 @@
     };
 
     const ADMIN_EMAIL = "ahmed.altayeb01000@gmail.com";
-    const STORY_ID = "noemia_entity"; 
 
     const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const db   = getFirestore(app);
 
-    // عناصر القائمة العلوية والترحيب
+    // عناصر القائمة العلوية
     const userMenuTrigger = document.getElementById("userMenuTrigger");
     const welcomeMsg = document.getElementById("welcomeMsg");
     const profileIconContainer = document.getElementById("profileIconContainer");
@@ -343,183 +273,62 @@
     const dashItem = document.getElementById("dashItem");
     const logoutItem = document.getElementById("logoutItem");
 
-    // عناصر التعليقات
-    const commentFormArea = document.getElementById("commentFormArea");
-    const loginToCommentMsg = document.getElementById("loginToCommentMsg");
-    const commentInput = document.getElementById("commentInput");
-    const submitCommentBtn = document.getElementById("submitCommentBtn");
-    const commentsListEl = document.getElementById("commentsList");
-    const loadMoreBtn = document.getElementById("loadMoreBtn");
+    const aboutBtn = document.getElementById("aboutBtn");
+    const aboutModal = document.getElementById("aboutModal");
+    const aboutClose = document.getElementById("aboutClose");
 
     const iconLoggedIn = `<svg viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>`;
     const iconGuest = `<svg viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1zM4.97 3.03a.75.75 0 0 0-1.06 1.06L6.94 7.12l-1.97 1.97a.75.75 0 1 0 1.06 1.06L8 8.18l1.97 1.97a.75.75 0 1 0 1.06-1.06L9.06 7.12l1.97-1.97a.75.75 0 1 0-1.06-1.06L8 6.06 6.03 4.09 4.97 3.03z"/></svg>`;
 
-    let currentUser = null;
-    let commentsUnsubscribe = null; 
-    let currentLimit = 3; 
     let isUserLoggedIn = false;
 
     // التحكم في القائمة
-    if (userMenuTrigger) {
-      userMenuTrigger.addEventListener("click", (e) => {
-        e.stopPropagation();
-        if (isUserLoggedIn) { userDropdown.classList.toggle("show"); } else { window.location.href = "login.html"; }
-      });
-    }
-    document.addEventListener("click", () => { if(userDropdown) userDropdown.classList.remove("show"); });
+    userMenuTrigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (isUserLoggedIn) { userDropdown.classList.toggle("show"); } else { window.location.href = "login.html"; }
+    });
+    document.addEventListener("click", () => { userDropdown.classList.remove("show"); });
+
+    // فتح/غلق من نحن
+    if(aboutBtn) aboutBtn.onclick = () => aboutModal.classList.add("show");
+    if(aboutClose) aboutClose.onclick = () => aboutModal.classList.remove("show");
+    if(aboutModal) aboutModal.onclick = (e) => { if(e.target===aboutModal) aboutModal.classList.remove("show"); };
 
     onAuthStateChanged(auth, user => {
       if (user) {
-        currentUser = user;
-        isUserLoggedIn = true;
         localStorage.setItem("loggedIn", "true");
-        
+        isUserLoggedIn = true;
+
         const fullName = user.displayName || user.email.split('@')[0];
         const firstName = fullName.split(' ')[0];
 
-        // تحديث الشريط العلوي
-        if(welcomeMsg) welcomeMsg.innerHTML = `مرحباً بك يا <span style="color:#ff3333;font-weight:bold;">${firstName}</span> في آخر تسجيل`;
-        if(profileIconContainer) {
-           profileIconContainer.innerHTML = iconLoggedIn;
-           profileIconContainer.style.background = "#15171f";
-        }
-        
-        if (user.email === ADMIN_EMAIL && dashItem) dashItem.style.display = "flex";
-        
-        if(logoutItem) {
-          logoutItem.onclick = () => {
-            signOut(auth).then(() => {
-              localStorage.removeItem("loggedIn");
-              window.location.href = "index.html";
-            });
-          };
+        welcomeMsg.innerHTML = `مرحباً بك يا <span style="color:#ff3333;font-weight:bold;">${firstName}</span> في آخر تسجيل`;
+        profileIconContainer.innerHTML = iconLoggedIn;
+        profileIconContainer.style.background = "#15171f";
+
+        if (user.email === ADMIN_EMAIL) {
+          dashItem.style.display = "flex";
+        } else {
+          dashItem.style.display = "none";
         }
 
-        if(commentFormArea) commentFormArea.style.display = "block";
-        if(loginToCommentMsg) loginToCommentMsg.style.display = "none";
+        logoutItem.onclick = () => {
+          signOut(auth).then(() => {
+            localStorage.removeItem("loggedIn");
+            window.location.href = "index.html";
+          });
+        };
+
       } else {
-        currentUser = null;
-        isUserLoggedIn = false;
         localStorage.removeItem("loggedIn");
+        isUserLoggedIn = false;
 
-        if(welcomeMsg) welcomeMsg.innerHTML = "غير مسجّل الدخول";
-        if(profileIconContainer) {
-           profileIconContainer.innerHTML = iconGuest;
-           profileIconContainer.style.background = "#330000";
-        }
-
-        if(commentFormArea) commentFormArea.style.display = "none";
-        if(loginToCommentMsg) loginToCommentMsg.style.display = "block";
+        welcomeMsg.innerHTML = "غير مسجّل الدخول";
+        profileIconContainer.innerHTML = iconGuest;
+        profileIconContainer.style.background = "#330000";
+        dashItem.style.display = "none";
       }
     });
-
-    // باقي دوال التعليقات والتحميل
-    function loadComments(limitVal) {
-      if (commentsUnsubscribe) commentsUnsubscribe();
-      const q = query(collection(db, "comments"), where("storyId", "==", STORY_ID), orderBy("createdAt", "desc"), limit(limitVal));
-      commentsUnsubscribe = onSnapshot(q, (snapshot) => {
-        commentsListEl.innerHTML = ""; 
-        if (snapshot.empty) {
-          commentsListEl.innerHTML = "<p style='color:#777;text-align:center;'>لسه مفيش تعليقات.. كن أول واحد! 👻</p>";
-          loadMoreBtn.style.display = "none";
-          return;
-        }
-        snapshot.forEach(docSnap => { renderComment(docSnap.id, docSnap.data()); });
-        if (snapshot.docs.length < limitVal) { loadMoreBtn.style.display = "none"; } else { loadMoreBtn.style.display = "inline-block"; }
-      });
-    }
-
-    function renderComment(docId, data) {
-      let timeStr = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString('ar-EG') : "...";
-      const likesArr = data.likes || [];
-      const isLiked = currentUser && likesArr.includes(currentUser.uid);
-      const heartClass = isLiked ? "liked" : "";
-      const div = document.createElement("div");
-      div.className = "single-comment";
-      div.innerHTML = `
-        <div class="comment-header"><span class="comment-user">${data.displayName ? data.displayName : (data.userEmail ? data.userEmail.split('@')[0] : 'مجهول')}</span><span>${timeStr}</span></div>
-        <div class="comment-body">${data.text}</div>
-        <div class="comment-actions"><div class="action-btn ${heartClass}" id="likeBtn-${docId}"><span class="heart-icon">♥</span> <span>${likesArr.length}</span></div><div class="action-btn" id="replyToggle-${docId}"><span>↩️ رد</span></div></div>
-        <div class="reply-form-box" id="replyBox-${docId}"><input type="text" class="reply-input-field" id="replyInput-${docId}" placeholder="اكتب ردك هنا..."><button class="reply-submit-btn" id="sendReply-${docId}">إرسال الرد</button></div>
-        <div class="replies-container" id="repliesList-${docId}"></div>`;
-      commentsListEl.appendChild(div);
-      document.getElementById(`likeBtn-${docId}`).onclick = () => toggleLike(docId, likesArr);
-      document.getElementById(`replyToggle-${docId}`).onclick = () => { if (!currentUser) return alert("سجل دخول عشان ترد!"); document.getElementById(`replyBox-${docId}`).classList.toggle("open"); };
-      document.getElementById(`sendReply-${docId}`).onclick = () => sendReply(docId);
-      loadReplies(docId);
-    }
-
-    async function toggleLike(commentId, currentLikes) {
-      if (!currentUser) return alert("سجّل دخول عشان تعمل لايك ❤️");
-      const commentRef = doc(db, "comments", commentId);
-      if (currentLikes.includes(currentUser.uid)) { await updateDoc(commentRef, { likes: arrayRemove(currentUser.uid) }); } else { await updateDoc(commentRef, { likes: arrayUnion(currentUser.uid) }); }
-    }
-
-    if (submitCommentBtn) {
-      submitCommentBtn.onclick = async () => {
-        const text = commentInput.value.trim();
-        if (!text) return alert("اكتب حاجة الأول!");
-        if (!currentUser) return;
-        try {
-          await addDoc(collection(db, "comments"), { storyId: STORY_ID, text: text, userEmail: currentUser.email, displayName: currentUser.displayName || currentUser.email.split('@')[0], createdAt: serverTimestamp(), likes: [] });
-          commentInput.value = ""; 
-        } catch (err) { console.error(err); }
-      };
-    }
-
-    async function sendReply(parentId) {
-      const input = document.getElementById(`replyInput-${parentId}`);
-      const text = input.value.trim();
-      if (!text) return;
-      try {
-        await addDoc(collection(db, "comments", parentId, "replies"), { text: text, userEmail: currentUser.email, displayName: currentUser.displayName || currentUser.email.split('@')[0], createdAt: serverTimestamp() });
-        input.value = "";
-        document.getElementById(`replyBox-${parentId}`).classList.remove("open");
-      } catch (err) { console.error(err); }
-    }
-
-    function loadReplies(parentId) {
-      const repliesContainer = document.getElementById(`repliesList-${parentId}`);
-      const q = query(collection(db, "comments", parentId, "replies"), orderBy("createdAt", "asc"));
-      onSnapshot(q, (snapshot) => {
-        repliesContainer.innerHTML = ""; 
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const rDiv = document.createElement("div");
-          rDiv.className = "single-reply";
-          rDiv.innerHTML = `<strong style="color:#bbb">${data.displayName || 'مجهول'}:</strong><span style="color:#ddd"> ${data.text}</span>`;
-          repliesContainer.appendChild(rDiv);
-        });
-      });
-    }
-
-    if (loadMoreBtn) {
-      loadMoreBtn.onclick = () => { currentLimit = 100; loadComments(currentLimit); loadMoreBtn.style.display = "none"; };
-    }
-
-    // منطق المشغل الصوتي (زر التشغيل والتحميل)
-    const audioEl = document.getElementById('storyAudio');
-    const playBtn = document.getElementById('playToggle');
-    const playerBox = document.getElementById('audioPlayer');
-    if (playBtn && audioEl && playerBox) {
-      playBtn.onclick = () => {
-        if (audioEl.paused) { audioEl.play(); playerBox.classList.add("is-playing"); } else { audioEl.pause(); playerBox.classList.remove("is-playing"); }
-      };
-    }
-    const downloadBtn = document.getElementById("downloadBtn");
-    const loginModal = document.getElementById("loginModal");
-    if (downloadBtn) {
-      downloadBtn.onclick = () => {
-        if (!localStorage.getItem("loggedIn")) { if (loginModal) loginModal.classList.add("show"); return; }
-        window.location.href = downloadBtn.dataset.file;
-      };
-    }
-    const goLogin = document.getElementById("goLogin");
-    const closeLogin = document.getElementById("closeLogin");
-    if (goLogin) goLogin.onclick = () => window.location.href = "login.html";
-    if (closeLogin && loginModal) closeLogin.onclick = () => loginModal.classList.remove("show");
-
-    loadComments(currentLimit);
   </script>
 
 </body>

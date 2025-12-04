@@ -12,19 +12,50 @@
     a { color: #ff4b4b; text-decoration: none; } a:hover { text-decoration: none; }
     .page { max-width: 1400px; width: 100%; margin: 0 auto; padding: 32px 16px 64px; }
 
-    /* ========== شريط المستخدم (Dropdown) ========== */
-    .user-bar { display: flex; justify-content: flex-end; align-items: center; background: #0c0c0c; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: #ccc; position: relative; z-index: 100; gap: 15px; } /* زودت gap عشان المسافة بين الايقونات */
+    /* ========== شريط المستخدم (Dropdown) - التعديل الجديد ========== */
+    .user-bar { 
+      display: flex; 
+      justify-content: space-between; /* هذا يجعل العناصر تتوزع (واحد يمين وواحد شمال) */
+      align-items: center; 
+      background: #0c0c0c; 
+      padding: 10px 24px; 
+      border-bottom: 1px solid rgba(255,255,255,0.05); 
+      font-size: 14px; 
+      color: #ccc; 
+      position: relative; 
+      z-index: 100; 
+    }
     
+    /* الجزء اليمين (من نحن) */
+    .about-btn-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 999px;
+      transition: 0.3s;
+      background: rgba(255, 255, 255, 0.03); /* خلفية شفافة خفيفة */
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .about-btn-container:hover {
+      background: #ff3333;
+      border-color: #ff3333;
+      color: #fff;
+    }
+    .about-icon svg { width: 20px; height: 20px; fill: currentColor; }
+    .about-label { font-weight: bold; font-size: 13px; }
+
+    /* الجزء الشمال (البروفايل) */
     .user-info-group { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
     .welcome-text { font-size: 13px; color: #ddd; }
     
-    /* الأزرار الدائرية في الشريط (بروفايل + من نحن) */
-    .icon-btn-circle { width: 40px; height: 40px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; transition: 0.3s; cursor: pointer; }
-    .icon-btn-circle:hover { background: #ff3333; border-color: #ff3333; }
-    .icon-btn-circle svg { width: 20px; height: 20px; fill: currentColor; }
+    .profile-icon-btn { width: 40px; height: 40px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; transition: 0.3s; }
+    .profile-icon-btn:hover { background: #ff3333; border-color: #ff3333; }
+    .profile-icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
     /* القائمة المنسدلة */
-    .dropdown-menu { position: absolute; top: 60px; left: 20px; background: #111; border: 1px solid #333; border-radius: 12px; width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); display: none; flex-direction: column; overflow: hidden; z-index: 101; }
+    .dropdown-menu { position: absolute; top: 65px; left: 20px; background: #111; border: 1px solid #333; border-radius: 12px; width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); display: none; flex-direction: column; overflow: hidden; z-index: 101; }
     .dropdown-menu.show { display: flex; animation: fadeIn 0.2s ease-out; }
     .dropdown-item { padding: 12px 16px; color: #eee; text-decoration: none; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; align-items: center; gap: 10px; cursor: pointer; }
     .dropdown-item:last-child { border-bottom: none; }
@@ -79,7 +110,7 @@
     @keyframes ratingPop { 0% { transform: scale(1); } 50% { transform: scale(1.12); } 100% { transform: scale(1); } }
     .rating-fab { position: fixed; bottom: 24px; left: 24px; padding: 10px 18px; border-radius: 999px; border: none; background: #ff3333; color: #fff; font-weight: 600; font-size: 13px; cursor: pointer; box-shadow: 0 10px 25px rgba(0,0,0,0.7); z-index: 9998; }
     
-    /* مودال موحد (للتقييم و من نحن) */
+    /* مودال موحد */
     .modal-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; }
     .modal-overlay.show { display: flex; }
     .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); }
@@ -99,22 +130,29 @@
 
   <div class="user-bar">
     
-    <button class="icon-btn-circle" id="aboutBtn" title="من نحن">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
-        <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4m2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A2 2 0 0 0 8 6c-.532 0-1.016.208-1.375.547M14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0"/>
-      </svg>
-    </button>
+    <div class="about-btn-container" id="aboutBtn" title="من نحن">
+      <div class="about-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
+          <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4m2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A2 2 0 0 0 8 6c-.532 0-1.016.208-1.375.547M14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0"/>
+        </svg>
+      </div>
+      <span class="about-label">من نحن</span>
+    </div>
 
-    <div class="user-info-group" id="userMenuTrigger">
-      <span class="welcome-text" id="welcomeMsg">جاري التحميل...</span>
-      <div class="icon-btn-circle" id="profileIconContainer" style="border-radius:50%;">
-        </div>
+    <div class="user-section-left">
+      <div class="user-info-group" id="userMenuTrigger">
+        <span class="welcome-text" id="welcomeMsg">جاري التحميل...</span>
+        <div class="profile-icon-btn" id="profileIconContainer">
+          </div>
+      </div>
+      
+      <div class="dropdown-menu" id="userDropdown">
+        <a href="profile.html" class="dropdown-item">👤 الملف الشخصي</a>
+        <a href="dashboard.html" class="dropdown-item" id="dashItem" style="display:none;">⚙️ لوحة التحكم</a>
+        <div class="dropdown-item" id="logoutItem">🚪 تسجيل الخروج</div>
+      </div>
     </div>
-    <div class="dropdown-menu" id="userDropdown">
-      <a href="profile.html" class="dropdown-item">👤 الملف الشخصي</a>
-      <a href="dashboard.html" class="dropdown-item" id="dashItem" style="display:none;">⚙️ لوحة التحكم</a>
-      <div class="dropdown-item" id="logoutItem">🚪 تسجيل الخروج</div>
-    </div>
+
   </div>
 
   <div class="page">
@@ -226,6 +264,7 @@
 
     let isUserLoggedIn = false;
 
+    // التحكم في القائمة
     userMenuTrigger.addEventListener("click", (e) => {
       e.stopPropagation();
       if (isUserLoggedIn) { userDropdown.classList.toggle("show"); } else { window.location.href = "login.html"; }

@@ -12,13 +12,23 @@
     a { color: #ff4b4b; text-decoration: none; } a:hover { text-decoration: underline; }
 
     /* ========== شريط المستخدم (Dropdown) - موحد ========== */
-    .user-bar { display: flex; justify-content: flex-end; align-items: center; background: #0c0c0c; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: #ccc; position: relative; z-index: 100; }
+    .user-bar { display: flex; justify-content: space-between; align-items: center; background: #0c0c0c; padding: 10px 24px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: #ccc; position: relative; z-index: 100; }
+    
+    /* الجزء اليمين (من نحن) */
+    .about-btn-container { display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 6px 12px; border-radius: 999px; transition: 0.3s; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.1); }
+    .about-btn-container:hover { background: #ff3333; border-color: #ff3333; color: #fff; }
+    .about-icon svg { width: 20px; height: 20px; fill: currentColor; }
+    .about-label { font-weight: bold; font-size: 13px; }
+
+    /* الجزء الشمال (البروفايل) */
     .user-info-group { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
     .welcome-text { font-size: 13px; color: #ddd; }
     .profile-icon-btn { width: 40px; height: 40px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; transition: 0.3s; }
     .profile-icon-btn:hover { background: #ff3333; border-color: #ff3333; }
     .profile-icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
-    .dropdown-menu { position: absolute; top: 60px; left: 20px; background: #111; border: 1px solid #333; border-radius: 12px; width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); display: none; flex-direction: column; overflow: hidden; z-index: 101; }
+
+    /* القائمة المنسدلة */
+    .dropdown-menu { position: absolute; top: 65px; left: 20px; background: #111; border: 1px solid #333; border-radius: 12px; width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); display: none; flex-direction: column; overflow: hidden; z-index: 101; }
     .dropdown-menu.show { display: flex; animation: fadeIn 0.2s ease-out; }
     .dropdown-item { padding: 12px 16px; color: #eee; text-decoration: none; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; align-items: center; gap: 10px; cursor: pointer; }
     .dropdown-item:last-child { border-bottom: none; }
@@ -30,11 +40,18 @@
     @keyframes bgPulse { 0% { transform: scale(1) translateY(0); } 100% { transform: scale(1.03) translateY(-8px); } }
     .page { max-width: 1400px; margin: 0 auto; padding: 24px 16px 64px; position: relative; z-index: 1; }
 
-    /* العناصر الأخرى */
-    .back-link { margin-bottom: 20px; font-size: 14px; text-align: right; }
-    .back-link a { color: #ff3333; font-weight: bold; text-decoration: none; }
-    .back-link a:hover { color: #ff5555; }
-    .page-title-wrapper { text-align: center; }
+    /* زر الرجوع المطور */
+    .back-btn-styled {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2);
+      padding: 8px 16px; border-radius: 8px; color: #eee; text-decoration: none;
+      font-size: 14px; font-weight: bold; transition: 0.3s; margin-bottom: 20px; float: right;
+    }
+    .back-btn-styled:hover { background: #ff3333; border-color: #ff3333; color: #fff; text-decoration: none; transform: translateX(-5px); }
+    .back-btn-styled svg { width: 18px; height: 18px; fill: currentColor; transform: rotate(180deg); } /* سهم لليمين */
+
+    /* عنوان الصفحة */
+    .page-title-wrapper { text-align: center; clear: both; }
     .page-title { position: relative; text-align: center; font-size: 28px; color: #ff3333; margin-bottom: 40px; display: inline-block; padding: 0; background: none; border-radius: 0; animation: neonBlink 2.4s ease-in-out infinite; text-shadow: 0 0 6px rgba(255,0,0,0.4), 0 0 14px rgba(255,0,0,0.7); }
     @keyframes neonBlink { 0%, 20% { opacity: 0.6; text-shadow: 0 0 4px rgba(255,0,0,0.3), 0 0 10px rgba(255,0,0,0.4); } 40% { opacity: 1; text-shadow: 0 0 10px rgba(255,0,0,1), 0 0 22px rgba(255,0,0,0.9), 0 0 32px rgba(255,0,0,0.8); } 60% { opacity: 0.8; text-shadow: 0 0 6px rgba(255,0,0,0.6), 0 0 16px rgba(255,0,0,0.7); } 80%, 100% { opacity: 0.5; text-shadow: 0 0 3px rgba(255,0,0,0.3), 0 0 8px rgba(255,0,0,0.4); } }
     .page-title::before, .page-title::after { content: ""; position: absolute; top: 100%; background: linear-gradient(to bottom, #ff3333, rgba(120,0,0,0)); border-radius: 0 0 999px 999px; opacity: 0.9; transform-origin: top; animation: drip 3.2s infinite ease-in-out; }
@@ -42,7 +59,7 @@
     @keyframes drip { 0% { transform: scaleY(0); opacity: 0; } 30% { transform: scaleY(1); opacity: 0.95; } 70% { transform: scaleY(0.3); opacity: 0.6; } 100% { transform: scaleY(0); opacity: 0; } }
 
     /* كروت القصص */
-    .stories-wrap { display: flex; justify-content: flex-end; }
+    .stories-wrap { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 20px; }
     .story-card { background: rgba(5, 6, 10, 0.96); border-radius: 22px; padding: 22px 20px 24px; text-align: center; box-shadow: 0 18px 40px rgba(0,0,0,0.9), 0 0 24px rgba(0,0,0,0.9); width: 340px; backdrop-filter: blur(2px); }
     .story-image { width: 100%; border-radius: 16px; margin-bottom: 14px; box-shadow: 0 12px 28px rgba(0,0,0,0.85); }
     .story-title { font-size: 20px; margin-bottom: 6px; color: #ffffff; }
@@ -51,29 +68,69 @@
     .story-age { background: #b30000; color: #fff; padding: 7px 11px; border-radius: 10px; font-weight: bold; font-size: 13px; box-shadow: 0 8px 20px rgba(179,0,0,0.7); }
     .story-btn { background: #ff3333; color: white; padding: 8px 16px; border-radius: 12px; text-decoration: none; font-weight: bold; font-size: 14px; transition: 0.3s; box-shadow: 0 10px 24px rgba(255,51,51,0.6); }
     .story-btn:hover { background: #ff4444; text-decoration: none; transform: translateY(-1px); }
+
+    /* أيقونات السوشيال */
+    .social { text-align: center; margin-top: 40px; }
+    .social-title { font-size: 20px; margin-bottom: 15px; color: #fff; }
+    .social-list { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 0; }
+    .social-btn { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.1); color: #ccc; transition: 0.3s; }
+    .social-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .social-btn:hover { transform: translateY(-3px); color: #fff; }
+    .social-btn.fb:hover { background: #1877F2; border-color: #1877F2; } 
+    .social-btn.yt:hover { background: #FF0000; border-color: #FF0000; } 
+    .social-btn.tt:hover { background: #000000; border-color: #ffffff; } 
+    .social-btn.tg:hover { background: #229ED9; border-color: #229ED9; } 
+
+    /* مودال من نحن */
+    .modal-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; }
+    .modal-overlay.show { display: flex; }
+    .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(4px); }
+    .modal-inner { position: relative; max-width: 600px; width: 95%; background: #08090d; border-radius: 20px; padding: 30px; box-shadow: 0 20px 60px rgba(0,0,0,1); border: 1px solid rgba(255,80,80,0.3); animation: slideUp 0.3s ease-out; }
+    @keyframes slideUp { from{transform:translateY(20px);opacity:0;} to{transform:translateY(0);opacity:1;} }
+    .modal-close { position: absolute; top: 15px; left: 20px; border: none; background: transparent; color: #888; font-size: 24px; cursor: pointer; transition: 0.3s; }
+    .modal-close:hover { color: #ff3333; }
+    .about-text { line-height: 1.9; color: #ddd; font-size: 16px; text-align: center; }
+    .about-highlight { color: #ff3333; font-weight: bold; }
+
     @media (max-width: 768px) { .stories-wrap { justify-content: center; } .story-card { width: 90%; } }
   </style>
 </head>
+
 <body>
 
   <div class="user-bar">
-    <div class="user-info-group" id="userMenuTrigger">
-      <span class="welcome-text" id="welcomeMsg">جاري التحميل...</span>
-      <div class="profile-icon-btn" id="profileIconContainer">
-        </div>
+    <div class="about-btn-container" id="aboutBtn" title="من نحن">
+      <div class="about-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eyeglasses" viewBox="0 0 16 16">
+          <path d="M4 6a2 2 0 1 1 0 4 2 2 0 0 1 0-4m2.625.547a3 3 0 0 0-5.584.953H.5a.5.5 0 0 0 0 1h.541A3 3 0 0 0 7 8a1 1 0 0 1 2 0 3 3 0 0 0 5.959.5h.541a.5.5 0 0 0 0-1h-.541a3 3 0 0 0-5.584-.953A2 2 0 0 0 8 6c-.532 0-1.016.208-1.375.547M14 8a2 2 0 1 1-4 0 2 2 0 0 1 4 0"/>
+        </svg>
+      </div>
+      <span class="about-label">من نحن</span>
     </div>
-    <div class="dropdown-menu" id="userDropdown">
-      <a href="profile.html" class="dropdown-item">👤 الملف الشخصي</a>
-      <a href="dashboard.html" class="dropdown-item" id="dashItem" style="display:none;">⚙️ لوحة التحكم</a>
-      <div class="dropdown-item" id="logoutItem">🚪 تسجيل الخروج</div>
+
+    <div class="user-section-left">
+      <div class="user-info-group" id="userMenuTrigger">
+        <span class="welcome-text" id="welcomeMsg">جاري التحميل...</span>
+        <div class="profile-icon-btn" id="profileIconContainer">
+          </div>
+      </div>
+      <div class="dropdown-menu" id="userDropdown">
+        <a href="profile.html" class="dropdown-item">👤 الملف الشخصي</a>
+        <a href="dashboard.html" class="dropdown-item" id="dashItem" style="display:none;">⚙️ لوحة التحكم</a>
+        <div class="dropdown-item" id="logoutItem">🚪 تسجيل الخروج</div>
+      </div>
     </div>
   </div>
 
   <div class="page-bg"></div>
 
   <div class="page">
-    <div class="back-link">
-      <a href="index.html">⬅️ الرجوع للصفحة الرئيسية</a>
+
+    <div>
+      <a href="index.html" class="back-btn-styled">
+        الرجوع للصفحة الرئيسية
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg>
+      </a>
     </div>
 
     <div class="page-title-wrapper">
@@ -81,14 +138,42 @@
     </div>
 
     <div class="stories-wrap">
+
       <div class="story-card">
-        <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg" alt="نويميا والكيان" class="story-image">
+        <img src="images/imagesGemini_Generated_Image_ivkwrtivkwrtivkw.jpg"
+             alt="نويميا والكيان" class="story-image">
         <h2 class="story-title">نويميا والكيان</h2>
         <p class="story-tag">قصة رعب حقيقية</p>
         <div class="story-actions">
           <span class="story-age">+18</span>
           <a href="noemia.html" class="story-btn">ادخل القصة</a>
         </div>
+      </div>
+
+    </div>
+
+    <section class="social">
+      <h2 class="social-title">تابع أحدث القصص</h2>
+      <ul class="social-list">
+        <li><a href="#" class="social-btn fb"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16"><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg></a></li>
+        <li><a href="#" class="social-btn yt"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16"><path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/></svg></a></li>
+        <li><a href="#" class="social-btn tt"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tiktok" viewBox="0 0 16 16"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/></svg></a></li>
+        <li><a href="#" class="social-btn tg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/></svg></a></li>
+      </ul>
+    </section>
+
+  </div>
+
+  <div id="aboutModal" class="modal-overlay">
+    <div class="modal-backdrop"></div>
+    <div class="modal-inner" style="border-color: #fff;">
+      <button class="modal-close" id="aboutClose">✕</button>
+      <h2 class="section-title" style="margin-bottom:20px; text-align:center; color:#ff3333;">من نحن؟ 👁️</h2>
+      <div class="about-text">
+        <p>نحن لسنا مجرد رواة... نحن أرشيف للجانب المظلم.</p>
+        <p style="margin:15px 0;">فريقنا يجمع اعترافات وأسراراً حقيقية لم تخرج إلا من أصحابها، لنعيد صياغتها لكم (صوتاً، وكتابةً، ومشاهد).</p>
+        <p>نستخدم <span class="about-highlight">الذكاء الاصطناعي</span> فقط لتجسيد الكابوس بصرياً، أما الأصوات...</p>
+        <p class="about-highlight" style="margin-top:10px; font-size:18px;">... فهي مجهولة، وستبقى كذلك للأبد.</p>
       </div>
     </div>
   </div>
@@ -108,7 +193,8 @@
     };
 
     const ADMIN_EMAIL = "ahmed.altayeb01000@gmail.com";
-    const app = initializeApp(firebaseConfig);
+
+    const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
     // عناصر القائمة العلوية
@@ -118,6 +204,10 @@
     const userDropdown = document.getElementById("userDropdown");
     const dashItem = document.getElementById("dashItem");
     const logoutItem = document.getElementById("logoutItem");
+
+    const aboutBtn = document.getElementById("aboutBtn");
+    const aboutModal = document.getElementById("aboutModal");
+    const aboutClose = document.getElementById("aboutClose");
 
     const iconLoggedIn = `<svg viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>`;
     const iconGuest = `<svg viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1zM4.97 3.03a.75.75 0 0 0-1.06 1.06L6.94 7.12l-1.97 1.97a.75.75 0 1 0 1.06 1.06L8 8.18l1.97 1.97a.75.75 0 1 0 1.06-1.06L9.06 7.12l1.97-1.97a.75.75 0 1 0-1.06-1.06L8 6.06 6.03 4.09 4.97 3.03z"/></svg>`;
@@ -131,30 +221,44 @@
     });
     document.addEventListener("click", () => { userDropdown.classList.remove("show"); });
 
+    // فتح/غلق من نحن
+    if(aboutBtn) aboutBtn.onclick = () => aboutModal.classList.add("show");
+    if(aboutClose) aboutClose.onclick = () => aboutModal.classList.remove("show");
+    if(aboutModal) aboutModal.onclick = (e) => { if(e.target===aboutModal) aboutModal.classList.remove("show"); };
+
     onAuthStateChanged(auth, user => {
       if (user) {
-        isUserLoggedIn = true;
         localStorage.setItem("loggedIn", "true");
+        isUserLoggedIn = true;
+
         const fullName = user.displayName || user.email.split('@')[0];
         const firstName = fullName.split(' ')[0];
+
         welcomeMsg.innerHTML = `مرحباً بك يا <span style="color:#ff3333;font-weight:bold;">${firstName}</span> في آخر تسجيل`;
         profileIconContainer.innerHTML = iconLoggedIn;
         profileIconContainer.style.background = "#15171f";
-        
-        if (user.email === ADMIN_EMAIL) { dashItem.style.display = "flex"; } else { dashItem.style.display = "none"; }
-        
+
+        if (user.email === ADMIN_EMAIL) {
+          dashItem.style.display = "flex";
+        } else {
+          dashItem.style.display = "none";
+        }
+
         logoutItem.onclick = () => {
           signOut(auth).then(() => {
             localStorage.removeItem("loggedIn");
             window.location.href = "index.html";
           });
         };
+
       } else {
-        isUserLoggedIn = false;
         localStorage.removeItem("loggedIn");
+        isUserLoggedIn = false;
+
         welcomeMsg.innerHTML = "غير مسجّل الدخول";
         profileIconContainer.innerHTML = iconGuest;
         profileIconContainer.style.background = "#330000";
+        dashItem.style.display = "none";
       }
     });
   </script>

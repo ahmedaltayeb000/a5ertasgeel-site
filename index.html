@@ -37,12 +37,15 @@
     .rec-indicator .dot { width: 10px; height: 10px; border-radius: 50%; background: #ff3333; box-shadow: 0 0 12px rgba(255,50,50,0.9); animation: recBlink 1s infinite; }
     @keyframes recBlink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.1; } }
 
-    /* ========== كارت قصص رعب +18 (التصميم الجديد) ========== */
+    /* ========== كارت قصص رعب +18 (التصميم الجديد - صغير وعلى اليمين) ========== */
     .horror18-section {
-      max-width: 1300px;
+      /* الحجم الجديد الصغير */
+      max-width: 350px; /* عرض مناسب وصغير */
       width: 100%;
-      margin: 0 auto 30px;
-      /* إزالة الخلفية والظل والبادينج القديم */
+      
+      /* المحاذاة لليمين */
+      margin: 0 0 30px auto; /* 0 فوق، 0 يمين، 30 تحت، auto شمال (عشان ييجي يمين) */
+
       background: transparent;
       box-shadow: none;
       padding: 0;
@@ -52,24 +55,24 @@
       display: block;
       position: relative;
       width: 100%;
-      max-width: 500px; /* حجم مناسب للصورة */
-      margin: 0 auto;
+      /* إزالة max-width من هنا لأنه خلاص متحدد في الـ section */
+      margin: 0; /* إزالة التوسيط */
       border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 14px 30px rgba(0,0,0,0.8);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.8); /* ظل أصغر شوية */
       transition: 0.3s;
       text-decoration: none;
     }
 
     .h18-card-link:hover {
       transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 22px 50px rgba(0,0,0,1), 0 0 30px rgba(255,0,0,0.6);
+      box-shadow: 0 18px 40px rgba(0,0,0,1), 0 0 25px rgba(255,0,0,0.6);
     }
 
     .h18-img-wrapper {
       position: relative;
       width: 100%;
-      padding-top: 56.25%; /* نسبة عرض إلى ارتفاع 16:9 */
+      padding-top: 60%; /* نسبة عرض إلى ارتفاع مناسبة للكارت الصغير */
     }
 
     .h18-img-wrapper img {
@@ -82,33 +85,31 @@
       transition: opacity 0.3s ease;
     }
 
-    /* علامة +18 */
     .h18-badge {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 8px;
+      left: 8px;
       background: #ff0000;
       color: #fff;
       font-weight: 900;
-      padding: 2px 8px;
-      border-radius: 6px;
-      font-size: 18px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-size: 14px; /* تصغير الخط */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
       z-index: 2;
     }
 
-    /* طبقة الهوفر (السوداء) */
     .h18-hover-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.9); /* خلفية سوداء شبه شفافة */
+      background: rgba(0,0,0,0.9);
       display: flex;
       align-items: center;
       justify-content: center;
       opacity: 0;
       transition: opacity 0.3s ease;
       z-index: 3;
-      padding: 20px;
+      padding: 15px;
       text-align: center;
     }
 
@@ -116,13 +117,12 @@
       opacity: 1;
     }
     
-    /* النص التحذيري */
     .h18-warning-text {
       color: #ff3333;
-      font-size: 18px;
+      font-size: 14px; /* تصغير الخط */
       font-weight: bold;
-      line-height: 1.5;
-      text-shadow: 0 0 10px rgba(255,0,0,0.5);
+      line-height: 1.4;
+      text-shadow: 0 0 8px rgba(255,0,0,0.5);
     }
 
 
@@ -184,8 +184,8 @@
           <div class="h18-badge">+18</div>
           <div class="h18-hover-overlay">
             <p class="h18-warning-text">
-              ⚠️ تحذير: المحتوى قد يكون صادمًا<br>
-              اضغط للدخول على مسؤوليتك
+              ⚠️ تحذير: المحتوى صادم<br>
+              اضغط للدخول
             </p>
           </div>
         </div>

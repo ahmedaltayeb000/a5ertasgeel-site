@@ -7,198 +7,134 @@
 
   <style>
     /* ========== RESET + GLOBAL ========== */
-    * {
-      box-sizing: border-box;
-      margin: 0;
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { background: #050608; color: #f5f5f5; line-height: 1.7; }
+    a { color: #ff4b4b; text-decoration: none; } a:hover { text-decoration: underline; }
+    .page { max-width: 1400px; width: 100%; margin: 0 auto; padding: 32px 16px 64px; }
+
+    /* ========== شريط المستخدم (Dropdown) ========== */
+    .user-bar { display: flex; justify-content: flex-end; align-items: center; background: #0c0c0c; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 14px; color: #ccc; position: relative; z-index: 100; }
+    .user-info-group { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
+    .welcome-text { font-size: 13px; color: #ddd; }
+    .profile-icon-btn { width: 40px; height: 40px; border-radius: 50%; background: #15171f; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: #fff; transition: 0.3s; }
+    .profile-icon-btn:hover { background: #ff3333; border-color: #ff3333; }
+    .profile-icon-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .dropdown-menu { position: absolute; top: 60px; left: 20px; background: #111; border: 1px solid #333; border-radius: 12px; width: 200px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); display: none; flex-direction: column; overflow: hidden; z-index: 101; }
+    .dropdown-menu.show { display: flex; animation: fadeIn 0.2s ease-out; }
+    .dropdown-item { padding: 12px 16px; color: #eee; text-decoration: none; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); transition: 0.2s; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .dropdown-item:last-child { border-bottom: none; }
+    .dropdown-item:hover { background: #1f1f1f; color: #ff3333; text-decoration: none; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ========== الهيدر ========== */
+    .hero-with-bg { position: relative; background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat; border-radius: 20px; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,0.65); max-width: 1300px; width: 100%; margin: 0 auto 32px; padding: 40px 24px; text-align: center; }
+    .hero-with-bg::before { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at top, rgba(42,0,0,0.85), rgba(5,6,8,0.96)), rgba(0,0,0,0.4); backdrop-filter: blur(2px); }
+    .hero-with-bg * { position: relative; z-index: 2; }
+    .hero-subtitle { margin-top: 16px; font-size: 16px; color: #e0e0e0; }
+    .scary-title { font-size: 48px; text-align: center; color: #ff2222; position: relative; font-family: "Creepster", sans-serif; letter-spacing: 3px; margin-bottom: 20px; animation: glitch 2.5s infinite alternate; text-shadow: 0 0 4px rgba(255, 0, 0, 0.8), 2px 0 6px rgba(0, 255, 255, 0.4); }
+    @keyframes glitch { 0% { transform: translate(0); } 20% { transform: translate(-1px, 1px); } 40% { transform: translate(1px, -1px); } 60% { transform: translate(0.5px, 0); } 80% { transform: translate(-0.5px, 0); } 100% { transform: translate(0); } }
+    .rec-indicator { display: inline-flex; align-items: center; gap: 6px; margin-top: -6px; margin-bottom: 8px; font-size: 12px; color: #ff7777; opacity: 0.95; }
+    .rec-indicator .dot { width: 10px; height: 10px; border-radius: 50%; background: #ff3333; box-shadow: 0 0 12px rgba(255,50,50,0.9); animation: recBlink 1s infinite; }
+    @keyframes recBlink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.1; } }
+
+    /* ========== كارت قصص رعب +18 (التصميم الجديد) ========== */
+    .horror18-section {
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto 30px;
+      /* إزالة الخلفية والظل والبادينج القديم */
+      background: transparent;
+      box-shadow: none;
       padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
-    body {
-      background: #050608;
-      color: #f5f5f5;
-      line-height: 1.7;
-    }
-
-    a {
-      color: #ff4b4b;
+    .h18-card-link {
+      display: block;
+      position: relative;
+      width: 100%;
+      max-width: 500px; /* حجم مناسب للصورة */
+      margin: 0 auto;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.8);
+      transition: 0.3s;
       text-decoration: none;
     }
-    a:hover { text-decoration: underline; }
 
-    .page {
-      max-width: 1400px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 32px 16px 64px;
+    .h18-card-link:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 22px 50px rgba(0,0,0,1), 0 0 30px rgba(255,0,0,0.6);
     }
 
-    /* ========== شريط المستخدم الجديد (القائمة المنسدلة) ========== */
-    .user-bar {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      background: #0c0c0c;
-      padding: 10px 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-size: 14px;
-      color: #ccc;
+    .h18-img-wrapper {
       position: relative;
-      z-index: 100;
+      width: 100%;
+      padding-top: 56.25%; /* نسبة عرض إلى ارتفاع 16:9 */
     }
 
-    .user-info-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      user-select: none;
+    .h18-img-wrapper img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
     }
 
-    .welcome-text {
-      font-size: 13px;
-      color: #ddd;
+    /* علامة +18 */
+    .h18-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #ff0000;
+      color: #fff;
+      font-weight: 900;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 18px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      z-index: 2;
     }
 
-    /* الأيقونة الدائرية */
-    .profile-icon-btn {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #15171f;
-      border: 1px solid rgba(255,255,255,0.2);
+    /* طبقة الهوفر (السوداء) */
+    .h18-hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.9); /* خلفية سوداء شبه شفافة */
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      transition: 0.3s;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 3;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .h18-card-link:hover .h18-hover-overlay {
+      opacity: 1;
     }
     
-    .profile-icon-btn:hover {
-      background: #ff3333;
-      border-color: #ff3333;
+    /* النص التحذيري */
+    .h18-warning-text {
+      color: #ff3333;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.5;
+      text-shadow: 0 0 10px rgba(255,0,0,0.5);
     }
 
-    .profile-icon-btn svg {
-      width: 20px;
-      height: 20px;
-      fill: currentColor;
-    }
 
-    /* القائمة المنسدلة (Dropdown) */
-    .dropdown-menu {
-      position: absolute;
-      top: 60px; /* المسافة من فوق */
-      left: 20px; /* تظهر على الشمال */
-      background: #111;
-      border: 1px solid #333;
-      border-radius: 12px;
-      width: 200px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.9);
-      display: none; /* مخفية افتراضياً */
-      flex-direction: column;
-      overflow: hidden;
-      z-index: 101;
-    }
-
-    .dropdown-menu.show {
-      display: flex;
-      animation: fadeIn 0.2s ease-out;
-    }
-
-    .dropdown-item {
-      padding: 12px 16px;
-      color: #eee;
-      text-decoration: none;
-      font-size: 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-
-    .dropdown-item:last-child { border-bottom: none; }
-    .dropdown-item:hover { background: #1f1f1f; color: #ff3333; text-decoration: none; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ========== باقي تنسيقات الموقع ========== */
-    .hero-with-bg {
-      position: relative;
-      background: url('images/Gemini_Generated_Image_s59qb5s59qb5s59q.jpg') center/cover no-repeat;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.65);
-      max-width: 1300px;
-      width: 100%;
-      margin: 0 auto 32px;
-      padding: 40px 24px;
-      text-align: center;
-    }
-
-    .hero-with-bg::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at top, rgba(42,0,0,0.85), rgba(5,6,8,0.96)),
-        rgba(0,0,0,0.4);
-      backdrop-filter: blur(2px);
-    }
-
-    .hero-with-bg * { position: relative; z-index: 2; }
-    .hero-subtitle { margin-top: 16px; font-size: 16px; color: #e0e0e0; }
-
-    .scary-title {
-      font-size: 48px;
-      text-align: center;
-      color: #ff2222;
-      position: relative;
-      font-family: "Creepster", sans-serif;
-      letter-spacing: 3px;
-      margin-bottom: 20px;
-      animation: glitch 2.5s infinite alternate;
-      text-shadow: 0 0 4px rgba(255, 0, 0, 0.8), 2px 0 6px rgba(0, 255, 255, 0.4);
-    }
-
-    @keyframes glitch {
-      0% { transform: translate(0); } 20% { transform: translate(-1px, 1px); }
-      40% { transform: translate(1px, -1px); } 60% { transform: translate(0.5px, 0); }
-      80% { transform: translate(-0.5px, 0); } 100% { transform: translate(0); }
-    }
-
-    .rec-indicator {
-      display: inline-flex; align-items: center; gap: 6px; margin-top: -6px; margin-bottom: 8px; font-size: 12px; color: #ff7777; opacity: 0.95;
-    }
-    .rec-indicator .dot {
-      width: 10px; height: 10px; border-radius: 50%; background: #ff3333; box-shadow: 0 0 12px rgba(255,50,50,0.9); animation: recBlink 1s infinite;
-    }
-    @keyframes recBlink { 0%, 60% { opacity: 1; } 61%, 100% { opacity: 0.1; } }
-
-    /* أقسام */
-    .horror18-section {
-      max-width: 1300px; width: 100%; margin: 0 auto 30px; background: #0e1014; border-radius: 20px; padding: 24px 26px 32px; box-shadow: 0 14px 35px rgba(0,0,0,0.75);
-    }
-    .h18-header { width: 260px; display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0 auto; }
-    .h18-header img { width: 100%; border-radius: 18px; box-shadow: 0 14px 30px rgba(0,0,0,0.8); margin-bottom: 12px; transition: 0.3s; }
-    .h18-header:hover img { transform: translateY(-4px) scale(1.03); box-shadow: 0 22px 50px rgba(0,0,0,1), 0 0 30px rgba(255,0,0,0.8); }
-    .h18-title { font-size: 22px; color: #ff4444; margin-bottom: 12px; }
-    .h18-btn { display: inline-block; padding: 10px 26px; border-radius: 999px; background: #ff3333; color: #fff; font-weight: 700; box-shadow: 0 10px 25px rgba(255,51,51,0.45); text-decoration: none; transition: 0.25s; }
-    .h18-btn:hover { background: #ff1111; transform: translateY(-1px); }
-
-    .section-visitor {
-      position: relative; overflow: hidden; background: radial-gradient(circle at top, #280000, #050608); border-radius: 20px; border: 1px solid rgba(255, 80, 80, 0.18); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85); max-width: 1300px; margin: 0 auto 20px; padding: 24px 32px;
-    }
+    /* ========== باقي الأقسام ========== */
+    .section { background: #0e1014; border-radius: 18px; padding: 24px 32px; margin: 0 auto 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); max-width: 1300px; width: 100%; }
+    .section-title { font-size: 22px; margin-bottom: 10px; color: #ffffff; }
+    .section-text { color: #d5d5d5; font-size: 15px; }
+    .section-visitor { position: relative; overflow: hidden; background: radial-gradient(circle at top, #280000, #050608); border-radius: 20px; border: 1px solid rgba(255, 80, 80, 0.18); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85); max-width: 1300px; margin: 0 auto 20px; padding: 24px 32px; }
     .contact-form { margin-top: 22px; max-width: 600px; margin-left: auto; margin-right: auto; display: flex; flex-direction: column; gap: 14px; }
     .contact-form input, .contact-form textarea { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #ff4444; background: #0d0f12; color: #ffffff; font-size: 14px; }
     .contact-form button { margin-top: 4px; background: #ff3333; padding: 10px 20px; border-radius: 999px; border: none; color: #ffffff; font-weight: bold; cursor: pointer; transition: 0.3s; }
     .contact-form button:hover { background: #ff1111; }
-
     .social-list { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px; }
     .social-list li a { display: inline-block; padding: 8px 14px; border-radius: 999px; background: #15171f; border: 1px solid rgba(255,255,255,0.08); font-size: 13px; }
 
@@ -219,20 +155,16 @@
 <body>
 
   <div class="user-bar">
-    
     <div class="user-info-group" id="userMenuTrigger">
       <span class="welcome-text" id="welcomeMsg">جاري التحميل...</span>
-      
       <div class="profile-icon-btn" id="profileIconContainer">
         </div>
     </div>
-
     <div class="dropdown-menu" id="userDropdown">
       <a href="profile.html" class="dropdown-item">👤 الملف الشخصي</a>
       <a href="dashboard.html" class="dropdown-item" id="dashItem" style="display:none;">⚙️ لوحة التحكم</a>
       <div class="dropdown-item" id="logoutItem">🚪 تسجيل الخروج</div>
     </div>
-
   </div>
 
   <div class="page">
@@ -246,13 +178,19 @@
     </header>
 
     <section class="horror18-section">
-      <div class="h18-header">
-        <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
-        <h2 class="h18-title">قصص رعب +18</h2>
-        <a href="h18-stories.html" class="h18-btn">دخول القصص</a>
-      </div>
+      <a href="h18-stories.html" class="h18-card-link">
+        <div class="h18-img-wrapper">
+          <img src="images/Gemini_Generated_Image_dt2ou7dt2ou7dt2o.jpg" alt="قصص رعب +18">
+          <div class="h18-badge">+18</div>
+          <div class="h18-hover-overlay">
+            <p class="h18-warning-text">
+              ⚠️ تحذير: المحتوى قد يكون صادمًا<br>
+              اضغط للدخول على مسؤوليتك
+            </p>
+          </div>
+        </div>
+      </a>
     </section>
-
     <section class="section section-visitor">
       <h2 class="section-title visitor-title">رسالة إلى الزائر</h2>
       <p class="section-text visitor-text">
@@ -322,74 +260,38 @@
     const dashItem = document.getElementById("dashItem");
     const logoutItem = document.getElementById("logoutItem");
 
-    // أيقونات SVG (الأولى: مستخدم عادي / الثانية: زائر محظور)
     const iconLoggedIn = `<svg viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>`;
     const iconGuest = `<svg viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1zM4.97 3.03a.75.75 0 0 0-1.06 1.06L6.94 7.12l-1.97 1.97a.75.75 0 1 0 1.06 1.06L8 8.18l1.97 1.97a.75.75 0 1 0 1.06-1.06L9.06 7.12l1.97-1.97a.75.75 0 1 0-1.06-1.06L8 6.06 6.03 4.09 4.97 3.03z"/></svg>`;
 
     let isUserLoggedIn = false;
 
-    // التحكم في القائمة المنسدلة
     userMenuTrigger.addEventListener("click", (e) => {
-      e.stopPropagation(); // منع إغلاق القائمة فوراً
-      if (isUserLoggedIn) {
-        // لو مسجل -> افتح القائمة
-        userDropdown.classList.toggle("show");
-      } else {
-        // لو زائر -> روح لصفحة الدخول فوراً
-        window.location.href = "login.html";
-      }
+      e.stopPropagation();
+      if (isUserLoggedIn) { userDropdown.classList.toggle("show"); } else { window.location.href = "login.html"; }
     });
-
-    // إغلاق القائمة عند الضغط في أي مكان آخر
-    document.addEventListener("click", () => {
-      userDropdown.classList.remove("show");
-    });
+    document.addEventListener("click", () => { userDropdown.classList.remove("show"); });
 
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // --- حالة تسجيل الدخول ---
         isUserLoggedIn = true;
         localStorage.setItem("loggedIn", "true");
-
         const fullName = user.displayName || user.email.split('@')[0];
         const firstName = fullName.split(' ')[0];
-
-        // 1. تحديث النص والأيقونة
         welcomeMsg.innerHTML = `مرحباً بك يا <span style="color:#ff3333;font-weight:bold;">${firstName}</span> في آخر تسجيل`;
         profileIconContainer.innerHTML = iconLoggedIn;
-        profileIconContainer.style.background = "#15171f"; // لون طبيعي
-
-        // 2. إظهار لوحة التحكم للأدمن
-        if (user.email === ADMIN_EMAIL) {
-          dashItem.style.display = "flex";
-        } else {
-          dashItem.style.display = "none";
-        }
-
-        // 3. تفعيل زر الخروج
-        logoutItem.onclick = () => {
-          signOut(auth).then(() => {
-            localStorage.removeItem("loggedIn");
-            window.location.href = "index.html";
-          });
-        };
-
-        // تحميل التقييم القديم (نفس الكود السابق)
+        profileIconContainer.style.background = "#15171f";
+        if (user.email === ADMIN_EMAIL) { dashItem.style.display = "flex"; } else { dashItem.style.display = "none"; }
+        logoutItem.onclick = () => { signOut(auth).then(() => { localStorage.removeItem("loggedIn"); window.location.href = "index.html"; }); };
         loadUserRating(user.uid);
-
       } else {
-        // --- حالة الزائر (غير مسجل) ---
         isUserLoggedIn = false;
         localStorage.removeItem("loggedIn");
-
-        // 1. تحديث النص والأيقونة
         welcomeMsg.innerHTML = "غير مسجّل الدخول";
-        profileIconContainer.innerHTML = iconGuest; // أيقونة الحظر/الزائر
-        profileIconContainer.style.background = "#330000"; // لون أحمر غامق للتمييز
+        profileIconContainer.innerHTML = iconGuest;
+        profileIconContainer.style.background = "#330000";
       }
     });
 
-    // باقي كود التقييمات (نفس القديم)
     async function updateRatingCounter(animate=true) {
       const counter = document.getElementById("ratingCounter");
       const numSpan = document.getElementById("ratingCountNumber");
@@ -398,15 +300,13 @@
         const snap = await getDocs(collection(db, "siteRatings"));
         const total = snap.size;
         numSpan.textContent = total.toLocaleString("en-US");
-        counter.style.visibility = "visible";
-        counter.style.opacity = "1";
+        counter.style.visibility = "visible"; counter.style.opacity = "1";
       } catch(e){ console.error(e); }
     }
     updateRatingCounter(false);
 
     async function loadUserRating(uid) {
-      const form = document.getElementById("popupRatingForm");
-      if(!form) return;
+      const form = document.getElementById("popupRatingForm"); if(!form) return;
       try {
         const snap = await getDoc(doc(db, "siteRatings", uid));
         if(snap.exists()) {
@@ -418,14 +318,10 @@
       } catch(e){}
     }
 
-    // مودال التقييم
-    const fab = document.getElementById("ratingFab");
-    const modal = document.getElementById("ratingModal");
-    const close = document.getElementById("ratingClose");
+    const fab = document.getElementById("ratingFab"); const modal = document.getElementById("ratingModal"); const close = document.getElementById("ratingClose");
     if(fab) fab.onclick = () => modal.classList.add("show");
     if(close) close.onclick = () => modal.classList.remove("show");
     if(modal) modal.onclick = (e) => { if(e.target===modal) modal.classList.remove("show"); };
-
     const rateForm = document.getElementById("popupRatingForm");
     if(rateForm) {
       rateForm.onsubmit = async (e) => {
@@ -433,31 +329,19 @@
         const val = document.getElementById("popupRatingValue").value;
         const comm = document.getElementById("popupRatingComment").value;
         if(!val) return alert("اختر تقييم!");
-        
         try {
           const user = auth.currentUser;
           if(user) {
              const ref = doc(db, "siteRatings", user.uid);
              const snap = await getDoc(ref);
-             if(snap.exists()) {
-               await updateDoc(ref, { comment: comm, lastUpdated: serverTimestamp() });
-             } else {
-               await setDoc(ref, { rating: val, comment: comm, userId: user.uid, createdAt: serverTimestamp() });
-               updateRatingCounter(true);
-             }
-          } else {
-             await addDoc(collection(db, "siteRatings"), { rating: val, comment: comm, createdAt: serverTimestamp() });
-             updateRatingCounter(true);
-          }
-          alert("تم حفظ تقييمك!");
-          modal.classList.remove("show");
+             if(snap.exists()) { await updateDoc(ref, { comment: comm, lastUpdated: serverTimestamp() }); } else { await setDoc(ref, { rating: val, comment: comm, userId: user.uid, createdAt: serverTimestamp() }); updateRatingCounter(true); }
+          } else { await addDoc(collection(db, "siteRatings"), { rating: val, comment: comm, createdAt: serverTimestamp() }); updateRatingCounter(true); }
+          alert("تم حفظ تقييمك!"); modal.classList.remove("show");
         } catch(err) { console.error(err); }
       };
     }
   </script>
-
   <script src="https://cdn.botpress.cloud/webchat/v3.4/inject.js"></script>
   <script src="https://files.bpcontent.cloud/2025/11/27/22/20251127225403-IQJ9GX5K.js" defer></script>
-
 </body>
 </html>
